@@ -24,8 +24,8 @@
 #include <cstring>
 
 #include "RefPtr.hpp"
-#include "Utf.hpp"
 #include "Types.hpp"
+#include "io/Utf.hpp"
 
 /// Namespace for c++ utility library
 namespace cul
@@ -167,6 +167,9 @@ class string
         //change encoding?
 };
 
+/**
+* Ref Counted String Ptr
+*/
 typedef RefPtr<string> StringPtr;
 
 

@@ -22,27 +22,69 @@
     THE SOFTWARE.
 */
 #include <cassert>
-#include <cul/io/TextFile>
 
-using namespace cul;
+#include <cul/Singleton>
 
 /**
-* Test utf8 bom 
+* Singleton Test Class
 */
-void test_utf8_bom(const char* fileName)
+class mySingleton : public cul::Singleton<mySingleton>
 {
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
+    //friend class for access to private constructor
+    friend class cul::Singleton<mySingleton>;
+    
+    private:
+      ///Constructor
+      mySingleton() : value(5) {}
+      /// Copy Constructor
+      mySingleton(const mySingleton& cc){}
+      
+      ///test value
+      int value;
+
+    public:
+        ///get test value
+        int get()
+        {
+            return value;
+        }
+        
+        ///set test value
+        void set(int value)
+        {
+            this->value = value;
+        }
+        
+};
+
+/**
+* Simple singleton test cases
+*/
+void singleton_test_simple()
+{
+    //basic asserts
+    assert(mySingleton::getSingletonPtr() == mySingleton::getSingletonPtr());
+    assert(mySingleton::getSingleton().get() == mySingleton::getSingleton().get());
+    
+    //test pointer
+    mySingleton* my = mySingleton::getSingletonPtr();
+    assert(my->get() == 5);
+    
+    //test reference
+    mySingleton& mm = mySingleton::getSingleton();
+    assert(mm.get() == 5);
+    
+    //test changing
+    my->set(42);
+    assert(mm.get() == 42);
 }
 
 /**
-* main method
+* Main function
 */
 int main(int argc, char *argv[])
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
+    singleton_test_simple();
     
     return 0;
 }

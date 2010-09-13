@@ -27,6 +27,24 @@
 using namespace cul;
 using namespace log;
 
+void logging_test_source()
+{
+    LogSource* ls = Log::Source("logging_test_source");
+    ls->Event() << "Test Logging Source" << LogEvent::End;
+}
+
+void logging_test_formats()
+{
+    int i = 5;
+    LOG("Integer " << i);
+    LOG("String + " << "String");
+    float f = 2.0f;
+    LOG("Float " << f);
+    double d = 3.0;
+    LOG("Double " << d);
+}
+
+
 /**
 * Main function
 */
@@ -34,6 +52,11 @@ int main(int argc, char *argv[])
 {
     Log::Source().AddListener(new ConsoleListener());
     LOG("Log test started");
+    DEBUGMSG("Debug Message");
+    
+    //log tests
+    logging_test_source();
+    logging_test_formats();
     
     return 0;
 }

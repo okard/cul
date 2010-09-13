@@ -261,7 +261,11 @@ void string::prepareMem(size_t requiredSize)
     if(requiredSize > alloc)
     {
         alloc = requiredSize;
-        str = static_cast<char*>(realloc((void*)str, alloc));
+        
+        char* temp = static_cast<char*>(realloc((void*)str, alloc));
+        if(temp == null)
+            throw "realloc failed";
+        str = temp;
     }
 }
 
@@ -273,6 +277,7 @@ void string::shrinkMem()
     if(length+1 < alloc)
     { 
         alloc = length+1;
+        //allocated memory getting smaller so it is expected that realloc doesnt fail
         str = static_cast<char*>(realloc((void*)str, alloc));
     } 
 }

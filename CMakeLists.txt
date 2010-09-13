@@ -24,6 +24,9 @@ add_library(cul ${CUL_PLATFORM_SRC}
                 src/io/TextFile.cpp 
                 src/io/Utf.cpp
                 src/String.cpp
+                src/log/LogType.cpp
+                src/log/LogEvent.cpp
+                src/log/LogSource.cpp
                 src/log/Log.cpp
                 src/log/ConsoleListener.cpp
                 src/threading/Thread.cpp)

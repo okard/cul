@@ -21,75 +21,19 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Log.hpp"
+#include <cul/log/Log>
+#include <cul/log/ConsoleListener>
 
 using namespace cul;
 using namespace log;
 
-//== LOG ======================================================================
-
 /**
-* Constructor
+* Main function
 */
-Log::Log()
+int main(int argc, char *argv[])
 {
-  
-}
-
-/**
-* Destructor
-*/
-Log::~Log()
-{
-  
-}
-
-/**
-* LogListener interface
-* dispatch the event to the internal log source
-*/
-void Log::logEvent(const LogSource* src, const LogEvent* event)
-{
-  LogSource::logEvent(src, event);
-}
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
-};
-
-
-/**
-* Creates a new LogSource
-*/
-LogSource* Log::Source(const char* name)
-{
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
-}
-
-/**
-* Return Default LogSource
-*/
-LogSource& Log::Source()
-{
-    return Log::getInstance();
-}
-
-/**
-* Return default log event 
-*/
-LogEvent& Log::Event()
-{
-    return Source().Event();
-}
+    Log::Source().AddListener(new ConsoleListener());
+    LOG("Log test started");
     
-  
+    return 0;
+}

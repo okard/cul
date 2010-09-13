@@ -21,75 +21,33 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Log.hpp"
+#ifndef __LOGLISTENER_HPP__
+#define __LOGLISTENER_HPP__
 
-using namespace cul;
-using namespace log;
+#include "LogType.hpp"
+#include "LogSource.hpp"
+#include "LogEvent.hpp"
 
-//== LOG ======================================================================
-
-/**
-* Constructor
-*/
-Log::Log()
-{
-  
-}
+namespace cul {
+namespace log {
+    
+class LogSource;
+class LogEvent;
 
 /**
-* Destructor
+* LogListener
 */
-Log::~Log()
+class LogListener
 {
-  
-}
-
-/**
-* LogListener interface
-* dispatch the event to the internal log source
-*/
-void Log::logEvent(const LogSource* src, const LogEvent* event)
-{
-  LogSource::logEvent(src, event);
-}
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
+  public:
+    virtual ~LogListener()
+    { }
+    
+  public:
+    virtual void logEvent(const LogSource* src, const LogEvent* event) = 0;
 };
 
+} //end namespace log
+} //end namespace cul
 
-/**
-* Creates a new LogSource
-*/
-LogSource* Log::Source(const char* name)
-{
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
-}
-
-/**
-* Return Default LogSource
-*/
-LogSource& Log::Source()
-{
-    return Log::getInstance();
-}
-
-/**
-* Return default log event 
-*/
-LogEvent& Log::Event()
-{
-    return Source().Event();
-}
-    
-  
+#endif /* __LOGLISTENER_HPP__ */

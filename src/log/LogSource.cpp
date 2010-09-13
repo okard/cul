@@ -21,75 +21,73 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Log.hpp"
+#include "LogSource.hpp"
 
 using namespace cul;
 using namespace log;
 
-//== LOG ======================================================================
+//== LOGSOURCE ================================================================
 
 /**
-* Constructor
+* Constructor 
 */
-Log::Log()
+LogSource::LogSource() : sourceName(""), event(0)
 {
-  
+    event = new LogEvent(*this);
+}
+
+/**
+* Constructor 
+*/
+LogSource::LogSource(const char* name) : sourceName(name), event(0)
+{
+    event = new LogEvent(*this);
 }
 
 /**
 * Destructor
 */
-Log::~Log()
+LogSource::~LogSource()
 {
-  
+    delete event;
 }
-
-/**
-* LogListener interface
-* dispatch the event to the internal log source
-*/
-void Log::logEvent(const LogSource* src, const LogEvent* event)
-{
-  LogSource::logEvent(src, event);
-}
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
-};
 
 
 /**
-* Creates a new LogSource
+* Add Log Listener
 */
-LogSource* Log::Source(const char* name)
+void LogSource::AddListener(LogListener* listener)
 {
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
+  this->listener.push_back(listener);
 }
 
 /**
-* Return Default LogSource
+* Dispatch logevent to listener
 */
-LogSource& Log::Source()
+void LogSource::logEvent(const LogSource* src, const LogEvent* event)
 {
-    return Log::getInstance();
+   //Inform all listener
+    for(std::vector<LogListener*>::iterator it = listener.begin(); it != listener.end(); it++)
+    {
+      (*it)->logEvent(this, event);
+    }
 }
 
 /**
-* Return default log event 
+* Log a Simple Message
 */
-LogEvent& Log::Event()
+void LogSource::Log(LogType::LogType logType, const char* msg)
 {
-    return Source().Event();
+    //TODO make save
+    LogEvent event(*this, logType);
+    event << msg;
+    this->logEvent(this, &event);
 }
-    
-  
+
+/**
+* Return default log event
+*/
+LogEvent& LogSource::Event()
+{
+    return *event;
+}

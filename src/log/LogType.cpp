@@ -21,75 +21,23 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Log.hpp"
+#include "LogType.hpp"
 
 using namespace cul;
 using namespace log;
+using namespace LogType;
 
-//== LOG ======================================================================
+//== LOGTYPE ==================================================================
 
-/**
-* Constructor
-*/
-Log::Log()
+const char* cul::log::LogType::toString(cul::log::LogType::LogType type)
 {
-  
+    switch(type)
+    {
+        case Information: return "Information";
+        case Verbose: return "Verbose";
+        case Warning: return "Warning";
+        case Error: return "Error";
+        case Fatal: return "Fatal";
+        default: return "";
+    };
 }
-
-/**
-* Destructor
-*/
-Log::~Log()
-{
-  
-}
-
-/**
-* LogListener interface
-* dispatch the event to the internal log source
-*/
-void Log::logEvent(const LogSource* src, const LogEvent* event)
-{
-  LogSource::logEvent(src, event);
-}
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
-};
-
-
-/**
-* Creates a new LogSource
-*/
-LogSource* Log::Source(const char* name)
-{
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
-}
-
-/**
-* Return Default LogSource
-*/
-LogSource& Log::Source()
-{
-    return Log::getInstance();
-}
-
-/**
-* Return default log event 
-*/
-LogEvent& Log::Event()
-{
-    return Source().Event();
-}
-    
-  

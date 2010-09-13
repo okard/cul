@@ -21,75 +21,65 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Log.hpp"
+#ifndef __LOGSOURCE_HPP__
+#define __LOGSOURCE_HPP__
 
-using namespace cul;
-using namespace log;
+#include <vector>
 
-//== LOG ======================================================================
+#include "LogEvent.hpp"
+#include "LogListener.hpp"
+
+// Common Namespace
+namespace cul {
+namespace log {
+    
+class LogListener;
+class LogEvent;
 
 /**
-* Constructor
+* LogSource 
 */
-Log::Log()
+class LogSource
 {
+    friend class Log;
+    friend class LogEvent;
   
-}
-
-/**
-* Destructor
-*/
-Log::~Log()
-{
-  
-}
-
-/**
-* LogListener interface
-* dispatch the event to the internal log source
-*/
-void Log::logEvent(const LogSource* src, const LogEvent* event)
-{
-  LogSource::logEvent(src, event);
-}
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
+    private:
+        /// Log Source Name
+        const char* sourceName;
+        /// Listener
+        std::vector<LogListener*> listener;
+    
+        ///internal log event?
+        LogEvent* event;
+    private:
+        LogSource();
+        LogSource(const char* name);
+        ~LogSource();
+ 
+    protected:
+        /**
+        * Internal Log Event Dispatch to Listener
+        */
+        void logEvent(const LogSource* src, const LogEvent* event); 
+    public:
+        /**
+        * Add a log listener to log source
+        */
+        void AddListener(LogListener* listener);
+        
+        /**
+        * Log a Simple Message
+        */
+        void Log(LogType::LogType logType, const char* msg);  
+        
+        /**
+        * Get a Default Event
+        */
+        LogEvent& Event();
 };
 
+} //end namespace log
+} //end namespace cul
 
-/**
-* Creates a new LogSource
-*/
-LogSource* Log::Source(const char* name)
-{
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
-}
-
-/**
-* Return Default LogSource
-*/
-LogSource& Log::Source()
-{
-    return Log::getInstance();
-}
-
-/**
-* Return default log event 
-*/
-LogEvent& Log::Event()
-{
-    return Source().Event();
-}
-    
-  
+#endif /* __LOGSOURCE_HPP__ */

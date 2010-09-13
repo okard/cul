@@ -21,75 +21,33 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Log.hpp"
+#ifndef __LOGTYPE_HPP__
+#define __LOGTYPE_HPP__
 
-using namespace cul;
-using namespace log;
+namespace cul {
+namespace log {
 
-//== LOG ======================================================================
-
-/**
-* Constructor
-*/
-Log::Log()
+namespace LogType
 {
-  
-}
-
-/**
-* Destructor
-*/
-Log::~Log()
-{
-  
-}
-
-/**
-* LogListener interface
-* dispatch the event to the internal log source
-*/
-void Log::logEvent(const LogSource* src, const LogEvent* event)
-{
-  LogSource::logEvent(src, event);
-}
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
-};
-
-
-/**
-* Creates a new LogSource
-*/
-LogSource* Log::Source(const char* name)
-{
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
-}
-
-/**
-* Return Default LogSource
-*/
-LogSource& Log::Source()
-{
-    return Log::getInstance();
-}
-
-/**
-* Return default log event 
-*/
-LogEvent& Log::Event()
-{
-    return Source().Event();
-}
+    /**
+    * Logging Types
+    */
+    enum LogType
+    {
+    Verbose,
+    Information,
+    Warning,
+    Error,
+    Fatal
+    };
     
-  
+    /**
+    * Convert a LogType to String
+    */
+    const char* toString(LogType type);
+}
+
+} //end namespace log
+} //end namespace log
+
+#endif /* __LOGTYPE_HPP__ */

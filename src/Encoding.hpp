@@ -21,29 +21,30 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <cul/io/TextFile>
+#ifndef __ENCODING_HPP__
+#define __ENCODING_HPP__
 
-using namespace cul;
-using namespace io;
-
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
-
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
+namespace cul {
     
-    return 0;
-}
+/**
+* Encoding Types
+*/
+enum Encoding
+{
+    ///ASCII Encoding
+    ASCII, 
+    /// UTF8 Encoding
+    UTF8, 
+    /// UTF16 Big Endian Encoding
+    UTF16BE, 
+    /// UTF16 Little Endian Encoding
+    UTF16LE, 
+    /// UTF32 Big Endian Encoding
+    UTF32BE, 
+    /// UTF32 Little Endian Encoding
+    UTF32LE
+};
+
+} //end namespace cul
+ 
+#endif /* __ENCODING_HPP__ */

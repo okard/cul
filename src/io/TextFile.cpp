@@ -28,7 +28,8 @@
 #include <cassert>
 #include "Endian.hpp"
 
-namespace cul {
+using namespace cul;
+using namespace io;
 
 /**
 * Ctor
@@ -120,6 +121,3 @@ char TextFile::readAscii()
     if(encode ==  UTF8 && utf8_isascii(c))
         return c;
 }
-
-
-} //end namespace cul

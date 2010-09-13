@@ -29,7 +29,7 @@
 
 #include "RefPtr.hpp"
 #include "Types.hpp"
-#include "io/Utf.hpp"
+#include "Encoding.hpp"
 
 /// Namespace for c++ utility library
 namespace cul

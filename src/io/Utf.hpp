@@ -24,28 +24,12 @@
 #ifndef UTF_H
 #define UTF_H
 
-#include "Types.hpp"
+#include <cul/Types>
+#include <cul/Encoding>
 
 namespace cul {
+namespace io {
 
-/**
-* Encoding Types
-*/
-enum Encoding
-{
-    ///ASCII Encoding
-    ASCII, 
-    /// UTF8 Encoding
-    UTF8, 
-    /// UTF16 Big Endian Encoding
-    UTF16BE, 
-    /// UTF16 Little Endian Encoding
-    UTF16LE, 
-    /// UTF32 Big Endian Encoding
-    UTF32BE, 
-    /// UTF32 Little Endian Encoding
-    UTF32LE
-};
 
 /*
 UTF-8                   EF BB BF
@@ -92,6 +76,7 @@ inline ubyte utf8_startbyte(byte b)
 // utf follow byte 10xx xxxx
 // utf no ascii start 11->2, 111->3, 1111-> 4 
 
-} // end namespace cul
+} //end namespace io
+} //end namespace cul
 
 #endif // UTF_H

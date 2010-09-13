@@ -30,7 +30,8 @@
 #include "Utf.hpp"
 
 namespace cul {
-
+namespace io {
+    
 /**
 * \brief Class to handle text files 
 * UTF capable
@@ -78,6 +79,7 @@ class TextFile
         bool isOpen();
 };
 
+} //end namespace io
 } //end namespace cul
 
 #endif // TEXTFILE_HPP

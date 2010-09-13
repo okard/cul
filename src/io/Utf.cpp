@@ -24,7 +24,8 @@
 
 #include "Utf.hpp"
 
-namespace cul {
-    
-} //end namespace cul
+using namespace cul;
+using namespace io;
+
+
 

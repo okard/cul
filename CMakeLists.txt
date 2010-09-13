@@ -11,11 +11,24 @@ ENABLE_TESTING()
 include_directories(src)
 include_directories(include)
 
-add_library(cul src/io/TextFile.cpp 
+# Include Platform specific files to build
+IF(WIN32)
+  set(CUL_PLATFORM_SRC src/threading/ThreadWin32.cpp)
+ELSE()
+  set(CUL_PLATFORM_SRC src/threading/ThreadPosix.cpp)
+  set(CUL_PLATFORM_LIBS "pthread ")
+ENDIF()
+
+#library
+add_library(cul ${CUL_PLATFORM_SRC}
+                src/io/TextFile.cpp 
                 src/io/Utf.cpp
                 src/String.cpp
                 src/log/Log.cpp
-                src/log/ConsoleListener.cpp)
+                src/log/ConsoleListener.cpp
+                src/threading/Thread.cpp)
+
+target_link_libraries(cul ${CUL_PLATFORM_LIBS})
 
 #tests
 subdirs(tests)

@@ -16,3 +16,8 @@ add_test(string_test ${EXECUTABLE_OUTPUT_PATH}/string_test_exc)
 add_executable(textfile_test_exc textfile_test.cpp)
 target_link_libraries(textfile_test_exc cul)
 add_test(textfile_test ${EXECUTABLE_OUTPUT_PATH}/textfile_test_exc ${CMAKE_CURRENT_SOURCE_DIR}/utf8_file_bom.txt)
+
+#thread test
+add_executable(thread_test_exc thread_test.cpp)
+target_link_libraries(thread_test_exc cul)
+add_test(thread_test ${EXECUTABLE_OUTPUT_PATH}/thread_test_exc)

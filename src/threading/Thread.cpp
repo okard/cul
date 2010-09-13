@@ -23,37 +23,54 @@
 */
 #include "Thread.hpp"
 
+//namespaces
 using namespace cul;
 using namespace threading;
 
-
-Thread::Thread()
+/**
+* Constructor
+*/
+Thread::Thread() : callFunc(0)
 {
 }
 
+/**
+* Constructor
+*/
 Thread::Thread(ThreadCall* func) 
     : callFunc(func)
 {
 }
 
+/**
+* Destructor
+*/
 Thread::~Thread()
 {
+    //delete call func
+    delete callFunc;
 }
-  
+
+/**
+* Start Thread
+*/
 void Thread::run()
 {
     ThreadImpl<Thread>::run();
 }
 
+/**
+* Join Thread
+*/
 void Thread::join()
 {
     ThreadImpl<Thread>::join();
 }
 
     
-
 /**
 * The Started Thread
+* dispatch to right thread function
 */
 void* Thread::run(void *p)
 {

@@ -35,12 +35,11 @@
 #endif
 
 //http://www.codeguru.com/cpp/cpp/cpp_managed/threads/article.php/c14447__1/Creating-a-C-Thread-Class.htm
-//Includes:
-
 
 namespace cul {
 namespace threading {
-    
+
+//forward declaration
 class Thread;
 
 /**
@@ -48,9 +47,16 @@ class Thread;
 */
 class ThreadCall
 {
-public:
-    virtual ~ThreadCall(){}
-    virtual void run(Thread&) = 0;
+    public:
+        /**
+        * Virtual destructor
+        */
+        virtual ~ThreadCall(){}
+        
+        /**
+        * Thread Run
+        */
+        virtual void run(Thread&) = 0;
 };
 
 
@@ -59,49 +65,81 @@ public:
 */
 class Thread : public ThreadImpl<Thread>
 {
-private:
-    ThreadCall *callFunc;
-    
-public:
-    Thread();
-    Thread(ThreadCall* func);
-    ~Thread();
-    
-    void run();
-    void join();
-    
-    //template assign functions
-    //template<class T> void run(T* obj, *func);
-    
-    static void* run(void *p);
-private:
-    //status
-    //terminate
-    //events?
+    private:
+        ThreadCall *callFunc;
+        
+    public:
+        /**
+        * Construct Thread
+        */
+        Thread();
+        
+        /**
+        * Construct thread with given thread call
+        */
+        Thread(ThreadCall* func);
+        
+        /**
+        * destructor
+        */
+        ~Thread();
+        
+        /**
+        * Start Thread
+        */
+        void run();
+        
+        /**
+        * Join thread
+        */
+        void join();
+        
+        //template assign functions
+        //template<class T> void run(T* obj, *func);
+        
+        /**
+        * static thread dispatch function
+        */
+        static void* run(void *p);
+    private:
+        //status
+        //terminate
+        //events?
 };
 
 /**
-* Thread Delegate
+* Thread Delegate for thread functions in classes
 */ 
 template<class T>
 class ThreadDelegate : public ThreadCall
 {    
-private:
-    T* pInstance;
-    void (T::*pRunFunc)(Thread&);
+    private:
+        ///pointer to class instance
+        T* pInstance;
+        ///pointer to class function
+        void (T::*pRunFunc)(Thread&);
 
-public:    
-    ThreadDelegate(T* instance, void (T::*func)(Thread&))
-        : pInstance(instance), pRunFunc(func)
-    {
-    }
-    
-    virtual ~ThreadDelegate(){}
-    
-    void run(Thread& t)
-    {
-        (pInstance->*pRunFunc)(t);
-    }
+    public:
+        /**
+        * Constructor
+        */
+        ThreadDelegate(T* instance, void (T::*func)(Thread&))
+            : pInstance(instance), pRunFunc(func)
+        {
+        }
+        
+        /**
+        * Destructor
+        */
+        virtual ~ThreadDelegate(){}
+        
+        /**
+        * run function
+        */
+        void run(Thread& t)
+        {
+            (pInstance->*pRunFunc)(t);
+        }
 };
 
 } //end namespace threading

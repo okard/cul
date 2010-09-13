@@ -28,20 +28,25 @@
 using namespace cul;
 using namespace threading;
 
-
+/**
+* Thread Test Class
+*/
 class ThreadTest
 {
-
 public:
-    
+    /**
+    * Start a new thread
+    */
     void start()
     {
-        ThreadDelegate<ThreadTest>* del = new ThreadDelegate<ThreadTest>(this, &ThreadTest::thread_func); 
-        Thread thread(del);
+        Thread thread(new ThreadDelegate<ThreadTest>(this, &ThreadTest::thread_func));
         thread.run();
         thread.join();
     }
-     
+    
+    /**
+    * Thread Function
+    */
     void thread_func(Thread& thread)
     {
         std::cout << "Thread Started" << std::endl;
@@ -49,7 +54,9 @@ public:
     
 };
 
-
+/**
+* Simple thread function
+*/
 void simple_thread_func(Thread& thread)
 {
     
@@ -65,13 +72,11 @@ void thread_test_simple_class()
 }
 
 
-
 /**
 * main method
 */
 int main(int argc, char *argv[])
 {
-    //file as argument?
     thread_test_simple_class();
     
     return 0;

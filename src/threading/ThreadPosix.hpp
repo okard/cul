@@ -27,6 +27,9 @@
 
 #include <pthread.h>
 
+/**
+* Posix Thread Implementation
+*/
 template<class T>
 class ThreadImpl
 {
@@ -35,7 +38,14 @@ class ThreadImpl
         pthread_t tid;
     
     public:
+        /**
+        * Start thread
+        */
         void run();
+        
+        /**
+        * Join thread
+        */
         void join();
 };
 

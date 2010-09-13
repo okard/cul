@@ -22,18 +22,28 @@
     THE SOFTWARE.
 */
 
+//includes
 #include "ThreadPosix.hpp"
-
 #include "Thread.hpp"
 
+//namespaces
+using namespace cul;
+using namespace threading;
+
+/**
+* Posix Run Thread
+*/
 template<>
-void ThreadImpl<cul::threading::Thread>::run()
+void ThreadImpl<Thread>::run()
 {
-    pthread_create(&tid, NULL, &cul::threading::Thread::run, this);
+    pthread_create(&tid, NULL, &Thread::run, this);
 }
 
+/**
+* Posix join thread
+*/
 template<>
-void ThreadImpl<cul::threading::Thread>::join()
+void ThreadImpl<Thread>::join()
 {
     pthread_join(tid, NULL);
 }

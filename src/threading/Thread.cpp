@@ -56,7 +56,7 @@ Thread::~Thread()
 */
 void Thread::run()
 {
-    ThreadImpl<Thread>::run();
+    ThreadImpl::run();
 }
 
 /**
@@ -64,7 +64,7 @@ void Thread::run()
 */
 void Thread::join()
 {
-    ThreadImpl<Thread>::join();
+    ThreadImpl::join();
 }
 
     

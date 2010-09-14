@@ -33,8 +33,7 @@ using namespace threading;
 /**
 * Posix Run Thread
 */
-template<>
-void ThreadImpl<Thread>::run()
+void ThreadImpl::run()
 {
     pthread_create(&tid, NULL, &Thread::run, this);
 }
@@ -42,8 +41,7 @@ void ThreadImpl<Thread>::run()
 /**
 * Posix join thread
 */
-template<>
-void ThreadImpl<Thread>::join()
+void ThreadImpl::join()
 {
     pthread_join(tid, NULL);
 }

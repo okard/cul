@@ -63,8 +63,10 @@ class ThreadCall
 /**
 * Thread Class
 */
-class Thread : public ThreadImpl<Thread>
+class Thread : public ThreadImpl
 {
+    friend class ThreadImpl;
+    
     private:
         ThreadCall *callFunc;
         

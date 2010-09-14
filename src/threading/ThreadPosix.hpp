@@ -25,14 +25,22 @@
 #ifndef __THREADPOSIX_HPP__
 #define __THREADPOSIX_HPP__
 
+#include <cul/Self>
+
 #include <pthread.h>
+
+namespace cul {
+namespace threading {
+
+class Thread;
 
 /**
 * Posix Thread Implementation
 */
-template<class T>
-class ThreadImpl
+class ThreadImpl : public cul::Self<Thread>
 {
+    using cul::Self<Thread>::self;
+    
     private:
         ///Thread id
         pthread_t tid;
@@ -48,5 +56,8 @@ class ThreadImpl
         */
         void join();
 };
+
+} //end namespace threading
+} //end namespace c
 
 #endif /* __THREADPOSIX_HPP__ */

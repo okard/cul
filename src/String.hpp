@@ -27,7 +27,6 @@
 
 #include <cstring>
 
-#include "RefPtr.hpp"
 #include "Types.hpp"
 #include "Encoding.hpp"
 
@@ -170,12 +169,6 @@ class string
         
         //change encoding?
 };
-
-/**
-* Ref Counted String Ptr
-*/
-typedef RefPtr<string> StringPtr;
-
 
 } // end namespace cul
 

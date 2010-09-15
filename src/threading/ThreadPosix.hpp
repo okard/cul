@@ -55,6 +55,11 @@ class ThreadImpl : public cul::Self<Thread>
         * Join thread
         */
         void join();
+        
+        /**
+        * static thread dispatch function
+        */
+        static void* run(void *p);
 };
 
 } //end namespace threading

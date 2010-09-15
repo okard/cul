@@ -67,13 +67,3 @@ void Thread::join()
     ThreadImpl::join();
 }
 
-    
-/**
-* The Started Thread
-* dispatch to right thread function
-*/
-void* Thread::run(void *p)
-{
-    Thread* thread = static_cast<Thread*>(p);
-    thread->callFunc->run(*thread);
-}

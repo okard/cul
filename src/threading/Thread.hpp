@@ -99,10 +99,6 @@ class Thread : public ThreadImpl
         //template assign functions
         //template<class T> void run(T* obj, *func);
         
-        /**
-        * static thread dispatch function
-        */
-        static void* run(void *p);
     private:
         //status
         //terminate

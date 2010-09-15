@@ -35,7 +35,7 @@ using namespace threading;
 */
 void ThreadImpl::run()
 {
-    pthread_create(&tid, NULL, &Thread::run, this);
+    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
 }
 
 /**
@@ -44,4 +44,14 @@ void ThreadImpl::run()
 void ThreadImpl::join()
 {
     pthread_join(tid, NULL);
+}
+
+/**
+* The Started Thread
+* dispatch to right thread function
+*/
+void* ThreadImpl::run(void *p)
+{
+    Thread* thread = static_cast<Thread*>(p);
+    thread->callFunc->run(*thread);
 }

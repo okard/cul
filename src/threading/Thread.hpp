@@ -29,7 +29,7 @@
 * Include Platform Implementation
 */
 #ifdef WIN32
-  #include "ThreadWin32.hpp"
+  #include "ThreadWin.hpp"
 #else
   #include "ThreadPosix.hpp"
 #endif

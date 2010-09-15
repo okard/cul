@@ -21,36 +21,26 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __SINGLETON_HPP__
-#define __SINGLETON_HPP__
+//includes
+#include "ThreadPosix.hpp"
+#include "Thread.hpp"
 
-namespace cul {
+//namespaces
+using namespace cul;
+using namespace threading;
 
 /**
-* Singleton Pattern Base Class
+* Windows Run Thread
 */
-template<class T>
-class Singleton
+void ThreadImpl::run()
 {
-    public:
-        /**
-        * Return the singleton instance
-        */
-        static T& getSingleton()
-        {
-            static T instance;
-            return instance;
-        }
-        
-        /**
-        * Return the singleton instance
-        */
-        static T* getSingletonPtr()
-        {
-            return &(Singleton<T>::getSingleton());
-        }
-};
+    
+}
 
-} //end namespace cul
-
-#endif /* __SINGLETON_HPP__ */
+/**
+* Windows join thread
+*/
+void ThreadImpl::join()
+{
+    
+}

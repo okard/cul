@@ -21,36 +21,41 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __SINGLETON_HPP__
-#define __SINGLETON_HPP__
+#ifndef __THREADPOSIX_HPP__
+#define __THREADPOSIX_HPP__
+
+#include <cul/Self>
+
+#include <windows.h>
 
 namespace cul {
+namespace threading {
+
+class Thread;
 
 /**
-* Singleton Pattern Base Class
+* Posix Thread Implementation
 */
-template<class T>
-class Singleton
+class ThreadImpl : public cul::Self<Thread>
 {
+    using cul::Self<Thread>::self;
+    
+    private:
+
+    
     public:
         /**
-        * Return the singleton instance
+        * Start thread
         */
-        static T& getSingleton()
-        {
-            static T instance;
-            return instance;
-        }
+        void run();
         
         /**
-        * Return the singleton instance
+        * Join thread
         */
-        static T* getSingletonPtr()
-        {
-            return &(Singleton<T>::getSingleton());
-        }
+        void join();
 };
 
-} //end namespace cul
+} //end namespace threading
+} //end namespace c
 
-#endif /* __SINGLETON_HPP__ */
+#endif /* __THREADPOSIX_HPP__ */

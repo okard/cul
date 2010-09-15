@@ -13,10 +13,10 @@ include_directories(include)
 
 # Include Platform specific files to build
 IF(WIN32)
-  set(CUL_PLATFORM_SRC src/threading/ThreadWin32.cpp)
+  set(CUL_PLATFORM_SRC src/threading/ThreadWin.cpp)
 ELSE()
   set(CUL_PLATFORM_SRC src/threading/ThreadPosix.cpp)
-  set(CUL_PLATFORM_LIBS "pthread ")
+  set(CUL_PLATFORM_LIBS "pthread")
 ENDIF()
 
 #library

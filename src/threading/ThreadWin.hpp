@@ -41,7 +41,8 @@ class ThreadImpl : public cul::Self<Thread>
     using cul::Self<Thread>::self;
     
     private:
-
+        DWORD dwThreadId;
+        HANDLE hEvent;
     
     public:
         /**
@@ -53,6 +54,11 @@ class ThreadImpl : public cul::Self<Thread>
         * Join thread
         */
         void join();
+        
+        /**
+        * Windows thread function
+        */
+        static DWORD ThreadProc(LPVOID lpdwThreadParam);
 };
 
 } //end namespace threading

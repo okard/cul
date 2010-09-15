@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 //includes
-#include "ThreadPosix.hpp"
+#include "ThreadWin.hpp"
 #include "Thread.hpp"
 
 //namespaces
@@ -34,7 +34,10 @@ using namespace threading;
 */
 void ThreadImpl::run()
 {
+    hEvent = CreateEvent(NULL, FALSE, FALSE, "ThreadFinished");
     
+    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&ThreadImpl::ThreadProc,
+                (LPVOID) &self, 0, &dwThreadId); 
 }
 
 /**
@@ -42,5 +45,15 @@ void ThreadImpl::run()
 */
 void ThreadImpl::join()
 {
-    
+    WaitForSingleObject(hEvent,INFINITE);
+}
+
+/**
+* Windows thread function
+*/
+DWORD ThreadImpl::ThreadProc(LPVOID lpdwThreadParam)
+{
+    Thread* thread = static_cast<Thread*>(lpdwThreadParam);
+    thread->callFunc->run(*thread);
+    SetEvent(thread->hEvent);
 }

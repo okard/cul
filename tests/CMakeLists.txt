@@ -17,6 +17,11 @@ add_executable(textfile_test_exc textfile_test.cpp)
 target_link_libraries(textfile_test_exc cul)
 add_test(textfile_test ${EXECUTABLE_OUTPUT_PATH}/textfile_test_exc ${CMAKE_CURRENT_SOURCE_DIR}/utf8_file_bom.txt)
 
+#console test
+add_executable(console_test_exc console_test.cpp)
+target_link_libraries(console_test_exc cul)
+add_test(console_test ${EXECUTABLE_OUTPUT_PATH}/console_test_exc)
+
 #log test
 add_executable(logging_test_exc logging_test.cpp)
 target_link_libraries(logging_test_exc cul)

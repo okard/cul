@@ -23,6 +23,7 @@ ENDIF()
 add_library(cul ${CUL_PLATFORM_SRC}
                 src/io/TextFile.cpp 
                 src/io/Utf.cpp
+                src/io/Console.cpp
                 src/String.cpp
                 src/log/LogType.cpp
                 src/log/LogEvent.cpp

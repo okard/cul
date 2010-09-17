@@ -31,3 +31,8 @@ add_test(logging_test ${EXECUTABLE_OUTPUT_PATH}/logging_test_exc)
 add_executable(thread_test_exc thread_test.cpp)
 target_link_libraries(thread_test_exc cul)
 add_test(thread_test ${EXECUTABLE_OUTPUT_PATH}/thread_test_exc)
+
+#list test
+add_executable(list_test_exc list_test.cpp)
+target_link_libraries(list_test_exc cul)
+add_test(list_test ${EXECUTABLE_OUTPUT_PATH}/list_test_exc)

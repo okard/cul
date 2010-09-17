@@ -57,6 +57,7 @@ void list_test_for()
     for(ListIterator<int> li(list); li.hasNext(); li.next())
     {
         //print out
+        std::cout << "Value: " << li << std::endl;
     }
 }
 
@@ -73,6 +74,7 @@ void list_test_while()
     while(li.next())
     {
         //print out
+        std::cout << "Value: " << li << std::endl;
     }
 }
 
@@ -83,7 +85,7 @@ void list_test_while()
 int main(int argc, char *argv[])
 {
     list_test_simple();
-    list_test_for();
+    //list_test_for();
     list_test_while();
     
     return 0;

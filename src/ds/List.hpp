@@ -83,7 +83,7 @@ class List
         /**
         * Count of elements in list
         */
-        unsigned int count();
+        unsigned int count() const;
         
     private:
         /**
@@ -138,8 +138,12 @@ class ListIterator
         
         //->
         //.
-        //cast operator
         
+        
+        /**
+        * cast operator
+        */
+        operator T ();     
 };
 
 /*

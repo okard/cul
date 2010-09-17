@@ -86,7 +86,7 @@ void List<T>::remove(T obj)
 * Count of elements in list
 */
 template<typename T>
-unsigned int List<T>::count()
+unsigned int List<T>::count() const
 {
     return pCount;
 }
@@ -126,6 +126,22 @@ ListIterator<T>::ListIterator(const List<T>& list)
 template<typename T>
 bool ListIterator<T>::next()
 {
+    //fix
+    if(current == 0 && list.count() > 0)
+    {
+        current = list.head;
+        return true;
+    }
+    
+    if(current != 0 && current->next != 0)
+    {
+        current = current->next;
+        return true;
+    }
+    
+    if(current != 0 && current->next == 0)
+        return false;
+    
     return false;
 }
         
@@ -135,6 +151,15 @@ bool ListIterator<T>::next()
 template<typename T>
 bool ListIterator<T>::hasNext()
 {
+    if(current == 0 && list.count() > 0)
+        return true;
+    
+    if(current == 0 && list.count() == 0)
+        return false;
+    
+    if(current != 0)
+        return current->next != 0;
+        
     return false;
 }
         
@@ -153,9 +178,26 @@ bool ListIterator<T>::prev()
 template<typename T>
 bool ListIterator<T>::hasPrev()
 {
+    if(current == 0 && list.count() > 0)
+        return true;
+    
+    if(current == 0 && list.count() == 0)
+        return false;
+    
+    if(current != 0)
+        return current->prev != 0;
+        
     return false;
 }
- 
+
+/**
+* Cast Operator
+*/
+template<typename T>
+ListIterator<T>::operator T ()
+{
+    return current->data;
+}
 
  
 } //end namespace ds

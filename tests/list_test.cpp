@@ -22,6 +22,7 @@
     THE SOFTWARE.
 */
 #include <cassert>
+#include <iostream>
 
 #include <cul/ds/List>
 #include <cul/ds/ListSource>
@@ -40,6 +41,7 @@ void list_test_simple()
     list.add(3);
     list.add(4);
     
+    std::cout << "List Count: " << list.count() << std::endl;
     assert(list.count() == 4);
 }
 

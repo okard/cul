@@ -57,6 +57,7 @@ T List<T>::add(T obj)
     {
         head = tail = newNode();
         head->data = obj;
+        pCount++;
         return obj;
     }
     
@@ -87,6 +88,7 @@ void List<T>::remove(T obj)
 template<typename T>
 unsigned int List<T>::count()
 {
+    return pCount;
 }
 
 /**
@@ -124,6 +126,7 @@ ListIterator<T>::ListIterator(const List<T>& list)
 template<typename T>
 bool ListIterator<T>::next()
 {
+    return false;
 }
         
 /**
@@ -132,6 +135,7 @@ bool ListIterator<T>::next()
 template<typename T>
 bool ListIterator<T>::hasNext()
 {
+    return false;
 }
         
 /**
@@ -140,6 +144,7 @@ bool ListIterator<T>::hasNext()
 template<typename T>
 bool ListIterator<T>::prev()
 {
+    return false;
 }
      
 /**
@@ -148,6 +153,7 @@ bool ListIterator<T>::prev()
 template<typename T>
 bool ListIterator<T>::hasPrev()
 {
+    return false;
 }
  
 

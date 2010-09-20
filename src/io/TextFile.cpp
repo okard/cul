@@ -65,9 +65,6 @@ void TextFile::open(const char* fileName)
     //swap order on an little endian system
     if(!is_bigendian())
         endian_swap(bom);
-     
-    //reset position
-    fseek(file, 0, SEEK_SET);
     
     //check for encoding
     if(t >= 3 && memcmp(&bom, &UTF8_BOM, 2))
@@ -84,6 +81,9 @@ void TextFile::open(const char* fileName)
     
     if(t >= 4 && memcmp(&bom, &UTF32LE_BOM, 4))
     {   encode = UTF32LE; return; }   
+    
+    //if it is ascii, reset position
+    fseek(file, 0, SEEK_SET);
 }
 
 /**

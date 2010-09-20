@@ -23,6 +23,7 @@
 */
 
 #include <cul/threading/Thread>
+#include <cul/threading/ThreadDelegate>
 #include <iostream>
 
 using namespace cul;
@@ -49,7 +50,7 @@ public:
     */
     void thread_func(Thread& thread)
     {
-        std::cout << "Thread Started" << std::endl;
+        std::cout << "Class Thread Started" << std::endl;
     }
     
 };
@@ -59,7 +60,7 @@ public:
 */
 void simple_thread_func(Thread& thread)
 {
-    
+    std::cout << "Function Thread Started" << std::endl;
 }
 
 /**
@@ -71,6 +72,15 @@ void thread_test_simple_class()
     t.start();
 }
 
+/**
+* Test Thread Function
+*/
+void thread_test_simple_func()
+{
+    Thread thread(new ThreadFunction(&simple_thread_func));
+    thread.run();
+    thread.join();
+}
 
 /**
 * main method
@@ -78,6 +88,7 @@ void thread_test_simple_class()
 int main(int argc, char *argv[])
 {
     thread_test_simple_class();
+    thread_test_simple_func();
     
     return 0;
 }

@@ -21,90 +21,85 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __THREAD_HPP__
-#define __THREAD_HPP__
+#ifndef __THREADDELEGATE_HPP__
+#define __THREADDELEGATE_HPP__
 
-/*
-* Include Platform Implementation
-*/
-#ifdef WIN32
-  #include "ThreadWin.hpp"
-#else
-  #include "ThreadPosix.hpp"
-#endif
-
-//http://www.codeguru.com/cpp/cpp/cpp_managed/threads/article.php/c14447__1/Creating-a-C-Thread-Class.htm
+#include "Thread.hpp"
 
 namespace cul {
 namespace threading {
-
-//forward declaration
-class Thread;
-
+  
 /**
-* Thread Call Base
-*/
-class ThreadCall
-{
+* Thread Delegate for thread functions in classes
+*/ 
+template<class T>
+class ThreadDelegate : public ThreadCall
+{    
+    private:
+        ///pointer to class instance
+        T* pInstance;
+        ///pointer to class function
+        void (T::*pRunFunc)(Thread&);
+
     public:
         /**
-        * Virtual destructor
+        * Constructor
         */
-        virtual ~ThreadCall(){}
+        ThreadDelegate(T* instance, void (T::*func)(Thread&))
+            : pInstance(instance), pRunFunc(func)
+        {
+        }
         
         /**
-        * Thread Run
+        * Destructor
         */
-        virtual void run(Thread&) = 0;
+        virtual ~ThreadDelegate(){}
+        
+        /**
+        * run function
+        */
+        void run(Thread& t)
+        {
+            (pInstance->*pRunFunc)(t);
+        }
+}; 
+
+
+/**
+* Thread Delegate to simple function
+*/
+class ThreadFunction : public ThreadCall
+{
+    private:
+        ///pointer to function
+        void (*pRunFunc)(Thread&);
+    public:
+        /**
+        * Constructor
+        */
+        ThreadFunction(void (*func)(Thread&))
+            : pRunFunc(func)
+        {
+        }
+        
+        /**
+        * Destructor
+        */
+        virtual ~ThreadFunction(){}
+        
+        /**
+        * run function
+        */
+        void run(Thread& t)
+        {
+            (*pRunFunc)(t);
+        }
 };
 
 
-/**
-* Thread Class
-*/
-class Thread : public ThreadImpl
-{
-    friend class ThreadImpl;
-    
-    private:
-        ThreadCall *callFunc;
-        
-    public:
-        /**
-        * Construct Thread
-        */
-        Thread();
-        
-        /**
-        * Construct thread with given thread call
-        */
-        Thread(ThreadCall* func);
-        
-        /**
-        * destructor
-        */
-        ~Thread();
-        
-        /**
-        * Start Thread
-        */
-        void run();
-        
-        /**
-        * Join thread
-        */
-        void join();
-        
-        //template assign functions
-        //template<class T> void run(T* obj, *func);
-        
-    private:
-        //status
-        //terminate
-        //events?
-};
 
 } //end namespace threading
 } //end namespace cul
 
-#endif /* __THREAD_HPP__ */
+
+#endif /* __THREADDELEGATE_HPP__ */

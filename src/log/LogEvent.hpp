@@ -67,8 +67,8 @@ class LogEvent
         ~LogEvent();
         
         std::ostringstream& GetStream();
-        LogType::LogType GetType();
-        LogSource& GetLogSource();
+        LogType::LogType GetType() const;
+        LogSource& GetLogSource() const;
         
         LogEvent& operator<< (bool& val );
         LogEvent& operator<< (short& val );

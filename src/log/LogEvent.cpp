@@ -91,7 +91,7 @@ std::ostringstream& LogEvent::GetStream()
 /**
 * Return the type
 */
-LogType::LogType LogEvent::GetType()
+LogType::LogType LogEvent::GetType() const
 {
     return logType;
 }
@@ -99,7 +99,7 @@ LogType::LogType LogEvent::GetType()
 /**
 * Gets the LogSource
 */
-LogSource& LogEvent::GetLogSource()
+LogSource& LogEvent::GetLogSource() const
 {
     return logSource;
 }

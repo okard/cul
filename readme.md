@@ -31,4 +31,7 @@ Planned features:
 * Threads
 * UTF Support
 * IO (file handling, directory iteration, ...)
-* 
+* More Datastructures (Array, Stack, Sets/Maps, ...)
+* Network
+* Advanced Memory Management (Allocators, MemPools, ...)
+ 

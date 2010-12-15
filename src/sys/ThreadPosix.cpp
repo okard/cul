@@ -21,49 +21,37 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+
+//includes
+#include "ThreadPosix.hpp"
 #include "Thread.hpp"
 
 //namespaces
 using namespace cul;
-using namespace threading;
+using namespace sys;
 
 /**
-* Constructor
+* Posix Run Thread
 */
-Thread::Thread() : callFunc(0)
+void ThreadImpl::run()
 {
+    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
 }
 
 /**
-* Constructor
+* Posix join thread
 */
-Thread::Thread(ThreadCall* func) 
-    : callFunc(func)
+void ThreadImpl::join()
 {
+    pthread_join(tid, NULL);
 }
 
 /**
-* Destructor
+* The Started Thread
+* dispatch to right thread function
 */
-Thread::~Thread()
+void* ThreadImpl::run(void *p)
 {
-    //delete call func
-    delete callFunc;
+    Thread* thread = static_cast<Thread*>(p);
+    thread->callFunc->run(*thread);
 }
-
-/**
-* Start Thread
-*/
-void Thread::run()
-{
-    ThreadImpl::run();
-}
-
-/**
-* Join Thread
-*/
-void Thread::join()
-{
-    ThreadImpl::join();
-}
-

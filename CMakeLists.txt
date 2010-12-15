@@ -13,9 +13,9 @@ include_directories(include)
 
 # Include Platform specific files to build
 IF(WIN32)
-  set(CUL_PLATFORM_SRC src/threading/ThreadWin.cpp)
+  set(CUL_PLATFORM_SRC src/sys/ThreadWin.cpp)
 ELSE()
-  set(CUL_PLATFORM_SRC src/threading/ThreadPosix.cpp)
+  set(CUL_PLATFORM_SRC src/sys/ThreadPosix.cpp)
   set(CUL_PLATFORM_LIBS "pthread")
 ENDIF()
 
@@ -32,7 +32,7 @@ add_library(cul ${CUL_PLATFORM_SRC}
                 src/log/Log.cpp
                 src/log/ConsoleListener.cpp
                 src/log/FileListener.cpp
-                src/threading/Thread.cpp)
+                src/sys/Thread.cpp)
 
 target_link_libraries(cul ${CUL_PLATFORM_LIBS})
 

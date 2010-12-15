@@ -21,37 +21,47 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#ifndef __THREADPOSIX_HPP__
+#define __THREADPOSIX_HPP__
 
-//includes
-#include "ThreadPosix.hpp"
-#include "Thread.hpp"
+#include <cul/Self>
 
-//namespaces
-using namespace cul;
-using namespace threading;
+#include <windows.h>
 
-/**
-* Posix Run Thread
-*/
-void ThreadImpl::run()
-{
-    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
-}
+namespace cul {
+namespace sys {
+
+class Thread;
 
 /**
-* Posix join thread
+* Posix Thread Implementation
 */
-void ThreadImpl::join()
+class ThreadImpl : public cul::Self<Thread>
 {
-    pthread_join(tid, NULL);
-}
+    using cul::Self<Thread>::self;
+    
+    private:
+        DWORD dwThreadId;
+        HANDLE hEvent;
+    
+    public:
+        /**
+        * Start thread
+        */
+        void run();
+        
+        /**
+        * Join thread
+        */
+        void join();
+        
+        /**
+        * Windows thread function
+        */
+        static DWORD ThreadProc(LPVOID lpdwThreadParam);
+};
 
-/**
-* The Started Thread
-* dispatch to right thread function
-*/
-void* ThreadImpl::run(void *p)
-{
-    Thread* thread = static_cast<Thread*>(p);
-    thread->callFunc->run(*thread);
-}
+} //end namespace threading
+} //end namespace c
+
+#endif /* __THREADPOSIX_HPP__ */

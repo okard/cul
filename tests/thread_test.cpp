@@ -22,12 +22,12 @@
     THE SOFTWARE.
 */
 
-#include <cul/threading/Thread>
-#include <cul/threading/ThreadDelegate>
+#include <cul/sys/Thread>
+#include <cul/sys/ThreadDelegate>
 #include <iostream>
 
 using namespace cul;
-using namespace threading;
+using namespace sys;
 
 /**
 * Thread Test Class

@@ -21,48 +21,39 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+//includes
+#include "ThreadWin.hpp"
+#include "Thread.hpp"
 
-#ifndef __THREADPOSIX_HPP__
-#define __THREADPOSIX_HPP__
-
-#include <cul/Self>
-
-#include <pthread.h>
-
-namespace cul {
-namespace threading {
-
-class Thread;
+//namespaces
+using namespace cul;
+using namespace sys;
 
 /**
-* Posix Thread Implementation
+* Windows Run Thread
 */
-class ThreadImpl : public cul::Self<Thread>
+void ThreadImpl::run()
 {
-    using cul::Self<Thread>::self;
+    hEvent = CreateEvent(NULL, FALSE, FALSE, "ThreadFinished");
     
-    private:
-        ///Thread id
-        pthread_t tid;
-    
-    public:
-        /**
-        * Start thread
-        */
-        void run();
-        
-        /**
-        * Join thread
-        */
-        void join();
-        
-        /**
-        * static thread dispatch function
-        */
-        static void* run(void *p);
-};
+    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&ThreadImpl::ThreadProc,
+                (LPVOID) &self, 0, &dwThreadId); 
+}
 
-} //end namespace threading
-} //end namespace c
+/**
+* Windows join thread
+*/
+void ThreadImpl::join()
+{
+    WaitForSingleObject(hEvent,INFINITE);
+}
 
-#endif /* __THREADPOSIX_HPP__ */
+/**
+* Windows thread function
+*/
+DWORD ThreadImpl::ThreadProc(LPVOID lpdwThreadParam)
+{
+    Thread* thread = static_cast<Thread*>(lpdwThreadParam);
+    thread->callFunc->run(*thread);
+    SetEvent(thread->hEvent);
+}

@@ -21,39 +21,49 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-//includes
-#include "ThreadWin.hpp"
 #include "Thread.hpp"
 
 //namespaces
 using namespace cul;
-using namespace threading;
+using namespace sys;
 
 /**
-* Windows Run Thread
+* Constructor
 */
-void ThreadImpl::run()
+Thread::Thread() : callFunc(0)
 {
-    hEvent = CreateEvent(NULL, FALSE, FALSE, "ThreadFinished");
-    
-    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&ThreadImpl::ThreadProc,
-                (LPVOID) &self, 0, &dwThreadId); 
 }
 
 /**
-* Windows join thread
+* Constructor
 */
-void ThreadImpl::join()
+Thread::Thread(ThreadCall* func) 
+    : callFunc(func)
 {
-    WaitForSingleObject(hEvent,INFINITE);
 }
 
 /**
-* Windows thread function
+* Destructor
 */
-DWORD ThreadImpl::ThreadProc(LPVOID lpdwThreadParam)
+Thread::~Thread()
 {
-    Thread* thread = static_cast<Thread*>(lpdwThreadParam);
-    thread->callFunc->run(*thread);
-    SetEvent(thread->hEvent);
+    //delete call func
+    delete callFunc;
 }
+
+/**
+* Start Thread
+*/
+void Thread::run()
+{
+    ThreadImpl::run();
+}
+
+/**
+* Join Thread
+*/
+void Thread::join()
+{
+    ThreadImpl::join();
+}
+

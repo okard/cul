@@ -21,15 +21,16 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+
 #ifndef __THREADPOSIX_HPP__
 #define __THREADPOSIX_HPP__
 
 #include <cul/Self>
 
-#include <windows.h>
+#include <pthread.h>
 
 namespace cul {
-namespace threading {
+namespace sys {
 
 class Thread;
 
@@ -41,8 +42,8 @@ class ThreadImpl : public cul::Self<Thread>
     using cul::Self<Thread>::self;
     
     private:
-        DWORD dwThreadId;
-        HANDLE hEvent;
+        ///Thread id
+        pthread_t tid;
     
     public:
         /**
@@ -56,9 +57,9 @@ class ThreadImpl : public cul::Self<Thread>
         void join();
         
         /**
-        * Windows thread function
+        * static thread dispatch function
         */
-        static DWORD ThreadProc(LPVOID lpdwThreadParam);
+        static void* run(void *p);
 };
 
 } //end namespace threading

@@ -23,12 +23,10 @@ Available functionality:
 * Strings
 * Simple Typedefs
 * Logging
-
+* Threads
 
 Planned features:
 ------------------------------------
-
-* Threads
 * UTF Support
 * IO (file handling, directory iteration, ...)
 * More Datastructures (Array, Stack, Sets/Maps, ...)

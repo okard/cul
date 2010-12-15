@@ -20,74 +20,25 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
-*/
-#ifndef FILE_HPP
-#define FILE_HPP
-
-#include <cstdio>
+*/ 
+#ifndef __SOCKET_HPP__
+#define __SOCKET_HPP__
 
 namespace cul {
-namespace io {
+namespace net {
   
 /**
-* File Class
-* Wraps C FILE* 
-*/
-class File
+* Socket Class
+*/  
+class Socket
 {
-    private:
-        /// C File Handle
-        FILE* file;
-    
-    public:
-        /**
-        * Ctor
-        */
-        File(FILE* file);
-        
-        /**
-        * Dtor
-        */
-        ~File();
-        
-        /**
-        * is EOF
-        */
-        bool isEof();
-    
-        /**
-        * Flush
-        */
-        void flush();
-    
-    /*
-    D -> DONE
-    
-    · fclose
-    D feof
-    · ferror
-    D fflush
-    · fgetc
-    · fgetpos
-    · fgets
-    · fopen
-    · fprintf
-    · fputc
-    · fputs
-    · fread
-    · freopen
-    · fscanf
-    · fseek
-    · fsetpos
-    · ftell
-    · fwrite
-    · getc
-    · putc
-    if ferror throw new exception(strerror(errno)) clearerr
-    */
+  
 };
 
-} //end namespace io
+  
+} //end namespace net
 } //end namespace cul
 
-#endif // FILE_HPP
+
+
+#endif // __SOCKET_HPP__

@@ -24,6 +24,9 @@
 
 #include "File.hpp"
 
+using namespace cul;
+using namespace io;
+
 
 /**
 * Ctor

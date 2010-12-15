@@ -32,7 +32,8 @@ add_library(cul ${CUL_PLATFORM_SRC}
                 src/log/Log.cpp
                 src/log/ConsoleListener.cpp
                 src/log/FileListener.cpp
-                src/sys/Thread.cpp)
+                src/sys/Thread.cpp
+		src/net/Socket.cpp)
 
 target_link_libraries(cul ${CUL_PLATFORM_LIBS})
 

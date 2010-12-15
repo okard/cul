@@ -21,73 +21,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef FILE_HPP
-#define FILE_HPP
+#include "Socket.hpp"
 
-#include <cstdio>
+using namespace cul;
+using namespace net;
 
-namespace cul {
-namespace io {
-  
-/**
-* File Class
-* Wraps C FILE* 
-*/
-class File
-{
-    private:
-        /// C File Handle
-        FILE* file;
-    
-    public:
-        /**
-        * Ctor
-        */
-        File(FILE* file);
-        
-        /**
-        * Dtor
-        */
-        ~File();
-        
-        /**
-        * is EOF
-        */
-        bool isEof();
-    
-        /**
-        * Flush
-        */
-        void flush();
-    
-    /*
-    D -> DONE
-    
-    · fclose
-    D feof
-    · ferror
-    D fflush
-    · fgetc
-    · fgetpos
-    · fgets
-    · fopen
-    · fprintf
-    · fputc
-    · fputs
-    · fread
-    · freopen
-    · fscanf
-    · fseek
-    · fsetpos
-    · ftell
-    · fwrite
-    · getc
-    · putc
-    if ferror throw new exception(strerror(errno)) clearerr
-    */
-};
-
-} //end namespace io
-} //end namespace cul
-
-#endif // FILE_HPP

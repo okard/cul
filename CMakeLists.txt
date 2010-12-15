@@ -21,6 +21,7 @@ ENDIF()
 
 #library
 add_library(cul ${CUL_PLATFORM_SRC}
+                src/io/File.cpp
                 src/io/TextFile.cpp 
                 src/io/Utf.cpp
                 src/io/Console.cpp

@@ -196,6 +196,10 @@ bool ListIterator<T>::hasPrev()
 template<typename T>
 ListIterator<T>::operator T ()
 {
+    //in for loops it is required to load the first element at access
+    if(current == 0)
+        current = list.head;
+    
     return current->data;
 }
 

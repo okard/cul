@@ -116,6 +116,8 @@ class ListIterator
         */
         ListIterator(const List<T>& list);
         
+        //TODO reset
+        
         /**
         * next item
         */
@@ -136,8 +138,9 @@ class ListIterator
         */
         bool hasPrev();
         
-        //->
-        //.
+        //TODO T ->
+        //TODO T .
+        //TODO T value()
         
         
         /**

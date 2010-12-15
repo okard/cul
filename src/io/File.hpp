@@ -21,72 +21,68 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <iostream>
+#ifndef FILE_HPP
+#define FILE_HPP
 
-#include <cul/ds/List>
-#include <cul/ds/ListSource>
-
-using namespace cul;
-using namespace ds;
+#include <cstdio>
 
 /**
-* test list 
+* File Class
+* Wraps C FILE* 
 */
-void list_test_simple()
+class File
 {
-    List<int> list;
-    list.add(1);
-    list.add(2);
-    list.add(3);
-    list.add(4);
+    private:
+        /// C File Handle
+        FILE* file;
     
-    std::cout << "List Count: " << list.count() << std::endl;
-    assert(list.count() == 4);
-}
-
-/**
-* test list iterator for loop
-*/
-void list_test_for()
-{
-    List<int> list;
-    list.add(1);
-    list.add(2);
+    public:
+        /**
+        * Ctor
+        */
+        File(FILE* file);
+        
+        /**
+        * Dtor
+        */
+        ~File();
+        
+        /**
+        * is EOF
+        */
+        bool isEof();
     
-    for(ListIterator<int> li(list); li.hasNext(); li.next())
-    {
-        //print out
-        std::cout << "Value: " << li << std::endl;
-    }
-}
-
-/**
-* test list iterator while loop
-*/
-void list_test_while()
-{
-    List<int> list;
-    list.add(1);
-    list.add(2);
+        /**
+        * Flush
+        */
+        void flush();
     
-    ListIterator<int> li(list);
-    while(li.next())
-    {
-        //print out
-        std::cout << "Value: " << li << std::endl;
-    }
-}
-
-
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    list_test_simple();
-    list_test_for();
-    list_test_while();
+    /*
+    D -> DONE
     
-    return 0;
-}
+    · fclose
+    D feof
+    · ferror
+    D fflush
+    · fgetc
+    · fgetpos
+    · fgets
+    · fopen
+    · fprintf
+    · fputc
+    · fputs
+    · fread
+    · freopen
+    · fscanf
+    · fseek
+    · fsetpos
+    · ftell
+    · fwrite
+    · getc
+    · putc
+    if ferror throw new exception(strerror(errno)) clearerr
+    */
+};
+
+
+#endif // FILE_HPP

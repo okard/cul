@@ -29,7 +29,7 @@
 namespace cul {
 
 /**
-* GLUL Exception
+* CUL Exception
 */
 class Exception : public std::exception
 {

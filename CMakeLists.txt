@@ -5,8 +5,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 PROJECT(cul)
-ENABLE_TESTING()
-
 
 include_directories(src)
 include_directories(include)
@@ -39,5 +37,8 @@ add_library(cul ${CUL_PLATFORM_SRC}
 
 target_link_libraries(cul ${CUL_PLATFORM_LIBS})
 
-#tests
-subdirs(tests)
+IF(DEFINED CULTESTS)
+  ENABLE_TESTING()
+  SUBDIRS(tests)
+ENDIF(DEFINED CULTESTS)
+

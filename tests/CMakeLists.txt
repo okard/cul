@@ -1,4 +1,12 @@
 
+###############################################################################
+# C++ Utility Library
+# Test Project
+###############################################################################
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(cul-tests)
+
 #refptr test
 add_executable(refptr_test_exc refptr_test.cpp)
 add_test(refptr_test ${EXECUTABLE_OUTPUT_PATH}/refptr_test_exc)

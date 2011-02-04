@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -20,50 +20,26 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
-*/
-#include "Socket.hpp"
+*/ 
+#include "Address.hpp"
 
-#include "../Exception.hpp"
 
 using namespace cul;
 using namespace net;
 
 
 /**
-* Create a new Socket
+* Create a new Address with hostname and port
 */
-Socket::Socket()
-{
-    initialize();
-}
-
-/**
-* Destructs socket
-*/
-Socket::~Socket()
+Address::Address ( const char* host, uint port )
 {
 
 }
 
 /**
-* Initialize Socket
+* Create a new Address with ip and port
 */
-void Socket::initialize()
+Address::Address ( int ip, uint port )
 {
-    #ifdef WIN32
-    static bool init = false;
-    if(!init)
-    {
-        WSADATA wsa;
-        if (WSAStartup(MAKEWORD(1, 1), &wsa))
-        {
-            // (unsigned long)GetLastError()
-            throw new Exception("WSAStartup failed");
-        }
-    }
-    #endif
-  
+
 }
-
- 
-

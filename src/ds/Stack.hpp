@@ -21,49 +21,24 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Socket.hpp"
-
-#include "../Exception.hpp"
-
-using namespace cul;
-using namespace net;
-
-
-/**
-* Create a new Socket
-*/
-Socket::Socket()
-{
-    initialize();
-}
-
-/**
-* Destructs socket
-*/
-Socket::~Socket()
-{
-
-}
-
-/**
-* Initialize Socket
-*/
-void Socket::initialize()
-{
-    #ifdef WIN32
-    static bool init = false;
-    if(!init)
-    {
-        WSADATA wsa;
-        if (WSAStartup(MAKEWORD(1, 1), &wsa))
-        {
-            // (unsigned long)GetLastError()
-            throw new Exception("WSAStartup failed");
-        }
-    }
-    #endif
-  
-}
-
  
+#ifndef __STACK_HPP__
+#define __STACK_HPP__
 
+namespace cul {
+namespace ds {
+    
+/**
+* Stack Container
+*/
+template<typename T>
+class Stack
+{
+    
+    
+};
+    
+} //end namespace ds
+} //end namespace cul
+
+#endif /* __STACK_HPP__ */

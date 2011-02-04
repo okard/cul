@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -20,50 +20,30 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
-*/
-#include "Socket.hpp"
+*/ 
+#ifndef __ADDRESS_HPP__
+#define __ADDRESS_HPP__
 
-#include "../Exception.hpp"
-
-using namespace cul;
-using namespace net;
+#include<cul/Types>
 
 
+namespace cul {
+namespace net {
+    
 /**
-* Create a new Socket
-*/
-Socket::Socket()
-{
-    initialize();
-}
-
-/**
-* Destructs socket
-*/
-Socket::~Socket()
+* Represents a Internet Address
+*/    
+class Address
 {
 
-}
-
-/**
-* Initialize Socket
-*/
-void Socket::initialize()
-{
-    #ifdef WIN32
-    static bool init = false;
-    if(!init)
-    {
-        WSADATA wsa;
-        if (WSAStartup(MAKEWORD(1, 1), &wsa))
-        {
-            // (unsigned long)GetLastError()
-            throw new Exception("WSAStartup failed");
-        }
-    }
-    #endif
-  
-}
-
- 
-
+public:
+    Address(const char* host, uint port);
+    Address(int ip, uint port);
+};
+    
+    
+    
+} //end namespace net
+} //end namespace cul    
+    
+#endif // __ADDRESS_HPP__

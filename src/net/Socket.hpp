@@ -32,13 +32,39 @@ namespace net {
 */  
 class Socket
 {
+protected:
+  int mSocket;
   
+
+protected:
+    Socket();
+    ~Socket();
+    static void initialize();
+  
+};
+
+/**
+* Server Socket
+*/
+class ServerSocket : public Socket
+{
+    //bind
+    //listen
+    //accept
+};
+
+/**
+* Client Socket
+*/
+class ClientSocket : public Socket
+{
+    //connect
+    //send
+    //recv
 };
 
   
 } //end namespace net
 } //end namespace cul
-
-
 
 #endif // __SOCKET_HPP__

@@ -32,8 +32,23 @@ using namespace sys;
 Guard::Guard()
 {
     #ifdef WIN32
+        // Initialize the critical section one time only.
+        if (!InitializeCriticalSectionAndSpinCount(&CriticalSection, 0x80000400) ) 
+            return;
     #else
          pthread_mutex_init (&mutex, NULL);
+    #endif
+}
+
+/**
+* Destructor
+*/
+Guard::~Guard()
+{
+    #ifdef WIN32
+        // Release resources used by the critical section object.
+        DeleteCriticalSection(&CriticalSection);
+    #else
     #endif
 }
 
@@ -45,6 +60,8 @@ void Guard::lock()
     locked = true;
     
     #ifdef WIN32
+        // Request ownership of the critical section.
+        EnterCriticalSection(&CriticalSection); 
     #else
         pthread_mutex_lock (&mutex);
     #endif
@@ -58,6 +75,8 @@ void Guard::unlock()
     locked = false;
     
     #ifdef WIN32
+        // Release ownership of the critical section.
+        LeaveCriticalSection(&CriticalSection);
     #else
         pthread_mutex_unlock (&mutex);
     #endif

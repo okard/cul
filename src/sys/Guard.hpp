@@ -25,6 +25,7 @@ THE SOFTWARE.
 #define __GUARD_HPP__
 
 #ifdef WIN32
+    #include <windows.h>
 #else
 	#include <pthread.h>
 #endif
@@ -39,7 +40,7 @@ class Guard
 {
     private:
         #ifdef WIN32
-            
+            CRITICAL_SECTION CriticalSection; 
         #else
             pthread_mutex_t mutex;
         #endif
@@ -52,6 +53,11 @@ class Guard
         * Creates a new Guard
         */
         Guard();
+        
+        /**
+        * Destructor
+        */
+        ~Guard();
     
         /**
         * lock

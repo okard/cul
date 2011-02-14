@@ -21,7 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "LogType.hpp"
+#include <cul/log/LogType.hpp>
 
 using namespace cul;
 using namespace log;

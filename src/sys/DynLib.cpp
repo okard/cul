@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "DynLib.hpp"
+#include <cul/sys/DynLib.hpp>
 
 using namespace cul;
 using namespace sys;

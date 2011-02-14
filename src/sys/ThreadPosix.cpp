@@ -23,12 +23,12 @@
 */
 
 //includes
-#include "ThreadPosix.hpp"
-#include "Thread.hpp"
+#include <cul/sys/ThreadPosix.hpp>
+#include <cul/sys/Thread.hpp>
 
-//namespaces
-using namespace cul;
-using namespace sys;
+using cul::sys::Thread;
+using cul::sys::ThreadImpl;
+
 
 /**
 * Posix Run Thread

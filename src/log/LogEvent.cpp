@@ -21,9 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "LogEvent.hpp"
+#include <cul/log/LogEvent.hpp>
 
-#include "Log.hpp"
+#include <cul/log/Log.hpp>
 
 using namespace cul;
 using namespace log;

@@ -21,7 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Thread.hpp"
+#include <cul/sys/Thread.hpp>
 
 //namespaces
 using namespace cul;

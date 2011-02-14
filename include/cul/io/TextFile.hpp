@@ -26,8 +26,8 @@
 
 #include <cstdio>
 
-#include "Types.hpp"
-#include "Utf.hpp"
+#include <cul/Types.hpp>
+#include <cul/io/Utf.hpp>
 
 namespace cul {
 namespace io {

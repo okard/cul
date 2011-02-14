@@ -21,9 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "Socket.hpp"
+#include <cul/net/Socket.hpp>
 
-#include "../Exception.hpp"
+#include <cul/Exception.hpp>
 
 using namespace cul;
 using namespace net;

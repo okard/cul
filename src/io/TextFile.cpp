@@ -21,12 +21,14 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "TextFile.hpp"
+#include <cul/io/TextFile.hpp>
+
+#include <cul/Endian.hpp>
 
 #include <iostream>
 #include <cstring>
 #include <cassert>
-#include "Endian.hpp"
+
 
 using namespace cul;
 using namespace io;

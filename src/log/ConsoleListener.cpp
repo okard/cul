@@ -21,7 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "ConsoleListener.hpp"
+#include <cul/log/ConsoleListener.hpp>
 
 using namespace cul;
 using namespace log;

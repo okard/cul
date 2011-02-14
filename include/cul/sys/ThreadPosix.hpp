@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2011  okard
+    Copyright (c) 2010  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -20,30 +20,49 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
-*/ 
-#ifndef __ADDRESS_HPP__
-#define __ADDRESS_HPP__
+*/
 
-#include<cul/Types>
+#ifndef __THREADPOSIX_HPP__
+#define __THREADPOSIX_HPP__
 
+#include <cul/Self.hpp>
+
+#include <pthread.h>
 
 namespace cul {
-namespace net {
-    
-/**
-* Represents a Internet Address
-*/    
-class Address
-{
+namespace sys {
 
-public:
-    Address(const char* host, uint port);
-    Address(int ip, uint port);
+class Thread;
+
+/**
+* Posix Thread Implementation
+*/
+class ThreadImpl : public cul::Self<Thread>
+{
+    using cul::Self<Thread>::self;
+    
+    private:
+        ///Thread id
+        pthread_t tid;
+    
+    public:
+        /**
+        * Start thread
+        */
+        void run();
+        
+        /**
+        * Join thread
+        */
+        void join();
+        
+        /**
+        * static thread dispatch function
+        */
+        static void* run(void *p);
 };
-    
-    
-    
-} //end namespace net
-} //end namespace cul    
-    
-#endif // __ADDRESS_HPP__
+
+} //end namespace threading
+} //end namespace c
+
+#endif /* __THREADPOSIX_HPP__ */

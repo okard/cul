@@ -22,8 +22,8 @@
     THE SOFTWARE.
 */
 
-#ifndef __TYPES_HPP__
-#define __TYPES_HPP__
+#ifndef __CUL_TYPES_HPP__
+#define __CUL_TYPES_HPP__
 
 #include <cstdlib>
 
@@ -40,4 +40,4 @@ typedef signed char byte;
 
 //bit specific???
 
-#endif // __TYPES_HPP__
+#endif // __CUL_TYPES_HPP__

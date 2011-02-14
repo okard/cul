@@ -22,23 +22,23 @@
     THE SOFTWARE.
 */
 
-#ifndef __STRING_HPP__
-#define __STRING_HPP__
+#ifndef __CUL_STRING_HPP__
+#define __CUL_STRING_HPP__
 
 #include <cstring>
 
-#include "Types.hpp"
-#include "Encoding.hpp"
+#include <cul/Platform.hpp>
+#include <cul/Types.hpp>
+#include <cul/Encoding.hpp>
 
 /// Namespace for c++ utility library
 namespace cul
 {
 
-
 /**
 * \brief simple string class
 */
-class string
+class CUL_EXPORT string
 {
     private:
         ///buffer
@@ -172,4 +172,4 @@ class string
 
 } // end namespace cul
 
-#endif //__STRING_HPP__
+#endif //__CUL_STRING_HPP__

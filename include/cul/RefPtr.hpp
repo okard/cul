@@ -22,8 +22,8 @@
     THE SOFTWARE.
 */
 
-#ifndef __REFPTR_HPP__
-#define __REFPTR_HPP__
+#ifndef __CUL_REFPTR_HPP__
+#define __CUL_REFPTR_HPP__
 
 namespace cul
 {
@@ -143,4 +143,4 @@ template<class T> class RefPtr
 }; //end namespace cul
 
 
-#endif // __REFPTR_HPP__
+#endif // __CUL_REFPTR_HPP__

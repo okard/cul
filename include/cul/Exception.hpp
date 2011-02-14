@@ -21,8 +21,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __EXCEPTION_HPP__
-#define __EXCEPTION_HPP__
+#ifndef __CUL_EXCEPTION_HPP__
+#define __CUL_EXCEPTION_HPP__
 
 #include <exception>
 
@@ -58,4 +58,4 @@ class Exception : public std::exception
 } //end namespace cul
 
 
-#endif /* __EXCEPTION_HPP__ */
+#endif /* __CUL_EXCEPTION_HPP__ */

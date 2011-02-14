@@ -21,8 +21,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __SELF_HPP__
-#define __SELF_HPP__
+#ifndef __CUL_SELF_HPP__
+#define __CUL_SELF_HPP__
 
 namespace cul {
 
@@ -48,4 +48,4 @@ class Self
 
 } //end namespace cul
 
-#endif /* __SELF_HPP__ */
+#endif /* __CUL_SELF_HPP__ */

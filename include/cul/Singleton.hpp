@@ -21,8 +21,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __SINGLETON_HPP__
-#define __SINGLETON_HPP__
+#ifndef __CUL_SINGLETON_HPP__
+#define __CUL_SINGLETON_HPP__
 
 namespace cul {
 
@@ -53,4 +53,4 @@ class Singleton
 
 } //end namespace cul
 
-#endif /* __SINGLETON_HPP__ */
+#endif /* __CUL_SINGLETON_HPP__ */

@@ -22,8 +22,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */ 
-#ifndef __ANYPTR_HPP__
-#define __ANYPTR_HPP__
+#ifndef __CUL_ANYPTR_HPP__
+#define __CUL_ANYPTR_HPP__
 
 //Modified version from http://www.gamedev.net/reference/programming/features/TypeSafeGenPtr/
 
@@ -138,4 +138,4 @@ private:
 
 } //end namespace cul
 
-#endif /* __ANYPTR_HPP__ */
+#endif /* __CUL_ANYPTR_HPP__ */

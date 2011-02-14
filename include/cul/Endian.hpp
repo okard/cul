@@ -21,8 +21,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef ENDIAN_HPP
-#define ENDIAN_HPP
+#ifndef __CUL_ENDIAN_HPP__
+#define __CUL_ENDIAN_HPP__
 
 #include "Types.hpp"
 #include "RefPtr.hpp"
@@ -82,4 +82,4 @@ inline bool is_littleendian()
 
 } //end namespace cul
 
-#endif // ENDIAN_HPP
+#endif // __CUL_ENDIAN_HPP__

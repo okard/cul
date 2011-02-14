@@ -21,8 +21,8 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __ENCODING_HPP__
-#define __ENCODING_HPP__
+#ifndef __CUL_ENCODING_HPP__
+#define __CUL_ENCODING_HPP__
 
 namespace cul {
     
@@ -47,4 +47,4 @@ enum Encoding
 
 } //end namespace cul
  
-#endif /* __ENCODING_HPP__ */
+#endif /* __CUL_ENCODING_HPP__ */

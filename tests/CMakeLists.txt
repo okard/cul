@@ -44,3 +44,8 @@ add_test(thread_test ${EXECUTABLE_OUTPUT_PATH}/thread_test_exc)
 add_executable(list_test_exc list_test.cpp)
 target_link_libraries(list_test_exc cul)
 add_test(list_test ${EXECUTABLE_OUTPUT_PATH}/list_test_exc)
+
+
+#cul stack test
+add_executable(cul_stack_test_exc cul_stack_test.cpp)
+add_test(cul_stack_test ${EXECUTABLE_OUTPUT_PATH}/cul_stack_test_exc)

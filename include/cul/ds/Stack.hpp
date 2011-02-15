@@ -22,8 +22,10 @@
     THE SOFTWARE.
 */
  
-#ifndef __STACK_HPP__
-#define __STACK_HPP__
+#ifndef __CUL_STACK_HPP__
+#define __CUL_STACK_HPP__
+
+#include <cul/Exception.hpp>
 
 namespace cul {
 namespace ds {
@@ -34,11 +36,85 @@ namespace ds {
 template<typename T>
 class Stack
 {
+private:
+    /// Array
+    T* arr;
     
+    /// Size
+    unsigned int size;
     
+    /// Current Position
+    unsigned int pos;
+    
+public:
+    /**
+    * Create new stack with given size
+    */
+    Stack(unsigned int size = 256);
+    /**
+    * Destructs a stack
+    */
+    ~Stack();
+    
+    /**
+    * Push a element on stack
+    */
+    void push(T elem);
+    
+    /**
+    * Pops a element from stack
+    */
+    T pop();
 };
+
+//=============================================================================
+// Implementation
+//=============================================================================
+/**
+* Constructor
+*/
+template<typename T>
+Stack<T>::Stack(unsigned int size)
+    : pos(0), size(size)
+{
+    arr = new T[size];
+}
+
+/**
+* Destructor
+*/
+template<typename T>
+Stack<T>::~Stack()
+{
+    delete arr;
+}
+
+/**
+* Push a element on stack
+*/
+template<typename T>
+void Stack<T>::push(T elem)
+{
+    if(pos >= size)
+        throw cul::Exception("cul stack overflow");
     
+    arr[++pos] = elem;
+}
+
+/**
+* Pops a element from stack
+*/
+template<typename T>
+T Stack<T>::pop()
+{
+    if(pos <= 0)
+        throw cul::Exception("cul stack underflow");
+    
+    return arr[pos--];
+}
+
+
 } //end namespace ds
 } //end namespace cul
 
-#endif /* __STACK_HPP__ */
+#endif /* __CUL_STACK_HPP__ */

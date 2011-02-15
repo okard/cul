@@ -24,8 +24,7 @@
 #include <cassert>
 #include <iostream>
 
-#include <cul/ds/List>
-#include <cul/ds/ListSource>
+#include <cul/ds/List.hpp>
 
 using namespace cul;
 using namespace ds;

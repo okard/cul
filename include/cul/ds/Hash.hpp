@@ -21,41 +21,11 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-
-#include <cul/io/File.hpp>
-
-using namespace cul;
-using namespace io;
+#ifndef __CUL_HASH_HPP__
+#define __CUL_HASH_HPP__
 
 
-/**
-* Ctor
-*/
-File::File(FILE* file)
-    : file(file)
-{
-}
 
-/**
-* Dtor
-*/
-File::~File()
-{
-}
 
-/**
-* is EOF
-*/
-bool File::isEof()
-{
-    return feof(file);
-}
 
-/**
-* Flush
-*/
-void File::flush()
-{
-     fflush(file);
-}
-
+#endif // __CUL_HASH_HPP__

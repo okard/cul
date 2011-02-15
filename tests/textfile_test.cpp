@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 #include <cassert>
-#include <cul/io/TextFile>
+#include <cul/io/TextFile.hpp>
 
 using namespace cul;
 using namespace io;

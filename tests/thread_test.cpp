@@ -22,8 +22,8 @@
     THE SOFTWARE.
 */
 
-#include <cul/sys/Thread>
-#include <cul/sys/ThreadDelegate>
+#include <cul/sys/Thread.hpp>
+#include <cul/sys/ThreadDelegate.hpp>
 #include <iostream>
 
 using namespace cul;

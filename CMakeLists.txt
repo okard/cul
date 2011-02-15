@@ -15,7 +15,7 @@ IF(WIN32)
     set(CUL_PLATFORM_SRC src/sys/ThreadWin.cpp)
 ELSE()
     set(CUL_PLATFORM_SRC src/sys/ThreadPosix.cpp)
-    set(CUL_PLATFORM_LIBS "pthread")
+    set(CUL_PLATFORM_LIBS "pthread" "dl")
 ENDIF()
 
 #library

@@ -12,5 +12,8 @@ cd build
 #create make files with cmake
 cmake -DCULTESTS=true -G "Unix Makefiles" ..
 
+#make lib
+make
+
 #make program
 make test

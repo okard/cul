@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,101 +21,92 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
- 
-#ifndef __CUL_STACK_HPP__
-#define __CUL_STACK_HPP__
-
-#include <cul/Exception.hpp>
+#ifndef __CUL_ARRAY_HPP__
+#define __CUL_ARRAY_HPP__
 
 namespace cul {
 namespace ds {
-    
+
 /**
-* Stack Container
+* Dynamic Array
 */
 template<typename T>
-class Stack
+class Array
 {
 private:
-    /// Array
+    /// Ptr to array
     T* arr;
     
-    /// Size
+    /// current size of array
     unsigned int size;
     
-    /// Current Position
-    unsigned int pos;
-    
 public:
-    /**
-    * Create new stack with given size
+    /** 
+    * Create new dynamic array with given size
     */
-    Stack(unsigned int size = 256);
-    /**
-    * Destructs a stack
-    */
-    ~Stack();
+    Array(unsigned int size = 16);
     
     /**
-    * Push a element on stack
+    * Destructs dynamic array
     */
-    void push(T elem);
+    ~Array();
     
     /**
-    * Pops a element from stack
+    * Add an element to array
     */
-    T pop();
+    void add(T elem);
+    
+    /**
+    * index access to array
+    */
+    T operator[](unsigned int i);
 };
+
 
 //=============================================================================
 // Implementation
 //=============================================================================
+
 /**
-* Constructor
+* New dynamic array
 */
 template<typename T>
-Stack<T>::Stack(unsigned int size)
-    : pos(0), size(size)
+Array<T>::Array(unsigned int size)
 {
-    arr = new T[size];
+    //alloc memory 
 }
 
 /**
-* Destructor
+* Destructs array
 */
 template<typename T>
-Stack<T>::~Stack()
+Array<T>::~Array()
 {
-    delete[] arr;
-    arr = 0;
 }
 
 /**
-* Push a element on stack
+* Add an element to array
 */
 template<typename T>
-void Stack<T>::push(T elem)
+void Array<T>::add(T elem)
 {
-    if(pos >= size)
-        throw cul::Exception("cul stack overflow");
-    
-    arr[++pos] = elem;
+    //realloc array?
+    //class handling with constructors?
+    //memcopy
 }
 
 /**
-* Pops a element from stack
+* index access to array
 */
 template<typename T>
-T Stack<T>::pop()
+T Array<T>::operator[](unsigned int i)
 {
-    if(pos <= 0)
-        throw cul::Exception("cul stack underflow");
-    
-    return arr[pos--];
 }
+
+
 
 
 } //end namespace ds
 } //end namespace cul
 
-#endif /* __CUL_STACK_HPP__ */
+#endif // __CUL_ARRAY_HPP__

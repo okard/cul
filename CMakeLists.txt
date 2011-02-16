@@ -2,21 +2,21 @@
 # C++ Utility Library
 # 
 ###############################################################################
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8)
 
-PROJECT(cul)
+project(cul)
 
 include_directories(src)
 include_directories(include)
 
 # Include Platform specific files to build
-IF(WIN32)
+if(WIN32)
     add_definitions(-DCUL_LIBRARY)
     set(CUL_PLATFORM_SRC src/sys/ThreadWin.cpp)
-ELSE()
+else()
     set(CUL_PLATFORM_SRC src/sys/ThreadPosix.cpp)
     set(CUL_PLATFORM_LIBS "pthread" "dl")
-ENDIF()
+endif()
 
 #library
 add_library(cul SHARED 
@@ -40,8 +40,8 @@ add_library(cul SHARED
 
 target_link_libraries(cul ${CUL_PLATFORM_LIBS})
 
-IF(DEFINED CULTESTS)
-  ENABLE_TESTING()
-  ADD_SUBDIRECTORY(tests)
-ENDIF(DEFINED CULTESTS)
+if(DEFINED CULTESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif(DEFINED CULTESTS)
 

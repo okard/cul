@@ -26,6 +26,7 @@
 
 #include <cstdlib>
 #include <cstdio>
+#include <cul/Exception.hpp>
 
 namespace cul {
 
@@ -40,9 +41,16 @@ namespace Str{
     */
     char* to(int i)
     {
-        static const unsigned short bufSize = 10;
+        static const unsigned short bufSize = 11;
         char* buffer = (char*) malloc (sizeof(char)*bufSize);
-        snprintf(buffer, sizeof(char)*bufSize, "%d", i);
+        int res = snprintf(buffer, sizeof(char)*bufSize, "%d", i);
+        
+        if(res < 0)
+            throw Exception("Can't convert intger to char");
+        
+        //terminate string with 0
+        buffer[res] = '\0';
+            
         return buffer;
     }
 }

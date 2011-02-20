@@ -26,6 +26,7 @@ add_library(cul SHARED
             src/io/Utf.cpp
             src/io/Console.cpp
             src/String.cpp
+            src/Convert.cpp
             src/log/LogType.cpp
             src/log/LogEvent.cpp
             src/log/LogSource.cpp

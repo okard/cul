@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,15 +21,14 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __CUL_CONVERT_HPP__
-#define __CUL_CONVERT_HPP__
 
-#include <cul/Platform.hpp>
+#include <cul/Convert.hpp>
+
+#include <cstdlib>
+#include <cstdio>
+#include <cul/Exception.hpp>
 
 namespace cul {
-
-//NOTICE C++ has no reasonable support for specialized function templates so seperate in namespaces here   
-     
 
 /// To String Convert Functions
 namespace Str{
@@ -37,7 +36,21 @@ namespace Str{
     * Convert Integer to char*
     * need to be be free after usage
     */
-    CUL_EXPORT char* to(int i);
+    char* to(int i)
+    {
+        //TODO No Memory allocation? is not thread safe then?
+        static const unsigned short bufSize = 11;
+        char* buffer = (char*) malloc (sizeof(char)*bufSize);
+        int res = snprintf(buffer, sizeof(char)*bufSize, "%d", i);
+        
+        if(res < 0)
+            throw Exception("Can't convert intger to char");
+        
+        //terminate string with 0
+        buffer[res] = '\0';
+            
+        return buffer;
+    }
 }
 
 /// To Long Convert Functions
@@ -45,7 +58,10 @@ namespace Long {
     /**
     * Convert string to long int
     */
-    long to(const char* str);
+    long to(const char* str)
+    {
+        return strtol (str, NULL, 10);
+    }
 }
 
 /// To Unsigned Long Convert Functions
@@ -53,7 +69,10 @@ namespace ULong {
     /**
     * Convert string to unsigned long int
     */
-    unsigned long to(const char* str);   
+    unsigned long to(const char* str)
+    {
+        return strtoul(str, NULL, 10);
+    }    
 }
 
 /// To Double Convert Functions
@@ -61,11 +80,10 @@ namespace Double {
     /**
     * Convert string to double
     */
-    double to(const char* str);
+    double to(const char* str)
+    {
+        return strtod(str, NULL);
+    }   
 }
 
-    
 } //end namespace cul
-
-
-#endif // __CUL_CONVERT_HPP__

@@ -70,6 +70,8 @@ string::string(const char* pstr)
     str = static_cast<char*>(malloc(alloc));
     
     strncpy(str, pstr, alloc);
+    str[alloc] = '\0';
+    
     assert(strlen(str) == alloc);
     length = alloc;
 }

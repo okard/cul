@@ -21,80 +21,67 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef FILE_HPP
-#define FILE_HPP
+#ifndef __CUL_CONVERT_HPP__
+#define __CUL_CONVERT_HPP__
 
+#include <cstdlib>
 #include <cstdio>
 
 namespace cul {
-namespace io {
-  
-/**
-* File Class
-* Wraps C FILE* 
-*/
-class File
-{
-    private:
-        /// C File Handle
-        FILE* file;
-    
-    //TODO maybe make FILE Constructor private?    
-        
-    public:
-        /**
-        * Ctor
-        */
-        File(FILE* file);
-        
-        /**
-        * Dtor
-        */
-        ~File();
-        
-        /**
-        * is EOF
-        */
-        bool isEof();
-    
-        /**
-        * Flush
-        */
-        void flush();
-        
-        /**
-        * Printf
-        */
-        void printf(const char* msg, ...);
-    
-    /*
-    D -> DONE
-    
-    · fclose
-    D feof
-    · ferror
-    D fflush
-    · fgetc
-    · fgetpos
-    · fgets
-    · fopen
-    · fprintf
-    · fputc
-    · fputs
-    · fread
-    · freopen
-    · fscanf
-    · fseek
-    · fsetpos
-    · ftell
-    · fwrite
-    · getc
-    · putc
-    if ferror throw new exception(strerror(errno)) clearerr
-    */
-};
 
-} //end namespace io
+//NOTICE C++ has no reasonable support for specialized function templates so seperate in namespaces here   
+     
+
+/// To String Convert Functions
+namespace Str{
+    /**
+    * Convert Integer to char*
+    * need to be be free after usage
+    */
+    char* to(int i)
+    {
+        static const unsigned short bufSize = 10;
+        char* buffer = (char*) malloc (sizeof(char)*bufSize);
+        snprintf(buffer, sizeof(char)*bufSize, "%d", i);
+        return buffer;
+    }
+}
+
+/// To Long Convert Functions
+namespace Long {
+    /**
+    * Convert string to long int
+    */
+    long to(const char* str)
+    {
+        return strtol (str, NULL, 10);
+    }
+}
+
+/// To Unsigned Long Convert Functions
+namespace ULong {
+    /**
+    * Convert string to unsigned long int
+    */
+    unsigned long to(const char* str)
+    {
+        return strtoul(str, NULL, 10);
+    }    
+}
+
+/// To Double Convert Functions
+namespace Double {
+    /**
+    * Convert string to double
+    */
+    double to(const char* str)
+    {
+        return strtod(str, NULL);
+    }   
+}
+
+    
 } //end namespace cul
 
-#endif // FILE_HPP
+
+#endif // __CUL_CONVERT_HPP__

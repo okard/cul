@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -22,50 +22,19 @@
     THE SOFTWARE.
 */
 
-#include <cul/io/File.hpp>
+#include <cul/Convert.hpp>
 
 using namespace cul;
-using namespace io;
 
 
-/**
-* Ctor
-*/
-File::File(FILE* file)
-    : file(file)
+int main(void)
 {
-}
-
-/**
-* Dtor
-*/
-File::~File()
-{
-    //Close file here?
-    //fclose(file)
-}
-
-/**
-* is EOF
-*/
-bool File::isEof()
-{
-    return feof(file);
-}
-
-/**
-* Flush
-*/
-void File::flush()
-{
-     fflush(file);
-}
-
-/**
-* Printf
-*/
-void File::printf(const char* msg, ...)
-{
-    //TODO does this work?
-    fprintf(file, msg);
+    long l = Long::to("6");
+    unsigned long ul = Long::to("7");
+    double d = Double::to("5.0");
+    
+    char* str = Str::to(4);
+    delete str;
+ 
+    return 0;
 }

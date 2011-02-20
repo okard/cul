@@ -34,6 +34,8 @@
 /// Namespace for c++ utility library
 namespace cul
 {
+    
+// TODO Simplify string to a minimal implementation, add a advanced string class on top for high level functions
 
 /**
 * \brief simple string class

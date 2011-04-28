@@ -26,7 +26,6 @@
 #define __CUL_LIST_HPP__
 
 namespace cul {
-namespace ds {
 
 //forward declaration
 template<typename T>
@@ -336,8 +335,6 @@ ListIterator<T>::operator T ()
     return current->data;
 }
 
-
-} //end namespace ds
 } //end namespace cul
 
 #endif /* __CUL_LIST_HPP__ */

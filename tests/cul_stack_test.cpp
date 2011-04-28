@@ -22,10 +22,9 @@
     THE SOFTWARE.
 */
 
-#include <cul/ds/Stack.hpp>
+#include <cul/Stack.hpp>
 
 using namespace cul;
-using namespace ds;
 
 
 int main()

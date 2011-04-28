@@ -24,10 +24,9 @@
 #include <cassert>
 #include <iostream>
 
-#include <cul/ds/List.hpp>
+#include <cul/List.hpp>
 
 using namespace cul;
-using namespace ds;
 
 /**
 * test list 

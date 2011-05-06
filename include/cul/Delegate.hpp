@@ -25,12 +25,68 @@
 #define __CUL_DELEGATE_HPP__
 
 namespace cul {
+
+/**
+* Delegate
+*/
+template<typename RT>
+class delegate0
+{
+private:
+    /// callfunction
+    typedef RT (*funcCall)(void* object_ptr);
+
+    /// points to object 
+    void* objPtr;
+    /// caller function
+    funcCall func;
+ 
+    /**
+    * Wrapps object cast for function calling
+    */
+    template <class T, RT (T::*TMethod)()>
+    static RT methodStub(void* objPtr)
+    {
+        T* p = static_cast<T*>(objPtr);
+        return (p->*TMethod)(); 
+    }
     
+public:
+    /**
+    * Constructor
+    */
+    delegate0() : objPtr(0), func(0)
+    {
+    }
+
+    /**
+    * Create Delegate
+    */
+    template <class T, RT (T::*TMethod)()>
+    static delegate0 create(T* objPtr)
+    {
+        delegate0 d;
+        d.objPtr = objPtr;
+        d.func = &methodStub<T, TMethod>;
+        return d;
+    }
+
+    /**
+    * Call Delegate
+    */
+    RT operator()() const
+    {
+        return (*func)(objPtr);
+    }
+};
+
+    
+
 /**
 * Delegate
 */
 template<typename RT, typename Arg0>
-class delegate
+class delegate1
 {
 private:
     /// callfunction
@@ -49,14 +105,13 @@ private:
     {
         T* p = static_cast<T*>(objPtr);
         return (p->*TMethod)(a0); 
-
     }
     
 public:
     /**
     * Constructor
     */
-    delegate() : objPtr(0), func(0)
+    delegate1() : objPtr(0), func(0)
     {
     }
 
@@ -64,9 +119,9 @@ public:
     * Create Delegate
     */
     template <class T, RT (T::*TMethod)(Arg0)>
-    static delegate create(T* objPtr)
+    static delegate1 create(T* objPtr)
     {
-        delegate d;
+        delegate1 d;
         d.objPtr = objPtr;
         d.func = &methodStub<T, TMethod>;
         return d;

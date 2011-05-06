@@ -32,6 +32,11 @@ class Foo
 {
     
 public:
+    void slot_e()
+    {
+        std::cout << "Event occured" << std::endl;
+    }
+    
     void slot(int i)
     {
         std::cout << "Getting " << i << std::endl;
@@ -42,9 +47,14 @@ public:
 int main(void)
 {
     Foo f;
-    delegate<void, int> d = delegate<void, int>::create<Foo, &Foo::slot>(&f);
- 
-    d(42);
+
+    delegate0<void> d0 = delegate0<void>::create<Foo, &Foo::slot_e>(&f);
+    d0();
+        
+    delegate1<void, int> d1 = delegate1<void, int>::create<Foo, &Foo::slot>(&f);
+    d1(42);
+    
+
     
     return 0;
 }

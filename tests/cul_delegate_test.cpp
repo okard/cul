@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -22,36 +22,29 @@
     THE SOFTWARE.
 */
 
-//includes
-#include <cul/sys/ThreadPosix.hpp>
-#include <cul/sys/Thread.hpp>
+#include <cul/Delegate.hpp>
 
-using cul::sys::Thread;
-using cul::sys::ThreadImpl;
+#include <iostream>
 
+using namespace cul;
 
-/**
-* Posix Run Thread
-*/
-void ThreadImpl::run()
+class Foo
 {
-    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
-}
+    
+public:
+    void slot(int i)
+    {
+        std::cout << "Getting " << i << std::endl;
+    }
+    
+};
 
-/**
-* Posix join thread
-*/
-void ThreadImpl::join()
+int main(void)
 {
-    pthread_join(tid, NULL);
-}
-
-/**
-* The Started Thread
-* dispatch to right thread function
-*/
-void* ThreadImpl::run(void *p)
-{
-    Thread* thread = reinterpret_cast<Thread*>(p);
-    thread->callFunc->run(*thread);
+    Foo f;
+    delegate<void, int> d = delegate<void, int>::create<Foo, &Foo::slot>(&f);
+ 
+    d(42);
+    
+    return 0;
 }

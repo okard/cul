@@ -25,6 +25,13 @@
 #define __CUL_ARRAY_HPP__
 
 namespace cul {
+<<<<<<< Updated upstream
+=======
+namespace ds {
+    
+    
+//NOTICE: Classes and Structs directly, value types initializer?
+>>>>>>> Stashed changes
 
 /**
 * Dynamic Array
@@ -53,13 +60,40 @@ public:
     /**
     * Add an element to array
     */
-    void add(T elem);
+    T add();
     
     /**
     * index access to array
     */
-    T operator[](unsigned int i);
+    T& operator[](unsigned int i);
+    
+    /**
+    * Get current size
+    */
+    unsigned int getSize();
+    
+    /**
+    * Count of Elements
+    */
+    unsigned int getCount();
 };
+
+
+/**
+* Specialisation for pointer types
+* Array of pointer
+*/
+template<typename T>
+class Array<T*>
+{
+private:
+    //add(T* element);
+    
+public:
+    
+};
+
+
 
 
 //=============================================================================
@@ -72,7 +106,8 @@ public:
 template<typename T>
 Array<T>::Array(unsigned int size)
 {
-    //alloc memory 
+    //alloc memory
+    arr = malloc(size*sizeof(T));
 }
 
 /**
@@ -81,24 +116,28 @@ Array<T>::Array(unsigned int size)
 template<typename T>
 Array<T>::~Array()
 {
+    //kill elements
+    free(arr);
 }
 
 /**
 * Add an element to array
 */
 template<typename T>
-void Array<T>::add(T elem)
+T Array<T>::add()
 {
     //realloc array?
     //class handling with constructors?
     //memcopy
+    //return new(arr[3]) T();
+    
 }
 
 /**
 * index access to array
 */
 template<typename T>
-T Array<T>::operator[](unsigned int i)
+T& Array<T>::operator[](unsigned int i)
 {
 }
 

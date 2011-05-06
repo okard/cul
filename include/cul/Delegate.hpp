@@ -21,37 +21,68 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#ifndef __CUL_DELEGATE_HPP__
+#define __CUL_DELEGATE_HPP__
 
-//includes
-#include <cul/sys/ThreadPosix.hpp>
-#include <cul/sys/Thread.hpp>
-
-using cul::sys::Thread;
-using cul::sys::ThreadImpl;
-
-
+namespace cul {
+    
 /**
-* Posix Run Thread
+* Delegate
 */
-void ThreadImpl::run()
+template<typename RT, typename Arg0>
+class delegate
 {
-    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
-}
+private:
+    /// callfunction
+    typedef RT (*funcCall)(void* object_ptr, Arg0);
 
-/**
-* Posix join thread
-*/
-void ThreadImpl::join()
-{
-    pthread_join(tid, NULL);
-}
+    /// points to object 
+    void* objPtr;
+    /// caller function
+    funcCall func;
+ 
+    /**
+    * Wrapps object cast for function calling
+    */
+    template <class T, RT (T::*TMethod)(Arg0)>
+    static RT methodStub(void* objPtr, Arg0 a0)
+    {
+        T* p = static_cast<T*>(objPtr);
+        return (p->*TMethod)(a0); 
 
-/**
-* The Started Thread
-* dispatch to right thread function
-*/
-void* ThreadImpl::run(void *p)
-{
-    Thread* thread = reinterpret_cast<Thread*>(p);
-    thread->callFunc->run(*thread);
-}
+    }
+    
+public:
+    /**
+    * Constructor
+    */
+    delegate() : objPtr(0), func(0)
+    {
+    }
+
+    /**
+    * Create Delegate
+    */
+    template <class T, RT (T::*TMethod)(Arg0)>
+    static delegate create(T* objPtr)
+    {
+        delegate d;
+        d.objPtr = objPtr;
+        d.func = &methodStub<T, TMethod>;
+        return d;
+    }
+
+    /**
+    * Call Delegate
+    */
+    RT operator()(Arg0 a0) const
+    {
+        return (*func)(objPtr, a0);
+    }
+};
+
+} //end namespace cul
+
+// delegate<void, int> d = delegate::create<Foo, &Foo::slot>(&obj);
+
+#endif // __CUL_DELEGATE_HPP__

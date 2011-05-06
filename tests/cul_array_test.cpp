@@ -22,36 +22,48 @@
     THE SOFTWARE.
 */
 
-//includes
-#include <cul/sys/ThreadPosix.hpp>
-#include <cul/sys/Thread.hpp>
-
-using cul::sys::Thread;
-using cul::sys::ThreadImpl;
+#include <cassert>
+#include <cul/ds/Array.hpp>
 
 
-/**
-* Posix Run Thread
-*/
-void ThreadImpl::run()
+// value type test
+void value_type_test()
 {
-    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
+    Array<int> arr;
+    
+    arr.add(5);
+    arr.add(4);
+    arr.add(3);
+    
+    assert(arr[1] == 4);
 }
 
-/**
-* Posix join thread
-*/
-void ThreadImpl::join()
+
+class Foo
 {
-    pthread_join(tid, NULL);
+};
+
+// class test
+void class_type_test()
+{
+    Array<Foo> arr;
+    
+    //reference or pointer?
+    Foo& foo = arr.add();
 }
 
-/**
-* The Started Thread
-* dispatch to right thread function
-*/
-void* ThreadImpl::run(void *p)
+// class ptr test
+void class_ptr_type_test()
 {
-    Thread* thread = reinterpret_cast<Thread*>(p);
-    thread->callFunc->run(*thread);
+    Array<Foo*> arr;
+    arr.add(new Foo());
+}
+
+
+//test main
+int main()
+{
+    
+    
+    return 0;
 }

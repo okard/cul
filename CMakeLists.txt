@@ -9,6 +9,9 @@ project(cul)
 include_directories(src)
 include_directories(include)
 
+# Enable C++11
+SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x")
+
 # Include Platform specific files to build
 if(WIN32)
     add_definitions(-DCUL_LIBRARY)

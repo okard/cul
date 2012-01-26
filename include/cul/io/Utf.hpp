@@ -38,11 +38,13 @@ UTF-16 Little Endian    FF FE
 UTF-32 Big Endian       00 00 FE FF
 UTF-32 Little Endian    FF FE 00 00
 */
+/*
 const byte UTF8_BOM[] = {0xEF, 0xBB, 0xBF};
 const byte UTF16BE_BOM[] = {0xFE, 0xFF};
 const byte UTF16LE_BOM[] = {0xFF, 0xFE};
 const byte UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
 const byte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
+*/
 
 /**
 * checks if the given utf8 byte is an ascii character 

@@ -54,6 +54,12 @@ int main(void)
     delegate1<void, int> d1 = delegate1<void, int>::create<Foo, &Foo::slot>(&f);
     d1(42);
     
+    delegate<void> d2 = delegate<void>::create<Foo, &Foo::slot_e>(&f);
+    d2();
+    
+    delegate<void, int> d3 = delegate<void, int>::create<Foo, &Foo::slot>(&f);
+    d3(42);
+    
 
     
     return 0;

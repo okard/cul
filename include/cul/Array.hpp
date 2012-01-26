@@ -25,13 +25,8 @@
 #define __CUL_ARRAY_HPP__
 
 namespace cul {
-<<<<<<< Updated upstream
-=======
-namespace ds {
-    
     
 //NOTICE: Classes and Structs directly, value types initializer?
->>>>>>> Stashed changes
 
 /**
 * Dynamic Array
@@ -92,9 +87,6 @@ private:
 public:
     
 };
-
-
-
 
 //=============================================================================
 // Implementation

@@ -25,6 +25,61 @@
 #define __CUL_DELEGATE_HPP__
 
 namespace cul {
+    
+/**
+* Generic C++11 Delegate
+*/
+template<typename RT, typename... Arg>
+class delegate
+{
+private:
+    /// callfunction
+    typedef RT (*funcCall)(void* object_ptr, Arg...);
+
+    /// points to object 
+    void* objPtr;
+    /// caller function
+    funcCall func;
+ 
+    /**
+    * Wrapps object cast for function calling
+    */
+    template <class T, RT (T::*TMethod)(Arg...)>
+    static RT methodStub(void* objPtr, Arg... args)
+    {
+        T* p = static_cast<T*>(objPtr);
+        return (p->*TMethod)(args...); 
+    }
+    
+public:
+    /**
+    * Constructor
+    */
+    delegate() : objPtr(0), func(0)
+    {
+    }
+
+    /**
+    * Create Delegate
+    */
+    template <class T, RT (T::*TMethod)(Arg...)>
+    static delegate create(T* objPtr)
+    {
+        delegate d;
+        d.objPtr = objPtr;
+        d.func = &methodStub<T, TMethod>;
+        return d;
+    }
+
+    /**
+    * Call Delegate
+    */
+    RT operator()(Arg... args) const
+    {
+        return (*func)(objPtr, args...);
+    }
+};
+    
 
 /**
 * Delegate

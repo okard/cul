@@ -23,7 +23,7 @@
 */
 
 #include <cassert>
-#include <cul/ds/Array.hpp>
+#include <cul/Array.hpp>
 
 
 // value type test

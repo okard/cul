@@ -26,6 +26,12 @@
 
 #include<iostream>
 
+void basic_handler(int i)
+{
+    std::cout << "Value: " << i << std::endl;
+};
+
+
 class Foo
 {
 private:
@@ -35,6 +41,7 @@ public:
     Foo()
     {
         onEvent.connect<Foo, &Foo::handle>(this);
+        onEvent.connect(&basic_handler);
     }
     
     void fire(int i)

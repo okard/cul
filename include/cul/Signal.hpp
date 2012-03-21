@@ -43,6 +43,8 @@ private:
     
     //list with delegate listener
     std::vector<dg> listener;
+    
+    std::vector<func> funcs;
 
 public:
     
@@ -57,11 +59,24 @@ public:
     }
     
     /**
+    * Connect to simple function
+    */
+    void connect(func f)
+    {
+        funcs.push_back(f);
+    }
+    
+    /**
     * Fire Event
     */
     void operator()(Arg... args) const
     {
         for(auto iter=listener.begin(); iter != listener.end(); ++iter)
+        {
+            (*iter)(args...);
+        }
+        
+        for(auto iter=funcs.begin(); iter != funcs.end(); ++iter)
         {
             (*iter)(args...);
         }

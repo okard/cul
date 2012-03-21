@@ -196,6 +196,7 @@ string& string::operator = (const char* other)
 string& string::string::operator+=(const cul::string& other)
 {
     append(other);
+    return *this;
 }
 
 /**
@@ -204,6 +205,7 @@ string& string::string::operator+=(const cul::string& other)
 string& string::string::operator+=(const char* other)
 {
     append(other);
+    return *this;
 }
 
 

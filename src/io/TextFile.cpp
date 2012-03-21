@@ -124,4 +124,6 @@ char TextFile::readAscii()
     
     if(encode ==  UTF8 && utf8_isascii(c))
         return c;
+    
+    return c;
 }

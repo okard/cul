@@ -21,6 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#pragma once
 #ifndef __CUL_DELEGATE_HPP__
 #define __CUL_DELEGATE_HPP__
 
@@ -80,117 +81,6 @@ public:
     }
 };
     
-
-/**
-* Delegate
-*/
-template<typename RT>
-class delegate0
-{
-private:
-    /// callfunction
-    typedef RT (*funcCall)(void* object_ptr);
-
-    /// points to object 
-    void* objPtr;
-    /// caller function
-    funcCall func;
- 
-    /**
-    * Wrapps object cast for function calling
-    */
-    template <class T, RT (T::*TMethod)()>
-    static RT methodStub(void* objPtr)
-    {
-        T* p = static_cast<T*>(objPtr);
-        return (p->*TMethod)(); 
-    }
-    
-public:
-    /**
-    * Constructor
-    */
-    delegate0() : objPtr(0), func(0)
-    {
-    }
-
-    /**
-    * Create Delegate
-    */
-    template <class T, RT (T::*TMethod)()>
-    static delegate0 create(T* objPtr)
-    {
-        delegate0 d;
-        d.objPtr = objPtr;
-        d.func = &methodStub<T, TMethod>;
-        return d;
-    }
-
-    /**
-    * Call Delegate
-    */
-    RT operator()() const
-    {
-        return (*func)(objPtr);
-    }
-};
-
-    
-
-/**
-* Delegate
-*/
-template<typename RT, typename Arg0>
-class delegate1
-{
-private:
-    /// callfunction
-    typedef RT (*funcCall)(void* object_ptr, Arg0);
-
-    /// points to object 
-    void* objPtr;
-    /// caller function
-    funcCall func;
- 
-    /**
-    * Wrapps object cast for function calling
-    */
-    template <class T, RT (T::*TMethod)(Arg0)>
-    static RT methodStub(void* objPtr, Arg0 a0)
-    {
-        T* p = static_cast<T*>(objPtr);
-        return (p->*TMethod)(a0); 
-    }
-    
-public:
-    /**
-    * Constructor
-    */
-    delegate1() : objPtr(0), func(0)
-    {
-    }
-
-    /**
-    * Create Delegate
-    */
-    template <class T, RT (T::*TMethod)(Arg0)>
-    static delegate1 create(T* objPtr)
-    {
-        delegate1 d;
-        d.objPtr = objPtr;
-        d.func = &methodStub<T, TMethod>;
-        return d;
-    }
-
-    /**
-    * Call Delegate
-    */
-    RT operator()(Arg0 a0) const
-    {
-        return (*func)(objPtr, a0);
-    }
-};
-
 } //end namespace cul
 
 // delegate<void, int> d = delegate::create<Foo, &Foo::slot>(&obj);

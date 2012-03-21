@@ -53,6 +53,10 @@ add_test(cul_stack_test ${EXECUTABLE_OUTPUT_PATH}/cul_stack_test_exc)
 add_executable(cul_delegate_test_exc cul_delegate_test.cpp)
 add_test(cul_delegate_test ${EXECUTABLE_OUTPUT_PATH}/cul_delegate_test_exc)
 
+#cul signal test
+add_executable(cul_signal_test_exc cul_signal_test.cpp)
+add_test(cul_signal_test ${EXECUTABLE_OUTPUT_PATH}/cul_signal_test_exc)
+
 #cul convert test
 add_executable(cul_convert_test_exc cul_convert_test.cpp)
 target_link_libraries(cul_convert_test_exc cul)

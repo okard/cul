@@ -22,51 +22,54 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_CONVERT_HPP__
-#define __CUL_CONVERT_HPP__
+#ifndef __CUL_SIGNAL_HPP__
+#define __CUL_SIGNAL_HPP__
 
-#include <cul/Platform.hpp>
+
+#include <vector>
+#include <cul/Delegate.hpp>
 
 namespace cul {
+    
+template<typename... Arg>
+class signal
+{
+private:
+    //delegate type
+    typedef delegate<void, Arg...> dg;
+    
+    //function ptr type
+    typedef void (*func)(Arg...);
+    
+    //list with delegate listener
+    std::vector<dg> listener;
 
-//NOTICE C++ has no reasonable support for specialized function templates so seperate in namespaces here   
-     
-
-/// To String Convert Functions
-namespace Str{
+public:
+    
     /**
-    * Convert Integer to char*
-    * need to be be free after usage
+    * connect to object
     */
-    CUL_EXPORT char* to(int i);
-}
-
-/// To Long Convert Functions
-namespace Long {
+    template <class T, void (T::*TMethod)(Arg...)>
+    void connect(T* obj)
+    {
+        auto d = dg::template create<T, TMethod>(obj);
+        listener.push_back(d);
+    }
+    
     /**
-    * Convert string to long int
+    * Fire Event
     */
-    long to(const char* str);
-}
-
-/// To Unsigned Long Convert Functions
-namespace ULong {
-    /**
-    * Convert string to unsigned long int
-    */
-    unsigned long to(const char* str);   
-}
-
-/// To Double Convert Functions
-namespace Double {
-    /**
-    * Convert string to double
-    */
-    double to(const char* str);
-}
+    void operator()(Arg... args) const
+    {
+        for(auto iter=listener.begin(); iter != listener.end(); ++iter)
+        {
+            (*iter)(args...);
+        }
+    }
+    
+};
 
     
 } //end namespace cul
 
-
-#endif // __CUL_CONVERT_HPP__
+#endif // __CUL_SIGNAL_HPP__

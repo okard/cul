@@ -51,7 +51,7 @@ const byte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
 */
 inline bool utf8_isascii(byte b)
 {
-    return (b & 0x80 == 0x00);
+    return ((b & 0x80) == 0x00);
 };
 
 /**
@@ -59,7 +59,7 @@ inline bool utf8_isascii(byte b)
 */
 inline bool utf8_isutf(byte b)
 {
-    return (b & 0xC0 == 0x80);
+    return ((b & 0xC0) == 0x80);
 };
 
 /**
@@ -72,7 +72,7 @@ inline bool utf8_isutf(byte b)
 */
 inline ubyte utf8_startbyte(byte b)
 {
-    return (b & 0xC0 == 0xC0) ? 2 : ((b & 0xE0) == 0xE0) ? 3 : ((b & 0xF0) == 0xF0) ? 4 : 1;
+    return ((b & 0xC0) == 0xC0) ? 2 : ((b & 0xE0) == 0xE0) ? 3 : ((b & 0xF0) == 0xF0) ? 4 : 1;
 }
 
 // utf follow byte 10xx xxxx

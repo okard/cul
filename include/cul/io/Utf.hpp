@@ -38,18 +38,17 @@ UTF-16 Little Endian    FF FE
 UTF-32 Big Endian       00 00 FE FF
 UTF-32 Little Endian    FF FE 00 00
 */
-/*
-const byte UTF8_BOM[] = {0xEF, 0xBB, 0xBF};
-const byte UTF16BE_BOM[] = {0xFE, 0xFF};
-const byte UTF16LE_BOM[] = {0xFF, 0xFE};
-const byte UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
-const byte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
-*/
+
+const cul_ubyte UTF8_BOM[] = {0xEF, 0xBB, 0xBF};
+const cul_ubyte UTF16BE_BOM[] = {0xFE, 0xFF};
+const cul_ubyte UTF16LE_BOM[] = {0xFF, 0xFE};
+const cul_ubyte UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
+const cul_ubyte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
 
 /**
 * checks if the given utf8 byte is an ascii character 
 */
-inline bool utf8_isascii(byte b)
+inline bool utf8_isascii(cul_byte b)
 {
     return ((b & 0x80) == 0x00);
 };
@@ -57,7 +56,7 @@ inline bool utf8_isascii(byte b)
 /**
 * checks if the given byte is an utf extend character 10xxxxxx
 */
-inline bool utf8_isutf(byte b)
+inline bool utf8_isutf(cul_byte b)
 {
     return ((b & 0xC0) == 0x80);
 };
@@ -70,7 +69,7 @@ inline bool utf8_isutf(byte b)
 * 111xxxxx = 3
 * 1111xxxx = 4
 */
-inline ubyte utf8_startbyte(byte b)
+inline cul_ubyte utf8_startbyte(cul_byte b)
 {
     return ((b & 0xC0) == 0xC0) ? 2 : ((b & 0xE0) == 0xE0) ? 3 : ((b & 0xF0) == 0xF0) ? 4 : 1;
 }

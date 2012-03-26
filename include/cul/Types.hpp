@@ -27,13 +27,13 @@
 
 #include <cstdlib>
 
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
+typedef unsigned char cul_uchar;
+typedef unsigned short cul_ushort;
+typedef unsigned int cul_uint;
+typedef unsigned long cul_ulong;
 
-typedef unsigned char ubyte;
-typedef signed char byte;
+typedef unsigned char cul_ubyte;
+typedef signed char cul_byte;
 
 #define null NULL
 

@@ -69,7 +69,7 @@ void TextFile::open(const char* fileName)
         endian_swap(bom);
     
     //check for encoding
-    /*
+    
     if(t >= 3 && memcmp(&bom, &UTF8_BOM, 2))
     {   encode = UTF8; return; }
     
@@ -84,7 +84,7 @@ void TextFile::open(const char* fileName)
     
     if(t >= 4 && memcmp(&bom, &UTF32LE_BOM, 4))
     {   encode = UTF32LE; return; }   
-    */
+    
     
     //if it is ascii, reset position
     fseek(file, 0, SEEK_SET);

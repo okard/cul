@@ -10,8 +10,8 @@ include_directories(src)
 include_directories(include)
 
 # Enable C++11
-SET (CMAKE_C_COMPILER             "/usr/bin/clang")
-SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x")
+#SET (CMAKE_C_COMPILER "/usr/bin/clang")
+SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11")
 
 # Include Platform specific files to build
 if(WIN32)

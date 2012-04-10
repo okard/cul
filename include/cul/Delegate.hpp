@@ -25,6 +25,11 @@
 #ifndef __CUL_DELEGATE_HPP__
 #define __CUL_DELEGATE_HPP__
 
+#if __cplusplus != 201103L
+    #error A C++11 compiler is required!
+#endif 
+
+
 namespace cul {
     
 /**

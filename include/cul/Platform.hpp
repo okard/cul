@@ -29,6 +29,8 @@
 * Export/Import Macros
 */
 #ifdef WIN32  
+    #define CUL_PLATFORM_WIN32
+
     #ifdef CUL_LIBRARY
         #define CUL_EXPORT __declspec(dllexport)
     #else 

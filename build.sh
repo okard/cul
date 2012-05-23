@@ -6,11 +6,17 @@ if [ ! -d "build" ]; then
     mkdir build
 fi
 
-#enter build directory
+# enter build directory
 cd build
 
-#create make files with cmake
+# check for ninja build system availability
+#if command -v ninja >/dev/null 2>&1; then
+#    echo "ninja exists";
+#fi
+ 
+
+# create make files with cmake
 cmake -G "Unix Makefiles" ..
 
-#make program
+# make program
 make

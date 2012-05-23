@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 #include <culc/Platform.hpp>
-#if CUL_PLATFORM_POSIX
+#ifdef CUL_PLATFORM_POSIX
 
 //includes
 #include <culsys/ThreadPosix.hpp>

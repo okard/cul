@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #include <culsys/DynLib.hpp>
 
+#include <culc/Platform.hpp>
+
 using namespace cul;
 
 /**
@@ -31,11 +33,13 @@ using namespace cul;
 */
 DynLib::DynLib(const char* file)
 {
-    #ifdef WIN32
+    #ifdef CUL_PLATFORM_WIN32
         hInstLib = LoadLibrary(file);
-    #else
+    #elif defined(CUL_PLATFORM_POSIX)
         lib = dlopen(file, RTLD_LAZY);
         //char *dlerror(void);
+    #else
+        #error Not supported platform
     #endif
 }
 
@@ -44,10 +48,12 @@ DynLib::DynLib(const char* file)
 */
 DynLib::~DynLib()
 {
-    #ifdef WIN32
+    #ifdef CUL_PLATFORM_WIN32
         FreeLibrary (hInstLib) ;
-    #else
+    #elif defined(CUL_PLATFORM_POSIX)
         dlclose(lib); 
+    #else
+        #error Not supported platform
     #endif
 }
 

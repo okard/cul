@@ -23,7 +23,7 @@
 */
 #include <cassert>
 
-#include <cul/Singleton.hpp>
+#include <culc/Singleton.hpp>
 
 /**
 * Singleton Test Class

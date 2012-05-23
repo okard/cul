@@ -43,6 +43,9 @@ const cul_ubyte UTF16LE_BOM[] = {0xFF, 0xFE};
 const cul_ubyte UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
 const cul_ubyte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
 
+
+//types for cul_utf16char cul_utf32char
+
 /**
 * checks if the given utf8 byte is an ascii character 
 */

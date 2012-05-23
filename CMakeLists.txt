@@ -1,13 +1,14 @@
 ###############################################################################
-# C++ Utility Library
-# 
+# C++ Utility Libraries
 ###############################################################################
 cmake_minimum_required(VERSION 2.8)
 
 project(cul)
 
-include_directories(src)
-include_directories(include)
+#Options:
+#-Platform: WIN, POSIX, LINUX, ...
+#-Arch: 32/64/ARM
+#-Type: Static/Shared
 
 # Enable C++11
 #SET (CMAKE_C_COMPILER "/usr/bin/clang")
@@ -20,6 +21,8 @@ if(WIN32)
 else()
     set(CUL_SYS_LIBS "pthread" "dl")
 endif()
+
+include_directories(include)
 
 # I/O Module
 file(GLOB_RECURSE CULIO_SOURCES src/culio/*.cpp)

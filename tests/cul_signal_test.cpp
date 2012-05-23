@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 
-#include <cul/Signal.hpp>
+#include <culc/Signal.hpp>
 
 #include<iostream>
 

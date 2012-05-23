@@ -23,7 +23,7 @@
 */
 #include <cassert>
 #include <iostream>
-#include <cul/String.hpp>
+#include <culio/String.hpp>
 using namespace cul;
 
 /// simple test for string equal

@@ -47,10 +47,15 @@ class File
         */
         File(FILE* file);
         
+        //File()
+        //File(const File& file)
+        
         /**
         * Dtor
         */
         ~File();
+        
+        //void open()
         
         /**
         * is EOF

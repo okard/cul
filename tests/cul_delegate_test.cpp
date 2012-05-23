@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 
-#include <cul/Delegate.hpp>
+#include <culc/Delegate.hpp>
 
 #include <iostream>
 

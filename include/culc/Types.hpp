@@ -27,6 +27,9 @@
 
 #include <cstdlib>
 
+//namespace
+namespace cul {
+
 typedef unsigned char cul_uchar;
 typedef unsigned short cul_ushort;
 typedef unsigned int cul_uint;
@@ -35,8 +38,9 @@ typedef unsigned long cul_ulong;
 typedef unsigned char cul_ubyte;
 typedef signed char cul_byte;
 
+//bit specific:
+// cul_ubyte8 ...
 
-
-//bit specific???
+} //end namespace cul
 
 #endif // __CUL_TYPES_HPP__

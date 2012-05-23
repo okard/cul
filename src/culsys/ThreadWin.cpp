@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 #include <culc/Platform.hpp>
-#if CUL_PLATFORM_WIN32
+#ifdef CUL_PLATFORM_WIN32
 
 #include <culsys/ThreadWin.hpp>
 #include <culsys/Thread.hpp>

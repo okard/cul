@@ -24,7 +24,6 @@ THE SOFTWARE.
 #include <culsys/Guard.hpp>
 
 using namespace cul;
-using namespace sys;
 
 /**
 * Creates a new Guard

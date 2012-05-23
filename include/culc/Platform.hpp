@@ -26,10 +26,17 @@
 #define __CUL_PLATFORM_HPP__
 
 /*
+* C++ 11 Required
+*/
+#if __cplusplus != 201103L
+    #error A C++11 compiler is required!
+#endif 
+
+/*
 * Export/Import Macros
 */
 #ifdef WIN32  
-    #define CUL_PLATFORM_WIN32 true
+    #define CUL_PLATFORM_WIN32
 
     #ifdef CUL_LIBRARY
         #define CUL_EXPORT __declspec(dllexport)
@@ -37,7 +44,7 @@
         #define CUL_EXPORT  __declspec(dllimport)
     #endif
 #else
-    #define CUL_PLATFORM_POSIX true
+    #define CUL_PLATFORM_POSIX
     /* Not required under linux */
     #define CUL_EXPORT 
 #endif

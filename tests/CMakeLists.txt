@@ -17,32 +17,31 @@ add_test(singleton_test ${EXECUTABLE_OUTPUT_PATH}/singleton_test_exc)
 
 #string test
 add_executable(string_test_exc string_test.cpp)
-target_link_libraries(string_test_exc cul)
+target_link_libraries(string_test_exc culio)
 add_test(string_test ${EXECUTABLE_OUTPUT_PATH}/string_test_exc)
 
 #textfile test
 add_executable(textfile_test_exc textfile_test.cpp)
-target_link_libraries(textfile_test_exc cul)
+target_link_libraries(textfile_test_exc culio)
 add_test(textfile_test ${EXECUTABLE_OUTPUT_PATH}/textfile_test_exc ${CMAKE_CURRENT_SOURCE_DIR}/utf8_file_bom.txt)
 
 #console test
 add_executable(console_test_exc console_test.cpp)
-target_link_libraries(console_test_exc cul)
+target_link_libraries(console_test_exc culio)
 add_test(console_test ${EXECUTABLE_OUTPUT_PATH}/console_test_exc)
 
 #log test
 add_executable(logging_test_exc logging_test.cpp)
-target_link_libraries(logging_test_exc cul)
+target_link_libraries(logging_test_exc cullog)
 add_test(logging_test ${EXECUTABLE_OUTPUT_PATH}/logging_test_exc)
 
 #thread test
 add_executable(thread_test_exc thread_test.cpp)
-target_link_libraries(thread_test_exc cul)
+target_link_libraries(thread_test_exc culsys)
 add_test(thread_test ${EXECUTABLE_OUTPUT_PATH}/thread_test_exc)
 
 #list test
 add_executable(list_test_exc list_test.cpp)
-target_link_libraries(list_test_exc cul)
 add_test(list_test ${EXECUTABLE_OUTPUT_PATH}/list_test_exc)
 
 #cul stack test
@@ -59,6 +58,6 @@ add_test(cul_signal_test ${EXECUTABLE_OUTPUT_PATH}/cul_signal_test_exc)
 
 #cul convert test
 add_executable(cul_convert_test_exc cul_convert_test.cpp)
-target_link_libraries(cul_convert_test_exc cul)
+target_link_libraries(cul_convert_test_exc culio)
 add_test(cul_convert_test ${EXECUTABLE_OUTPUT_PATH}/cul_convert_test_exc)
 

@@ -21,28 +21,26 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#pragma once
+#ifndef __CUL_PLATFORM_HPP__
+#define __CUL_PLATFORM_HPP__
 
-using namespace cul;
-
-/**
-* Test utf8 bom 
+/*
+* Export/Import Macros
 */
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
+#ifdef WIN32  
+    #define CUL_PLATFORM_WIN32 true
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
-}
+    #ifdef CUL_LIBRARY
+        #define CUL_EXPORT __declspec(dllexport)
+    #else 
+        #define CUL_EXPORT  __declspec(dllimport)
+    #endif
+#else
+    #define CUL_PLATFORM_POSIX true
+    /* Not required under linux */
+    #define CUL_EXPORT 
+#endif
+
+
+#endif // __CUL_PLATFORM_HPP__ 

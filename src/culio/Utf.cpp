@@ -21,28 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+
+#include <culio/Utf.hpp>
 
 using namespace cul;
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
-}
+

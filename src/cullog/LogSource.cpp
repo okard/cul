@@ -21,28 +21,73 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#include <cullog/LogSource.hpp>
 
 using namespace cul;
+using namespace log;
+
+//== LOGSOURCE ================================================================
 
 /**
-* Test utf8 bom 
+* Constructor 
 */
-void test_utf8_bom(const char* fileName)
+LogSource::LogSource() : sourceName(""), event(0)
 {
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
+    event = new LogEvent(*this);
 }
 
 /**
-* main method
+* Constructor 
 */
-int main(int argc, char *argv[])
+LogSource::LogSource(const char* name) : sourceName(name), event(0)
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
+    event = new LogEvent(*this);
+}
+
+/**
+* Destructor
+*/
+LogSource::~LogSource()
+{
+    delete event;
+}
+
+
+/**
+* Add Log Listener
+*/
+void LogSource::AddListener(LogListener* listener)
+{
+  this->listener.push_back(listener);
+}
+
+/**
+* Dispatch logevent to listener
+*/
+void LogSource::logEvent(const LogSource* src, const LogEvent* event)
+{
+   //Inform all listener
+    for(std::vector<LogListener*>::iterator it = listener.begin(); it != listener.end(); it++)
+    {
+      (*it)->logEvent(this, event);
+    }
+}
+
+/**
+* Log a Simple Message
+*/
+void LogSource::Log(LogType::LogType logType, const char* msg)
+{
+    //TODO make save
+    LogEvent event(*this, logType);
+    event << msg;
+    this->logEvent(this, &event);
+}
+
+/**
+* Return default log event
+*/
+LogEvent& LogSource::Event()
+{
+    return *event;
 }

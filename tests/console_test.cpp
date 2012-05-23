@@ -22,10 +22,9 @@
     THE SOFTWARE.
 */
 
-#include <cul/io/Console.hpp>
+#include <culio/Console.hpp>
 
 using namespace cul;
-using namespace io;
 
 
 int main()

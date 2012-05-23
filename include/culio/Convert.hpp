@@ -21,28 +21,52 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#pragma once
+#ifndef __CUL_CONVERT_HPP__
+#define __CUL_CONVERT_HPP__
 
-using namespace cul;
+#include <culc/Platform.hpp>
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
+namespace cul {
+
+//NOTICE C++ has no reasonable support for specialized function templates so seperate in namespaces here   
+     
+
+/// To String Convert Functions
+namespace Str{
+    /**
+    * Convert Integer to char*
+    * need to be be free after usage
+    */
+    CUL_EXPORT char* to(int i);
 }
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
+/// To Long Convert Functions
+namespace Long {
+    /**
+    * Convert string to long int
+    */
+    long to(const char* str);
+}
+
+/// To Unsigned Long Convert Functions
+namespace ULong {
+    /**
+    * Convert string to unsigned long int
+    */
+    unsigned long to(const char* str);   
+}
+
+/// To Double Convert Functions
+namespace Double {
+    /**
+    * Convert string to double
+    */
+    double to(const char* str);
+}
+
     
-    return 0;
-}
+} //end namespace cul
+
+
+#endif // __CUL_CONVERT_HPP__

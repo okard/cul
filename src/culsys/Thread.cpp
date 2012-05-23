@@ -21,28 +21,48 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#include <culsys/Thread.hpp>
 
+//namespaces
 using namespace cul;
 
 /**
-* Test utf8 bom 
+* Constructor
 */
-void test_utf8_bom(const char* fileName)
+Thread::Thread() : callFunc(0)
 {
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
 }
 
 /**
-* main method
+* Constructor
 */
-int main(int argc, char *argv[])
+Thread::Thread(ThreadCall* func) 
+    : callFunc(func)
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
 }
+
+/**
+* Destructor
+*/
+Thread::~Thread()
+{
+    //delete call func
+    delete callFunc;
+}
+
+/**
+* Start Thread
+*/
+void Thread::run()
+{
+    ThreadImpl::run();
+}
+
+/**
+* Join Thread
+*/
+void Thread::join()
+{
+    ThreadImpl::join();
+}
+

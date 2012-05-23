@@ -21,28 +21,22 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#pragma once
+#ifndef __CUL_TYPES_HPP__
+#define __CUL_TYPES_HPP__
 
-using namespace cul;
+#include <cstdlib>
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
+typedef unsigned char cul_uchar;
+typedef unsigned short cul_ushort;
+typedef unsigned int cul_uint;
+typedef unsigned long cul_ulong;
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
-}
+typedef unsigned char cul_ubyte;
+typedef signed char cul_byte;
+
+
+
+//bit specific???
+
+#endif // __CUL_TYPES_HPP__

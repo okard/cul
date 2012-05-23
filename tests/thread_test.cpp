@@ -22,12 +22,11 @@
     THE SOFTWARE.
 */
 
-#include <cul/sys/Thread.hpp>
-#include <cul/sys/ThreadDelegate.hpp>
+#include <culsys/Thread.hpp>
+#include <culsys/ThreadDelegate.hpp>
 #include <iostream>
 
 using namespace cul;
-using namespace sys;
 
 /**
 * Thread Test Class

@@ -21,28 +21,63 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#ifndef __CUL_TEXTFILE_HPP__
+#define __CUL_TEXTFILE_HPP__
 
-using namespace cul;
+#include <cstdio>
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
+#include <culc/Types.hpp>
+#include <culio/Utf.hpp>
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
+namespace cul {
     
-    return 0;
-}
+/**
+* \brief Class to handle text files 
+* UTF capable
+*/
+class TextFile
+{
+    private:
+        enum Encoding encode;
+        FILE* file;
+        
+    public:
+        /**
+        * Ctor
+        */
+        TextFile();
+        
+        /**
+        * Dtor
+        */
+        ~TextFile();
+        
+        /**
+        * Open a file
+        */
+        void open(const char* fileName);
+        
+        /**
+        * Close file
+        */
+        void close();
+        
+        /**
+        * Return encoding of TextFile
+        */
+        Encoding getEncoding();
+        
+        /**
+        * read ascii character
+        */
+        char readAscii();
+        
+        /**
+        * file is open
+        */
+        bool isOpen();
+};
+
+} //end namespace cul
+
+#endif // TEXTFILE_HPP

@@ -13,38 +13,26 @@ include_directories(include)
 #SET (CMAKE_C_COMPILER "/usr/bin/clang")
 SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11")
 
+#TODO Remove handling for sources
 # Include Platform specific files to build
 if(WIN32)
     add_definitions(-DCUL_LIBRARY)
-    set(CUL_PLATFORM_SRC src/sys/ThreadWin.cpp)
 else()
-    set(CUL_PLATFORM_SRC src/sys/ThreadPosix.cpp)
-    set(CUL_PLATFORM_LIBS "pthread" "dl")
+    set(CUL_SYS_LIBS "pthread" "dl")
 endif()
 
-#library
-add_library(cul SHARED 
-            ${CUL_PLATFORM_SRC}
-            src/io/File.cpp
-            src/io/TextFile.cpp 
-            src/io/Utf.cpp
-            src/io/Console.cpp
-            src/String.cpp
-            src/Convert.cpp
-            src/Hash.cpp
-            src/log/LogType.cpp
-            src/log/LogEvent.cpp
-            src/log/LogSource.cpp
-            src/log/Log.cpp
-            src/log/ConsoleListener.cpp
-            src/log/FileListener.cpp
-            src/sys/Thread.cpp
-            src/sys/Guard.cpp
-            src/sys/DynLib.cpp
-            src/net/Socket.cpp
-            src/net/Address.cpp)
+# I/O Module
+file(GLOB_RECURSE CULIO_SOURCES src/culio/*.cpp)
+add_library(culio SHARED ${CULIO_SOURCES})
 
-target_link_libraries(cul ${CUL_PLATFORM_LIBS})
+# Sys Module
+file(GLOB_RECURSE CULSYS_SOURCES src/culsys/*.cpp)
+add_library(culsys SHARED ${CULSYS_SOURCES})
+target_link_libraries(culsys ${CUL_SYS_LIBS})
+
+# Log Module
+file(GLOB_RECURSE CULLOG_SOURCES src/cullog/*.cpp)
+add_library(cullog SHARED ${CULLOG_SOURCES})
 
 if(DEFINED CULTESTS)
   enable_testing()

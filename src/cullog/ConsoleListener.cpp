@@ -21,28 +21,28 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#include <cullog/ConsoleListener.hpp>
 
 using namespace cul;
+using namespace log;
+
+#include <iostream>
 
 /**
-* Test utf8 bom 
+* Constructor
 */
-void test_utf8_bom(const char* fileName)
+ConsoleListener::~ConsoleListener()
 {
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
 }
 
 /**
-* main method
+* Log event to console
 */
-int main(int argc, char *argv[])
+void ConsoleListener::logEvent(const LogSource* src, const LogEvent* event)
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
+    LogEvent* ev = const_cast<LogEvent*>(event);
+    if(ev->GetType() >= LogType::Error)
+        std::cerr << ev->GetStream().str() << std::endl;
+    else
+        std::cout << LogType::toString(ev->GetType()) << ": " << ev->GetStream().str() << std::endl;
 }

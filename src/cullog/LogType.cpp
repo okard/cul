@@ -21,28 +21,23 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#include <cullog/LogType.hpp>
 
 using namespace cul;
+using namespace log;
+using namespace LogType;
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
+//== LOGTYPE ==================================================================
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
+const char* cul::log::LogType::toString(cul::log::LogType::LogType type)
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
+    switch(type)
+    {
+        case Information: return "Information";
+        case Verbose: return "Verbose";
+        case Warning: return "Warning";
+        case Error: return "Error";
+        case Fatal: return "Fatal";
+        default: return "";
+    };
 }

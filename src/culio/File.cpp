@@ -21,28 +21,50 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+
+#include <culio/File.hpp>
 
 using namespace cul;
 
+
 /**
-* Test utf8 bom 
+* Ctor
 */
-void test_utf8_bom(const char* fileName)
+File::File(FILE* file)
+    : file(file)
 {
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
 }
 
 /**
-* main method
+* Dtor
 */
-int main(int argc, char *argv[])
+File::~File()
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
+    //Close file here?
+    //fclose(file)
+}
+
+/**
+* is EOF
+*/
+bool File::isEof()
+{
+    return feof(file);
+}
+
+/**
+* Flush
+*/
+void File::flush()
+{
+     fflush(file);
+}
+
+/**
+* Printf
+*/
+void File::printf(const char* msg, ...)
+{
+    //TODO does this work?
+    fprintf(file, msg);
 }

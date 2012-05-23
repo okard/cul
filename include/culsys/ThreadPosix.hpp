@@ -21,28 +21,46 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
 
-using namespace cul;
+#ifndef __THREADPOSIX_HPP__
+#define __THREADPOSIX_HPP__
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
+#include <culc/Self.hpp>
+
+#include <pthread.h>
+
+namespace cul {
+
+class Thread;
 
 /**
-* main method
+* Posix Thread Implementation
 */
-int main(int argc, char *argv[])
+class ThreadImpl : public cul::Self<Thread>
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
+    using cul::Self<Thread>::self;
     
-    return 0;
-}
+    private:
+        ///Thread id
+        pthread_t tid;
+    
+    public:
+        /**
+        * Start thread
+        */
+        void run();
+        
+        /**
+        * Join thread
+        */
+        void join();
+        
+        /**
+        * static thread dispatch function
+        */
+        static void* run(void *p);
+};
+
+} //end namespace c
+
+#endif /* __THREADPOSIX_HPP__ */

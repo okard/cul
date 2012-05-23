@@ -21,28 +21,79 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#pragma once
+#ifndef __CUL_FILE_HPP__
+#define __CUL_FILE_HPP__
 
-using namespace cul;
+#include <cstdio>
 
-/**
-* Test utf8 bom 
-*/
-void test_utf8_bom(const char* fileName)
-{
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
-}
-
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
+namespace cul {
     
-    return 0;
-}
+/**
+* File Class
+* Wraps C FILE* 
+*/
+class File
+{
+    private:
+        /// C File Handle
+        FILE* file;
+    
+    //TODO maybe make FILE Constructor private?    
+        
+    public:
+        /**
+        * Ctor
+        */
+        File(FILE* file);
+        
+        /**
+        * Dtor
+        */
+        ~File();
+        
+        /**
+        * is EOF
+        */
+        bool isEof();
+    
+        /**
+        * Flush
+        */
+        void flush();
+        
+        /**
+        * Printf
+        */
+        void printf(const char* msg, ...);
+    
+    /*
+    D -> DONE
+    
+    · fclose
+    D feof
+    · ferror
+    D fflush
+    · fgetc
+    · fgetpos
+    · fgets
+    · fopen
+    · fprintf
+    · fputc
+    · fputs
+    · fread
+    · freopen
+    · fscanf
+    · fseek
+    · fsetpos
+    · ftell
+    · fwrite
+    · getc
+    · putc
+    if ferror throw new exception(strerror(errno)) clearerr
+    */
+};
+
+} //end namespace cul
+
+#endif // __CUL_FILE_HPP__

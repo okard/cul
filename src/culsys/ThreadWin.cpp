@@ -21,28 +21,42 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
-#include <culio/TextFile.hpp>
+#include <culc/Platform.hpp>
+#if CUL_PLATFORM_WIN32
 
+#include <culsys/ThreadWin.hpp>
+#include <culsys/Thread.hpp>
+
+//namespaces
 using namespace cul;
 
 /**
-* Test utf8 bom 
+* Windows Run Thread
 */
-void test_utf8_bom(const char* fileName)
+void ThreadImpl::run()
 {
-    TextFile tf;
-    tf.open(fileName);
-    assert(tf.getEncoding() == UTF8);
+    hEvent = CreateEvent(NULL, FALSE, FALSE, "ThreadFinished");
+    
+    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&ThreadImpl::ThreadProc,
+                (LPVOID) &self, 0, &dwThreadId); 
 }
 
 /**
-* main method
+* Windows join thread
 */
-int main(int argc, char *argv[])
+void ThreadImpl::join()
 {
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
+    WaitForSingleObject(hEvent,INFINITE);
 }
+
+/**
+* Windows thread function
+*/
+DWORD ThreadImpl::ThreadProc(LPVOID lpdwThreadParam)
+{
+    Thread* thread = static_cast<Thread*>(lpdwThreadParam);
+    thread->callFunc->run(*thread);
+    SetEvent(thread->hEvent);
+}
+
+#endif /*CUL_PLATFORM_WIN32*/

@@ -21,55 +21,60 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#pragma once
-#ifndef __CUL_STACK_HPP__
-#define __CUL_STACK_HPP__
+#ifndef UTF_H
+#define UTF_H
 
-#include <culc/Exception.hpp>
+#include <culc/Types.hpp>
+#include <culio/Encoding.hpp>
 
 namespace cul {
-    
-/**
-* Stack Container
+
+/*
+UTF-8                   EF BB BF
+UTF-16 Big Endian       FE FF
+UTF-16 Little Endian    FF FE
+UTF-32 Big Endian       00 00 FE FF
+UTF-32 Little Endian    FF FE 00 00
 */
-template<typename T>
-class Stack
+
+const cul_ubyte UTF8_BOM[] = {0xEF, 0xBB, 0xBF};
+const cul_ubyte UTF16BE_BOM[] = {0xFE, 0xFF};
+const cul_ubyte UTF16LE_BOM[] = {0xFF, 0xFE};
+const cul_ubyte UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
+const cul_ubyte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
+
+/**
+* checks if the given utf8 byte is an ascii character 
+*/
+inline bool utf8_isascii(cul_byte b)
 {
-private:
-    /// Array
-    T* arr;
-    
-    /// Size
-    unsigned int size;
-    
-    /// Current Position
-    unsigned int pos;
-    
-public:
-    /**
-    * Create new stack with given size
-    */
-    Stack(unsigned int size = 256);
-    /**
-    * Destructs a stack
-    */
-    ~Stack();
-    
-    /**
-    * Push a element on stack
-    */
-    void push(T elem);
-    
-    /**
-    * Pops a element from stack
-    */
-    T pop();
+    return ((b & 0x80) == 0x00);
 };
 
-//Implementation
-#include "Stack.inl"
+/**
+* checks if the given byte is an utf extend character 10xxxxxx
+*/
+inline bool utf8_isutf(cul_byte b)
+{
+    return ((b & 0xC0) == 0x80);
+};
 
+/**
+* return the startbyte of an utf8 byte
+* 0xxxxxxx = 1
+* 1xxxxxxx = 1
+* 11xxxxxx = 2
+* 111xxxxx = 3
+* 1111xxxx = 4
+*/
+inline cul_ubyte utf8_startbyte(cul_byte b)
+{
+    return ((b & 0xC0) == 0xC0) ? 2 : ((b & 0xE0) == 0xE0) ? 3 : ((b & 0xF0) == 0xF0) ? 4 : 1;
+}
+
+// utf follow byte 10xx xxxx
+// utf no ascii start 11->2, 111->3, 1111-> 4 
 
 } //end namespace cul
 
-#endif /* __CUL_STACK_HPP__ */
+#endif // UTF_H

@@ -22,7 +22,6 @@
     THE SOFTWARE.
 */
 #pragma once
-#include <culcore/Platform.hpp>
 #ifdef CUL_PLATFORM_POSIX
 
 #include <pthread.h>
@@ -43,6 +42,7 @@ private:
 	friend class Thread;
 	Thread* thread_; 
 	
+	//thread id
 	pthread_t tid_;
 	
 public:	
@@ -67,8 +67,8 @@ public:
 	*/
 	static void* pthread_run(void *p)
 	{
-		auto thread = reinterpret_cast<ThreadImpl*>(p);
-		//thread->thread_->callFunc->run(thread_);
+		auto t = reinterpret_cast<ThreadImpl*>(p);
+		t->thread_->threadWrapper_->run(*t->thread_);
 	}
 };
 

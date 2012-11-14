@@ -32,7 +32,7 @@ namespace cul {
 * Thread Delegate for thread functions in classes
 */ 
 template<class T>
-class ThreadDelegate : public ThreadCall
+class ThreadDelegate : public IThread
 {    
     private:
         ///pointer to class instance
@@ -68,7 +68,7 @@ class ThreadDelegate : public ThreadCall
 * Thread Delegate to simple function
 * Using Template
 */
-class ThreadFunction : public ThreadCall
+class ThreadFunction : public IThread
 {
     private:
         ///pointer to function

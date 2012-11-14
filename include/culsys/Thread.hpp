@@ -34,18 +34,18 @@ class Thread;
 /**
 * Thread Call Base
 */
-class ThreadCall
+class IThread
 {
-    public:
-        /**
-        * Virtual destructor
-        */
-        virtual ~ThreadCall(){}
-        
-        /**
-        * Thread Run
-        */
-        virtual void run(Thread&) = 0;
+public:
+	/**
+	* Virtual destructor
+	*/
+	virtual ~IThread(){}
+	
+	/**
+	* Thread Run
+	*/
+	virtual void run(Thread&) = 0;
 };
 
 //class ThreadContext(Thread&)
@@ -63,50 +63,52 @@ private:
 	ThreadImpl* const impl_;
 	
 	//Thread Wrapper
-	ThreadCall *callFunc;
+	IThread* const threadWrapper_;
         
 public:
-        /**
-        * Construct Thread
-        */
-        Thread();
+	/**
+	* Thread Status
+	*/
+	enum ThreadStatus
+	{
+		Running,
+		Stop
+	};
+
+	/**
+	* Construct Thread
+	*/
+	Thread(IThread* const thread);
+	
+	/**
+	* Destructor
+	*/
+	~Thread();
+	
+	/**
+	* Start Thread
+	*/
+	void run();
+	
+	//change interface
+	//run(IThread& thread)
+	//run(function thread)
+
+	/**
+	* Join thread
+	*/
+	void join();
+	
+	//template assign functions
+	//template<class T> void run(T* obj, *func);
         
-        /**
-        * Construct thread with given thread call
-        */
-        Thread(ThreadCall* func);
-        
-        /**
-        * destructor
-        */
-        ~Thread();
-        
-        /**
-        * Start Thread
-        */
-        void run();
-        
-        
-        //change interface
-        //run(IThread& thread)
-        //run(function thread)
-        
-        
-        /**
-        * Join thread
-        */
-        void join();
-        
-        //template assign functions
-        //template<class T> void run(T* obj, *func);
-        
-    private:
-        //status
-        //terminate
-        //events?
+private:
+	//status
+	//terminate
+	//events?
+	
 };
 
-//Thread<T> wegen ThreadContext?
 
 
 } //end namespace cul

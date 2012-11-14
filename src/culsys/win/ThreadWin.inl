@@ -22,7 +22,6 @@
     THE SOFTWARE.
 */
 #pragma once
-#include <culcore/Platform.hpp>
 #ifdef CUL_PLATFORM_WIN32
 
 #include <culsys/Thread.hpp>

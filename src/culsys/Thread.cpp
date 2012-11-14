@@ -23,6 +23,9 @@
 */
 #include <culsys/Thread.hpp>
 
+#include <culcore/Platform.hpp>
+#include <culcore/Exception.hpp>
+
 //include platform implementations
 #include "posix/ThreadPosix.inl"
 #include "win/ThreadWin.inl"
@@ -33,18 +36,10 @@ using namespace cul;
 /**
 * Constructor
 */
-Thread::Thread() 
-	: impl_(new ThreadImpl()), callFunc(0)
+Thread::Thread(IThread* const thread) 
+	: impl_(new ThreadImpl()), threadWrapper_(thread)
 {
-	impl_->thread_ = this;
-}
-
-/**
-* Constructor
-*/
-Thread::Thread(ThreadCall* func) 
-    : impl_(new ThreadImpl()), callFunc(func)
-{
+	//assign backlink after initialization
 	impl_->thread_ = this;
 }
 
@@ -53,15 +48,15 @@ Thread::Thread(ThreadCall* func)
 */
 Thread::~Thread()
 {
-    //delete call func
-    delete callFunc;
 }
+
 
 /**
 * Start Thread
 */
 void Thread::run()
 {
+	impl_->run();
 }
 
 /**
@@ -69,5 +64,6 @@ void Thread::run()
 */
 void Thread::join()
 {
+	impl_->join();
 }
 

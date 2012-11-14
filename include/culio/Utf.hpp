@@ -24,7 +24,7 @@
 #ifndef UTF_H
 #define UTF_H
 
-#include <culc/Types.hpp>
+#include <culcore/Types.hpp>
 #include <culio/Encoding.hpp>
 
 namespace cul {

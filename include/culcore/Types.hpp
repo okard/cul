@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2012  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,34 @@ typedef signed char cul_byte;
 
 //bit specific:
 // cul_ubyte8 ...
+
+typedef unsigned char ubyte8;
+typedef signed char byte8;
+
+typedef unsigned short ushort16;
+typedef signed short short16;
+
+typedef unsigned int uint32;
+typedef signed int int32;
+
+typedef unsigned long ulong64;
+typedef signed long long64;
+
+typedef float float32;
+typedef double double64;
+
+static_assert(sizeof(ubyte8) != 8, "Wrong byte size");
+static_assert(sizeof(byte8) != 8, "Wrong byte size");
+static_assert(sizeof(ushort16) != 16, "Wrong short size");
+static_assert(sizeof(short16) != 16, "Wrong short size");
+static_assert(sizeof(uint32) != 32, "Wrong int size");
+static_assert(sizeof(int32) != 32, "Wrong int size");
+static_assert(sizeof(ulong64) != 64, "Wrong long size");
+static_assert(sizeof(long64) != 64, "Wrong long size");
+
+static_assert(sizeof(float32) != 32, "Wrong float size");
+static_assert(sizeof(double64) != 64, "Wrong double size");
+
 
 } //end namespace cul
 

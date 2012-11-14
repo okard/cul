@@ -26,7 +26,7 @@
 
 #include <cstdio>
 
-#include <culc/Types.hpp>
+#include <culcore/Types.hpp>
 #include <culio/Utf.hpp>
 
 namespace cul {

@@ -27,8 +27,8 @@
 
 #include <cstring>
 
-#include <culc/Platform.hpp>
-#include <culc/Types.hpp>
+#include <culcore/Platform.hpp>
+#include <culcore/Types.hpp>
 #include <culio/Encoding.hpp>
 
 /// Namespace for c++ utility library

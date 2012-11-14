@@ -25,7 +25,7 @@
 #ifndef __CUL_CONVERT_HPP__
 #define __CUL_CONVERT_HPP__
 
-#include <culc/Platform.hpp>
+#include <culcore/Platform.hpp>
 
 namespace cul {
 

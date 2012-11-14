@@ -23,22 +23,29 @@
 */
 #include <culsys/Thread.hpp>
 
+//include platform implementations
+#include "posix/ThreadPosix.inl"
+#include "win/ThreadWin.inl"
+
 //namespaces
 using namespace cul;
 
 /**
 * Constructor
 */
-Thread::Thread() : callFunc(0)
+Thread::Thread() 
+	: impl_(new ThreadImpl()), callFunc(0)
 {
+	impl_->thread_ = this;
 }
 
 /**
 * Constructor
 */
 Thread::Thread(ThreadCall* func) 
-    : callFunc(func)
+    : impl_(new ThreadImpl()), callFunc(func)
 {
+	impl_->thread_ = this;
 }
 
 /**
@@ -55,7 +62,6 @@ Thread::~Thread()
 */
 void Thread::run()
 {
-    ThreadImpl::run();
 }
 
 /**
@@ -63,6 +69,5 @@ void Thread::run()
 */
 void Thread::join()
 {
-    ThreadImpl::join();
 }
 

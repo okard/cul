@@ -23,7 +23,7 @@
 */
 #include <culio/TextFile.hpp>
 
-#include <culc/Endian.hpp>
+#include <culcore/Endian.hpp>
 
 #include <iostream>
 #include <cstring>

@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 #include <culsys/DynLib.hpp>
 
-#include <culc/Platform.hpp>
+#include <culcore/Platform.hpp>
 
 using namespace cul;
 

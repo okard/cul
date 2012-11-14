@@ -27,7 +27,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <culc/Exception.hpp>
+#include <culcore/Exception.hpp>
 
 namespace cul {
 

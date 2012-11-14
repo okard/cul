@@ -21,10 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef __DYNLIB_HPP__
-#define __DYNLIB_HPP__
+#ifndef __CUL_DYNLIB_HPP__
+#define __CUL_DYNLIB_HPP__
 
-#ifdef WIN32
+#include <culcore/Platform.hpp>
+
+#ifdef CUL_PLATFORM_WIN32
     #include <windows.h>
 #else
     #include <dlfcn.h>
@@ -39,7 +41,7 @@ namespace cul {
 class DynLib
 {
 private:
-    #ifdef WIN32
+    #ifdef CUL_PLATFORM_WIN32
         HINSTANCE hInstLib;
     #else
         void* lib;
@@ -64,4 +66,4 @@ public:
 
 } // namespace cul
 
-#endif //__DYNLIB_HPP__
+#endif //__CUL_DYNLIB_HPP__

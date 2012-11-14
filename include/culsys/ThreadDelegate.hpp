@@ -66,6 +66,7 @@ class ThreadDelegate : public ThreadCall
 
 /**
 * Thread Delegate to simple function
+* Using Template
 */
 class ThreadFunction : public ThreadCall
 {

@@ -21,41 +21,42 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <culc/Platform.hpp>
-#ifdef CUL_PLATFORM_POSIX
+#pragma once
+#include <culcore/Platform.hpp>
+#ifdef CUL_PLATFORM_WIN32
 
-//includes
-#include <culsys/ThreadPosix.hpp>
 #include <culsys/Thread.hpp>
 
-using cul::Thread;
-using cul::ThreadImpl;
-
+//namespaces
+using namespace cul;
 
 /**
-* Posix Run Thread
+* Windows Run Thread
 */
 void ThreadImpl::run()
 {
-    pthread_create(&tid, NULL, &ThreadImpl::run, &self);
+    hEvent = CreateEvent(NULL, FALSE, FALSE, "ThreadFinished");
+    
+    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&ThreadImpl::ThreadProc,
+                (LPVOID) &self, 0, &dwThreadId); 
 }
 
 /**
-* Posix join thread
+* Windows join thread
 */
 void ThreadImpl::join()
 {
-    pthread_join(tid, NULL);
+    WaitForSingleObject(hEvent,INFINITE);
 }
 
 /**
-* The Started Thread
-* dispatch to right thread function
+* Windows thread function
 */
-void* ThreadImpl::run(void *p)
+DWORD ThreadImpl::ThreadProc(LPVOID lpdwThreadParam)
 {
-    Thread* thread = reinterpret_cast<Thread*>(p);
+    Thread* thread = static_cast<Thread*>(lpdwThreadParam);
     thread->callFunc->run(*thread);
+    SetEvent(thread->hEvent);
 }
 
-#endif /*CUL_PLATFORM_POSIX*/
+#endif /*CUL_PLATFORM_WIN32*/

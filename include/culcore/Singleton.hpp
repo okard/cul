@@ -46,9 +46,9 @@ class Singleton
         /**
         * Return the singleton instance
         */
-        static T* getSingletonPtr()
+        static inline T* getSingletonPtr()
         {
-            return &(Singleton<T>::getSingleton());
+            return &getSingleton();
         }
 };
 

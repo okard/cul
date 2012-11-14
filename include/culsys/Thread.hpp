@@ -21,19 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __THREAD_HPP__
-#define __THREAD_HPP__
+#ifndef __CUL_THREAD_HPP__
+#define __CUL_THREAD_HPP__
 
-/*
-* Include Platform Implementation
-*/
-#ifdef WIN32
-  #include "ThreadWin.hpp"
-#else
-  #include "ThreadPosix.hpp"
-#endif
-
-//http://www.codeguru.com/cpp/cpp/cpp_managed/threads/article.php/c14447__1/Creating-a-C-Thread-Class.htm
+//TODO Change to a PIMPL Implementation
 
 namespace cul {
 
@@ -57,18 +48,24 @@ class ThreadCall
         virtual void run(Thread&) = 0;
 };
 
+//class ThreadContext(Thread&)
+// ThreadContext<T>(Thread&, T data)
+
 
 /**
 * Thread Class
 */
-class Thread : public ThreadImpl
+class Thread
 {
-    friend class ThreadImpl;
-    
-    private:
-        ThreadCall *callFunc;
+private:
+	//PIMPL Pattern
+	class ThreadImpl;
+	ThreadImpl* const impl_;
+	
+	//Thread Wrapper
+	ThreadCall *callFunc;
         
-    public:
+public:
         /**
         * Construct Thread
         */
@@ -89,6 +86,12 @@ class Thread : public ThreadImpl
         */
         void run();
         
+        
+        //change interface
+        //run(IThread& thread)
+        //run(function thread)
+        
+        
         /**
         * Join thread
         */
@@ -103,6 +106,9 @@ class Thread : public ThreadImpl
         //events?
 };
 
+//Thread<T> wegen ThreadContext?
+
+
 } //end namespace cul
 
-#endif /* __THREAD_HPP__ */
+#endif /* __CUL_THREAD_HPP__ */

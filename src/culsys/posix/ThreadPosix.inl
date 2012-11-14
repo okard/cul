@@ -21,46 +21,59 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-
-#ifndef __THREADPOSIX_HPP__
-#define __THREADPOSIX_HPP__
-
-#include <culc/Self.hpp>
+#pragma once
+#include <culcore/Platform.hpp>
+#ifdef CUL_PLATFORM_POSIX
 
 #include <pthread.h>
 
-namespace cul {
+//includes
+#include <culsys/Thread.hpp>
 
-class Thread;
+using namespace cul;
+
 
 /**
 * Posix Thread Implementation
 */
-class ThreadImpl : public cul::Self<Thread>
+class Thread::ThreadImpl
 {
-    using cul::Self<Thread>::self;
-    
-    private:
-        ///Thread id
-        pthread_t tid;
-    
-    public:
-        /**
-        * Start thread
-        */
-        void run();
-        
-        /**
-        * Join thread
-        */
-        void join();
-        
-        /**
-        * static thread dispatch function
-        */
-        static void* run(void *p);
+private:
+	//back-link
+	friend class Thread;
+	Thread* thread_; 
+	
+	pthread_t tid_;
+	
+public:	
+	ThreadImpl()
+		: thread_(nullptr)
+	{
+	}
+	
+	void run()
+	{
+		 pthread_create(&tid_, NULL, &pthread_run, this);
+	}
+	
+	void join()
+	{
+		pthread_join(tid_, NULL);
+	}
+	
+	/**
+	* The Started Thread
+	* dispatch to right thread function
+	*/
+	static void* pthread_run(void *p)
+	{
+		auto thread = reinterpret_cast<ThreadImpl*>(p);
+		//thread->thread_->callFunc->run(thread_);
+	}
 };
 
-} //end namespace c
 
-#endif /* __THREADPOSIX_HPP__ */
+
+
+
+#endif /*CUL_PLATFORM_POSIX*/

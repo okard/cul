@@ -24,6 +24,9 @@ endif()
 
 include_directories(include)
 
+# create lib directory
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib/)
+
 # I/O Module
 file(GLOB_RECURSE CULIO_SOURCES src/culio/*.cpp)
 add_library(culio SHARED ${CULIO_SOURCES})
@@ -32,6 +35,8 @@ add_library(culio SHARED ${CULIO_SOURCES})
 file(GLOB_RECURSE CULSYS_SOURCES src/culsys/*.cpp)
 add_library(culsys SHARED ${CULSYS_SOURCES})
 target_link_libraries(culsys ${CUL_SYS_LIBS})
+get_target_property(CULSYS_LIB_NAME culsys LOCATION)
+add_custom_command(TARGET culsys POST_BUILD COMMAND cp ARGS ${CULSYS_LIB_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/)
 
 # Log Module
 file(GLOB_RECURSE CULLOG_SOURCES src/cullog/*.cpp)

@@ -1,3 +1,5 @@
 build/
+lib/
+
 doc/doxygen/
 .kdev4/

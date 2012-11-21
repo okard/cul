@@ -30,6 +30,8 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib/)
 # I/O Module
 file(GLOB_RECURSE CULIO_SOURCES src/culio/*.cpp)
 add_library(culio SHARED ${CULIO_SOURCES})
+get_target_property(CULIO_LIB_NAME culio LOCATION)
+add_custom_command(TARGET culio POST_BUILD COMMAND cp ARGS ${CULIO_LIB_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/)
 
 # Sys Module
 file(GLOB_RECURSE CULSYS_SOURCES src/culsys/*.cpp)

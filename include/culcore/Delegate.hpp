@@ -57,21 +57,22 @@ private:
         return (p->*TMethod)(args...); 
     }
     
-public:
-    /**
-    * Constructor
-    */
-    delegate() : objPtr(0), func(0)
-    {
-    }
+    friend class std::hash<delegate<RT, Arg...>>;
     
+    /**
+    * Private Default Constructor
+    */
+    delegate() : objPtr(0), func(0) { }
+    
+public:
+
     /**
     * Copy Constructor
     */
-    delegate(const delegate<RT, Arg...>& dg)
+    delegate(const delegate<RT, Arg...>& d)
     {
-		this.objPtr = dg.objPtr;
-		this.func = dg.func;
+		objPtr = d.objPtr;
+		func = d.func;
 	}
 
     /**
@@ -93,6 +94,18 @@ public:
     {
         return (*func)(objPtr, args...);
     }
+    
+	/**
+	* This is also required additional to hash
+	* to store delegate in hashsets/maps
+	* why?
+	*/
+	bool operator==(const delegate<RT, Arg...>& d) const
+	{
+		return objPtr == d.objPtr && func == d.func;
+	}
+	
+	
 };
     
 } //end namespace cul
@@ -104,18 +117,18 @@ namespace std {
 	
 /**
 * Hash function for delegate
+* required for signal class to use delegates in hashsets/maps
 */
 template<typename RT, typename... Arg>
 struct hash<cul::delegate<RT, Arg...> > {
 public:
     size_t operator()(const cul::delegate<RT, Arg...> &dg) const 
     {
-		auto h1 = std::hash<void*>()(dg.func);
-        auto h2 = std::hash<void*>()(dg.objPtr);
+		size_t h1 = std::hash<void*>()(reinterpret_cast<void*>(dg.func));
+        size_t h2 = std::hash<void*>()(reinterpret_cast<void*>(dg.objPtr));
         return h1 ^ ( h2 << 1 );
     }
-};
-
+}; 
 	
 } //end namespace std
 

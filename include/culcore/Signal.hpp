@@ -34,13 +34,13 @@ namespace cul {
 template<typename... Arg>
 class signal
 {
-private:
+private: 
     //delegate type
     typedef delegate<void, Arg...> dg;
     
     //function ptr type
     typedef void (*func)(Arg...);
-    
+ 
     //list with delegate listener
     //TODO right hash function
     std::unordered_set<dg> listener;
@@ -54,7 +54,7 @@ public:
     * connect to object
     */
     template <class T, void (T::*TMethod)(Arg...)>
-    void connect(T* obj)
+    void connect(T* obj )
     {
         auto d = dg::template create<T, TMethod>(obj);
         listener.insert(d);

@@ -26,8 +26,8 @@
 #define __CUL_SIGNAL_HPP__
 
 
-#include <vector>
-#include <culc/Delegate.hpp>
+#include <unordered_set>
+#include <culcore/Delegate.hpp>
 
 namespace cul {
     
@@ -42,9 +42,11 @@ private:
     typedef void (*func)(Arg...);
     
     //list with delegate listener
-    std::vector<dg> listener;
+    //TODO right hash function
+    std::unordered_set<dg> listener;
     
-    std::vector<func> funcs;
+    //list with functions pointers
+    std::unordered_set<func> funcs;
 
 public:
     
@@ -55,16 +57,51 @@ public:
     void connect(T* obj)
     {
         auto d = dg::template create<T, TMethod>(obj);
-        listener.push_back(d);
+        listener.insert(d);
     }
+    
+    /**
+    * connect to a delegate
+    */
+    void connect(dg d)
+    {
+		listener.insert(d);
+	}
     
     /**
     * Connect to simple function
     */
     void connect(func f)
     {
-        funcs.push_back(f);
+        funcs.insert(f);
     }
+    
+    /**
+    * Disconnect class mapping function
+    */
+    template <class T, void (T::*TMethod)(Arg...)>
+    void disconnect(T* obj)
+    {
+		auto d = dg::template create<T, TMethod>(obj);
+		listener.erase(d);
+	}
+	
+	/**
+	* Disconnects a delegate
+	*/
+	void disconnect(dg d)
+	{
+		listener.erase(d);
+	}
+    
+    /**
+    * Disconnect event handling function
+    */
+    void disconnect(func f)
+    {
+		funcs.erase(f);
+	}
+    
     
     /**
     * Fire Event

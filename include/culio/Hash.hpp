@@ -7,31 +7,31 @@
 
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros
-
-// Microsoft Visual Studio
-
 #if defined(_MSC_VER)
+	typedef unsigned char uint8_t;
+	typedef unsigned long uint32_t;
+	typedef unsigned __int64 uint64_t;
+#else
+	#include <stdint.h>
+#endif
 
-typedef unsigned char uint8_t;
-typedef unsigned long uint32_t;
-typedef unsigned __int64 uint64_t;
-
-// Other compilers
-
-#else   // defined(_MSC_VER)
-
-#include <stdint.h>
-
-#endif // !defined(_MSC_VER)
-
-//-----------------------------------------------------------------------------
-
+/**
+* Hashs a key with len and a 32 bit seed to a 32 bit output value
+*/
 void MurmurHash3_x86_32  ( const void * key, int len, uint32_t seed, void * out );
 
+/**
+* Hashs a key with len and a 32 bit seed to a 128 bit value
+* Optimized for x86-32
+*/
 void MurmurHash3_x86_128 ( const void * key, int len, uint32_t seed, void * out );
 
+/**
+* Hashs a key with len and a 32 bit seed to a 128 bit value
+* Optimized for x86-64
+*/
 void MurmurHash3_x64_128 ( const void * key, int len, uint32_t seed, void * out );
 
-//-----------------------------------------------------------------------------
+
 
 #endif // _MURMURHASH3_H_

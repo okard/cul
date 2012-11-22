@@ -30,16 +30,7 @@
 //namespace
 namespace cul {
 
-typedef unsigned char cul_uchar;
-typedef unsigned short cul_ushort;
-typedef unsigned int cul_uint;
-typedef unsigned long cul_ulong;
-
-typedef unsigned char cul_ubyte;
-typedef signed char cul_byte;
-
 //bit specific:
-// cul_ubyte8 ...
 
 typedef unsigned char ubyte8;
 typedef signed char byte8;
@@ -67,6 +58,17 @@ static_assert(sizeof(long64) != 64, "Wrong long size");
 
 static_assert(sizeof(float32) != 32, "Wrong float size");
 static_assert(sizeof(double64) != 64, "Wrong double size");
+
+
+//deprecated:
+
+typedef ubyte8 cul_uchar;
+typedef short16 cul_ushort;
+typedef uint32 cul_uint;
+typedef ulong64 cul_ulong;
+
+typedef ubyte8 cul_ubyte;
+typedef byte8 cul_byte;
 
 
 } //end namespace cul

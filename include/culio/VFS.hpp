@@ -22,63 +22,15 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_TEXTFILE_HPP__
-#define __CUL_TEXTFILE_HPP__
-
-#include <cstdio>
-
-#include <culcore/Types.hpp>
-#include <culio/Utf.hpp>
+#ifndef __CUL_VFS_HPP__
+#define __CUL_VFS_HPP__
 
 namespace cul {
-    
-/**
-* \brief Class to handle text files 
-* UTF capable
-*/
-class TextFile
-{
-    private:
-        enum Encoding encode;
-        FILE* file;
-        
-    public:
-        /**
-        * Ctor
-        */
-        TextFile();
-        
-        /**
-        * Dtor
-        */
-        ~TextFile();
-        
-        /**
-        * Open a file
-        */
-        void open(const char* fileName);
-        
-        /**
-        * Close file
-        */
-        void close();
-        
-        /**
-        * Return encoding of TextFile
-        */
-        Encoding getEncoding();
-        
-        /**
-        * read ascii character
-        */
-        char readAscii();
-        
-        /**
-        * file is open
-        */
-        bool isOpen();
-};
-
+	
+//VFSFolder
+//VFSFile
+	
+	
 } //end namespace cul
 
-#endif // TEXTFILE_HPP
+#endif // __CUL_VFS_HPP__

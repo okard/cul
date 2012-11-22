@@ -64,6 +64,15 @@ public:
     delegate() : objPtr(0), func(0)
     {
     }
+    
+    /**
+    * Copy Constructor
+    */
+    delegate(const delegate<RT, Arg...>& dg)
+    {
+		this.objPtr = dg.objPtr;
+		this.func = dg.func;
+	}
 
     /**
     * Create Delegate
@@ -89,5 +98,27 @@ public:
 } //end namespace cul
 
 // delegate<void, int> d = delegate::create<Foo, &Foo::slot>(&obj);
+
+
+namespace std {
+	
+/**
+* Hash function for delegate
+*/
+template<typename RT, typename... Arg>
+struct hash<cul::delegate<RT, Arg...> > {
+public:
+    size_t operator()(const cul::delegate<RT, Arg...> &dg) const 
+    {
+		auto h1 = std::hash<void*>()(dg.func);
+        auto h2 = std::hash<void*>()(dg.objPtr);
+        return h1 ^ ( h2 << 1 );
+    }
+};
+
+	
+} //end namespace std
+
+
 
 #endif // __CUL_DELEGATE_HPP__

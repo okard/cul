@@ -21,7 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-
+#if 0
 #include <cul/Stack.hpp>
 
 using namespace cul;
@@ -37,3 +37,5 @@ int main()
 
     return 0;
 }
+#endif
+int main(){return 0;}

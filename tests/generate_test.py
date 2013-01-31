@@ -4,7 +4,7 @@ import os
 import os.path
 
 
-f = open('CMakeLists_.txt', 'w')
+f = open('CMakeLists.txt', 'w')
 
 def write_test(f, fname):
 	print(fname)

@@ -27,7 +27,7 @@
 
 
 #include <vector>
-#include <culc/Delegate.hpp>
+#include <culcore/Delegate.hpp>
 
 namespace cul {
     
@@ -43,7 +43,7 @@ private:
     
     //list with delegate listener
     std::vector<dg> listener;
-    
+    //list with function pointers
     std::vector<func> funcs;
 
 public:
@@ -51,11 +51,10 @@ public:
     /**
     * connect to object
     */
-    template <class T, void (T::*TMethod)(Arg...)>
-    void connect(T* obj)
+    template <class T>
+    void connect(T* obj, void (T::*TMethod)(Arg...))
     {
-        auto d = dg::template create<T, TMethod>(obj);
-        listener.push_back(d);
+        listener.push_back(dg(obj, TMethod));
     }
     
     /**

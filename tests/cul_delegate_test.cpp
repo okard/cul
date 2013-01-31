@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 
-#include <culc/Delegate.hpp>
+#include <culcore/Delegate.hpp>
 
 #include <iostream>
 
@@ -48,10 +48,10 @@ int main(void)
 {
     Foo f;
     
-    delegate<void> d2 = delegate<void>::create<Foo, &Foo::slot_e>(&f);
+    delegate<void> d2 = delegate<void>(&f, &Foo::slot_e);
     d2();
     
-    delegate<void, int> d3 = delegate<void, int>::create<Foo, &Foo::slot>(&f);
+    delegate<void, int> d3 = delegate<void, int>(&f, &Foo::slot);
     d3(42);
     
     return 0;

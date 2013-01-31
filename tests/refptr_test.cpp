@@ -21,7 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <culc/RefPtr.hpp>
+#include <culcore/RefPtr.hpp>
 
 #include <cassert>
 #include <iostream>

@@ -22,7 +22,7 @@
     THE SOFTWARE.
 */
 
-#include <culc/Signal.hpp>
+#include <culcore/Signal.hpp>
 
 #include<iostream>
 
@@ -40,7 +40,7 @@ public:
     
     Foo()
     {
-        onEvent.connect<Foo, &Foo::handle>(this);
+        onEvent.connect(this, &Foo::handle);
         onEvent.connect(&basic_handler);
     }
     

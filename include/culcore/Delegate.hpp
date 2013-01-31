@@ -38,52 +38,103 @@ namespace cul {
 template<typename RT, typename... Arg>
 class delegate
 {
-private:
-    /// callfunction
-    typedef RT (*funcCall)(void* object_ptr, Arg...);
-
-    /// points to object 
-    void* objPtr;
-    /// caller function
-    funcCall func;
- 
-    /**
-    * Wrapps object cast for function calling
-    */
-    template <class T, RT (T::*TMethod)(Arg...)>
-    static RT methodStub(void* objPtr, Arg... args)
-    {
-        T* p = static_cast<T*>(objPtr);
-        return (p->*TMethod)(args...); 
-    }
-    
 public:
     /**
-    * Constructor
+    *  Default Constructor
     */
-    delegate() : objPtr(0), func(0)
-    {
+    delegate() 
+        : func_(nullptr)
+    { 
     }
-
+    
     /**
-    * Create Delegate
+    * Copy Constructor
     */
-    template <class T, RT (T::*TMethod)(Arg...)>
-    static delegate create(T* objPtr)
+    delegate(const delegate<RT, Arg...>& d)
     {
-        delegate d;
-        d.objPtr = objPtr;
-        d.func = &methodStub<T, TMethod>;
-        return d;
+		func_ = d.func_;
+        //copy context
+        mem_.obj = d.mem_.obj;
+        mem_.method = d.mem_.method;
+	}
+    
+    /**
+    * Normal Constructor
+    */
+    template <class T>
+    delegate(T* const objPtr, RT (T::*TMethod)(Arg...))
+    {
+        bind<T>(objPtr, TMethod);
+	}
+    
+    /**
+    * Bind (use std::shared_ptr here?)
+    */
+    template <class T>
+    void bind(T* const objPtr , RT (T::*TMethod)(Arg...))
+    {
+        //the context size have to be identical for each type
+        static_assert(sizeof(context<T, decltype(TMethod)>) == sizeof(context_t), "Wrong size");
+            
+        //use the context for this type
+        auto ctx = reinterpret_cast<context<T, decltype(TMethod)>*>(&mem_);
+        ctx->obj = objPtr;
+        ctx->method = TMethod;
+        
+        //the lambda function for specific T
+        func_ = [](const void* pCtx, Arg... args) -> RT {
+            auto ctx = reinterpret_cast<context<T, decltype(TMethod)>*>(const_cast<void*>(pCtx));
+            return ((ctx->obj)->*(ctx->method))(args...); 
+        };  
+    }
+    
+    /**
+    * unbind
+    */
+    void unbind()
+    {
+        func_ = nullptr;
+        mem_.obj = nullptr;
+        mem_.method = nullptr;
     }
 
     /**
     * Call Delegate
     */
-    RT operator()(Arg... args) const
+    inline RT operator()(Arg... args) const
     {
-        return (*func)(objPtr, args...);
+        if(func_ == nullptr)
+            return;
+        return (*func_)(&mem_, args...);
     }
+    
+	/**
+	* This is also required additional to hash
+	* to store delegate in hashsets/maps
+	* why?
+	*/
+	bool operator==(const delegate<RT, Arg...>& d) const
+	{
+		return d.func_ == func_
+            && mem_.obj == d.mem_.obj
+            && mem_.method == d.mem_.method;
+	}
+    
+private:
+    //context structure to save obj and func pointer
+    template<class T, typename Method>
+    struct context
+    {
+        T* obj;
+        Method method;
+    };
+    
+    //dummy mem allocation for context
+    typedef context<delegate<RT, Arg...>, decltype(&delegate<RT, Arg...>::operator())> context_t;
+    context_t mem_;
+    
+    //function pointer for class
+    RT (*func_)(const void*, Arg...);
 };
     
 } //end namespace cul

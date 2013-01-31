@@ -31,7 +31,7 @@ target_link_libraries(console_test_exc culio)
 add_test(console_test ${EXECUTABLE_OUTPUT_PATH}/console_test_exc)
 
 #log test
-add_executable(logging_test_exc logging_test.cpp)
+add_executable(logging_test_exc cul_log_test.cpp)
 target_link_libraries(logging_test_exc cullog)
 add_test(logging_test ${EXECUTABLE_OUTPUT_PATH}/logging_test_exc)
 

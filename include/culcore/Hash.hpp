@@ -22,63 +22,52 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_TEXTFILE_HPP__
-#define __CUL_TEXTFILE_HPP__
+#ifndef __CUL_HASHABLE_HPP__
+#define __CUL_HASHABLE_HPP__
 
-#include <cstdio>
-
-#include <culcore/Types.hpp>
-#include <culio/Utf.hpp>
+#include <functional>
 
 namespace cul {
-    
+	
 /**
-* \brief Class to handle text files 
-* UTF capable
+* Hashable Interface
 */
-class TextFile
+class Hashable
 {
-    private:
-        enum Encoding encode;
-        FILE* file;
-        
-    public:
-        /**
-        * Ctor
-        */
-        TextFile();
-        
-        /**
-        * Dtor
-        */
-        ~TextFile();
-        
-        /**
-        * Open a file
-        */
-        void open(const char* fileName);
-        
-        /**
-        * Close file
-        */
-        void close();
-        
-        /**
-        * Return encoding of TextFile
-        */
-        Encoding getEncoding();
-        
-        /**
-        * read ascii character
-        */
-        char readAscii();
-        
-        /**
-        * file is open
-        */
-        bool isOpen();
+public:
+    virtual std::size_t hash() const = 0;
 };
 
 } //end namespace cul
 
-#endif // TEXTFILE_HPP
+
+namespace std {
+	
+/**
+* Specialication hashing function for Hashable interface
+*/ 
+template<>
+struct hash<cul::Hashable>
+{
+public:
+	size_t operator()(const cul::Hashable& ha) const
+	{
+		return ha.hash();
+	}
+};
+
+
+template<typename T>
+struct hash<T*> 
+{
+public:
+	size_t operator()(const T& obj) const
+	{
+		void* strt = &obj;
+		size_t length = sizeof(T);
+	}
+};
+	
+} //end namespace std
+
+#endif

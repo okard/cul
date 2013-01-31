@@ -21,8 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef UTF_H
-#define UTF_H
+#pragma once
+#ifndef __CUL_UTF_HPP__
+#define __CUL_UTF_HPP__
 
 #include <culcore/Types.hpp>
 #include <culio/Encoding.hpp>
@@ -45,6 +46,8 @@ const cul_ubyte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
 
 
 //types for cul_utf16char cul_utf32char
+typedef short16 char16;
+typedef int32 	char32;
 
 /**
 * checks if the given utf8 byte is an ascii character 
@@ -78,6 +81,18 @@ inline cul_ubyte utf8_startbyte(cul_byte b)
 // utf follow byte 10xx xxxx
 // utf no ascii start 11->2, 111->3, 1111-> 4 
 
+/*
+// constants
+const UTF32 LEAD_OFFSET = 0xD800 - (0x10000 >> 10);
+const UTF32 SURROGATE_OFFSET = 0x10000 - (0xD800 << 10) - 0xDC00;
+
+// computations
+UTF16 lead = LEAD_OFFSET + (codepoint >> 10);
+UTF16 trail = 0xDC00 + (codepoint & 0x3FF);
+
+UTF32 codepoint = (lead << 10) + trail + SURROGATE_OFFSET;
+*/
+
 } //end namespace cul
 
-#endif // UTF_H
+#endif // __CUL_UTF_HPP__

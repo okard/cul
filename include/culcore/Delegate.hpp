@@ -29,7 +29,6 @@
     #error A C++11 compiler is required!
 #endif 
 
-
 namespace cul {
     
 /**
@@ -138,7 +137,5 @@ private:
 };
     
 } //end namespace cul
-
-// delegate<void, int> d = delegate::create<Foo, &Foo::slot>(&obj);
 
 #endif // __CUL_DELEGATE_HPP__

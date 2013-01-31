@@ -1,4 +1,6 @@
 build/
+lib/
+
 doc/doxygen/
 .kdev4/
 *.zip

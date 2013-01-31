@@ -26,25 +26,55 @@
 #define __CUL_SIGNAL_HPP__
 
 
-#include <vector>
+#include <unordered_set>
+//#include <culcore/Hash.hpp>
 #include <culcore/Delegate.hpp>
+
+
+namespace std {
+
+/**
+* Hash function for delegate
+* required for signal class to use delegates in hashsets/maps
+*/
+template<typename RT, typename... Arg>
+struct hash<cul::delegate<RT, Arg...> > {
+public:
+    size_t operator()(const cul::delegate<RT, Arg...>& dg) const
+    {
+		const unsigned char* ptr = reinterpret_cast<const unsigned char*>(&dg);
+		const size_t size = sizeof(cul::delegate<RT, Arg...>);
+		
+		size_t hash = 0;
+		for (int i=0; i<size; i++) 
+		{
+			hash = 5*hash + ptr[i];
+		}
+		return hash;
+    }
+};
+
+} //end namespace std
+
 
 namespace cul {
     
 template<typename... Arg>
 class signal
 {
-private:
+private: 
     //delegate type
     typedef delegate<void, Arg...> dg;
     
     //function ptr type
     typedef void (*func)(Arg...);
-    
+ 
     //list with delegate listener
-    std::vector<dg> listener;
-    //list with function pointers
-    std::vector<func> funcs;
+    //TODO right hash function
+    std::unordered_set<dg> listener;
+    
+    //list with functions pointers
+    std::unordered_set<func> funcs;
 
 public:
     
@@ -52,18 +82,52 @@ public:
     * connect to object
     */
     template <class T>
-    void connect(T* obj, void (T::*TMethod)(Arg...))
+    void connect(T* obj, void (T::*TMethod)(Arg...) )
     {
-        listener.push_back(dg(obj, TMethod));
+        listener.insert(dg(obj, TMethod));
     }
+    
+    /**
+    * connect to a delegate
+    */
+    void connect(dg d)
+    {
+		listener.insert(d);
+	}
     
     /**
     * Connect to simple function
     */
     void connect(func f)
     {
-        funcs.push_back(f);
+        funcs.insert(f);
     }
+    
+    /**
+    * Disconnect class mapping function
+    */
+    template <class T>
+    void disconnect(T* obj, void (T::*TMethod)(Arg...))
+    {
+		listener.erase(dg(obj, TMethod));
+	}
+	
+	/**
+	* Disconnects a delegate
+	*/
+	void disconnect(dg d)
+	{
+		listener.erase(d);
+	}
+    
+    /**
+    * Disconnect event handling function
+    */
+    void disconnect(func f)
+    {
+		funcs.erase(f);
+	}
+    
     
     /**
     * Fire Event

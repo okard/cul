@@ -21,23 +21,21 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef LOG_H
-#define LOG_H
-
+#pragma once
+#ifndef __CUL_LOG_HPP__
+#define __CUL_LOG_HPP__
 
 //CUL Includes
-#include "LogType.hpp"
-#include "LogListener.hpp"
-#include "LogEvent.hpp"
-#include "LogSource.hpp"
-
+#include <cullog/LogType.hpp>
+#include <cullog/LogSource.hpp>
 
 //Basic Log Macro
-#define LOG(x) cul::log::Log::Event() << x << cul::log::LogEvent::End;
+
+#define LOG(x) 
 
 //Debug Log Macro
 #ifdef DEBUG
-    #define DEBUGMSG(x) cul::log::Log::Event() << x << cul::log::LogEvent::End;
+    #define DEBUGMSG(x) 
 #else
     #define DEBUGMSG(x) /*x*/
 #endif
@@ -45,47 +43,31 @@
 
 // Common Namespace
 namespace cul {
-namespace log {
     
 /**
 * Logger
 */
-class Log : public LogSource, public LogListener
+class Log
 {
   private:
     Log();
     Log(const Log& cc);
-
-  public:
     virtual ~Log();
     
+    static LogSource log_;
+  public:
+
     /**
     * Create a new LogSource with given name 
     */
-    static LogSource* Source(const char* name);
+    static LogSource& Source(const char* name);
     
     /**
     * Return the default LogSource
     */
-    static LogSource& Source();
-    
-    /**
-    * Return default log event
-    */
-    static LogEvent& Event();
-    
-    /**
-    * Get Instacne of logging class
-    */
-    static Log& getInstance();
-
-    /**
-    * Implemented Log Listener Interface
-    */
-    virtual void logEvent(const LogSource* src, const LogEvent* event);
+    static inline LogSource& Source() { return log_; }
 };
 
-} //end namespace log
 } //end namespace cul
 
-#endif // LOG_H
+#endif // __CUL_LOG_HPP__

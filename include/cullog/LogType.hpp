@@ -25,7 +25,6 @@
 #define __LOGTYPE_HPP__
 
 namespace cul {
-namespace log {
 
 namespace LogType
 {
@@ -47,7 +46,6 @@ namespace LogType
     const char* toString(LogType type);
 }
 
-} //end namespace log
 } //end namespace log
 
 #endif /* __LOGTYPE_HPP__ */

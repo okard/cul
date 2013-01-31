@@ -21,27 +21,29 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <iostream>
+
 #include <cullog/Log.hpp>
-#include <cullog/ConsoleListener.hpp>
+#include <cullog/LogType.hpp>
 
 using namespace cul;
-using namespace log;
 
 void logging_test_source()
 {
-    LogSource* ls = Log::Source("logging_test_source");
-    ls->Event() << "Test Logging Source" << LogEvent::End;
+    LogSource& ls = Log::Source("logging_test_source");
+    
+    ls.onLog_.connect([] (const LogEvent& le) { 
+		std::cout << le.getLogSource()->getName() << ": ";
+		std::cout << LogType::toString(le.GetType()) << ": ";
+		std::cout << le.c_str() << std::endl;
+	});
+    
+    ls.verbose("Hello %s", "World");
 }
 
 void logging_test_formats()
 {
-    int i = 5;
-    LOG("Integer " << i);
-    LOG("String + " << "String");
-    float f = 2.0f;
-    LOG("Float " << f);
-    double d = 3.0;
-    LOG("Double " << d);
+
 }
 
 
@@ -50,7 +52,6 @@ void logging_test_formats()
 */
 int main(int argc, char *argv[])
 {
-    Log::Source().AddListener(new ConsoleListener());
     LOG("Log test started");
     DEBUGMSG("Debug Message");
     

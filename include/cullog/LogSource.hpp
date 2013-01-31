@@ -26,60 +26,43 @@
 
 #include <vector>
 
+#include <culcore/Signal.hpp>
+
 #include "LogEvent.hpp"
-#include "LogListener.hpp"
 
 // Common Namespace
 namespace cul {
-namespace log {
     
-class LogListener;
-class LogEvent;
-
 /**
 * LogSource 
 */
 class LogSource
 {
-    friend class Log;
-    friend class LogEvent;
+friend class Log;
+friend class LogEvent;
   
-    private:
-        /// Log Source Name
-        const char* sourceName;
-        /// Listener
-        std::vector<LogListener*> listener;
-    
-        ///internal log event?
-        LogEvent* event;
-    private:
-        LogSource();
-        LogSource(const char* name);
-        ~LogSource();
+public:
+	cul::signal<const LogEvent&> onLog_;
+	        
+private:
+	/// Log Source Name
+	//std::string
+	const char* sourceName;
+         
+	LogSource();
+	LogSource(const char* name);
+	~LogSource();
  
-    protected:
-        /**
-        * Internal Log Event Dispatch to Listener
-        */
-        void logEvent(const LogSource* src, const LogEvent* event); 
-    public:
-        /**
-        * Add a log listener to log source
-        */
-        void AddListener(LogListener* listener);
-        
-        /**
-        * Log a Simple Message
-        */
-        void Log(LogType::LogType logType, const char* msg);  
-        
-        /**
-        * Get a Default Event
-        */
-        LogEvent& Event();
+public:
+	void verbose(const char* msg, ...);
+	
+	inline const char* getName() const { return sourceName; }
+	
+private:
+	void log(LogType::LogType type, const char* msg, ...);
+		
 };
 
-} //end namespace log
 } //end namespace cul
 
 #endif /* __LOGSOURCE_HPP__ */

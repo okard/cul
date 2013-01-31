@@ -23,8 +23,9 @@
 */
 #include <cullog/Log.hpp>
 
+#include <map>
+
 using namespace cul;
-using namespace log;
 
 //== LOG ======================================================================
 
@@ -36,6 +37,10 @@ Log::Log()
   
 }
 
+Log::Log(const Log& cc)
+{
+}
+
 /**
 * Destructor
 */
@@ -44,52 +49,21 @@ Log::~Log()
   
 }
 
+
 /**
-* LogListener interface
-* dispatch the event to the internal log source
+* Create a new LogSource with given name 
 */
-void Log::logEvent(const LogSource* src, const LogEvent* event)
+LogSource& Log::Source(const char* name)
 {
-  LogSource::logEvent(src, event);
+	static std::map<const char*, LogSource*> sources;
+	
+	if(sources.count(name))
+	{
+		return *sources[name];
+	}
+	
+	sources[name] = new LogSource(name);
+	return *sources[name];
 }
-
-/**
-* Get Instance
-*/
-Log& Log::getInstance()
-{
-    static Log instance;
-    return instance;
-};
-
-
-/**
-* Creates a new LogSource
-*/
-LogSource* Log::Source(const char* name)
-{
-  LogSource *log = new LogSource(name);
-  
-  //Add Default Listener
-  log->AddListener(&Log::getInstance());
-  
-  return log;
-}
-
-/**
-* Return Default LogSource
-*/
-LogSource& Log::Source()
-{
-    return Log::getInstance();
-}
-
-/**
-* Return default log event 
-*/
-LogEvent& Log::Event()
-{
-    return Source().Event();
-}
-    
+ 
   

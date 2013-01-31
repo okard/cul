@@ -47,8 +47,8 @@ typedef signed long long64;
 typedef float float32;
 typedef double double64;
 
-static_assert(sizeof(ubyte8) != 8, "Wrong byte size");
-static_assert(sizeof(byte8) != 8, "Wrong byte size");
+static_assert(sizeof(ubyte8) != 8, "Wrong ubyte8 size");
+static_assert(sizeof(byte8) != 8, "Wrong byte8 size");
 static_assert(sizeof(ushort16) != 16, "Wrong short size");
 static_assert(sizeof(short16) != 16, "Wrong short size");
 static_assert(sizeof(uint32) != 32, "Wrong int size");

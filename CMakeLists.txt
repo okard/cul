@@ -43,6 +43,9 @@ add_custom_command(TARGET culsys POST_BUILD COMMAND cp ARGS ${CULSYS_LIB_NAME} $
 # Log Module
 file(GLOB_RECURSE CULLOG_SOURCES src/cullog/*.cpp)
 add_library(cullog SHARED ${CULLOG_SOURCES})
+get_target_property(CULLOG_LIB_NAME cullog LOCATION)
+add_custom_command(TARGET cullog POST_BUILD COMMAND cp ARGS ${CULLOG_LIB_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/)
+
 
 if(DEFINED CULTESTS)
   enable_testing()

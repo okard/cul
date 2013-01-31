@@ -21,20 +21,19 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef __LOGEVENT_HPP__
-#define __LOGEVENT_HPP__
+#pragma once
+#ifndef __CUL_LOGEVENT_HPP__
+#define __CUL_LOGEVENT_HPP__
 
 //Cpp Includes
-#include<string>
-#include<sstream>
+#include <vector>
 
-
-#include "LogType.hpp"
-#include "LogSource.hpp"
+//Cul Includes
+#include <culcore/Types.hpp>
+#include <cullog/LogType.hpp>
 
 namespace cul {
-namespace log {
-
+	
 class LogSource;
     
 /**
@@ -42,52 +41,34 @@ class LogSource;
 */
 class LogEvent
 {
-    private:
-        /// string string for formatting
-        std::ostringstream stream;
-        /// log event type
-        LogType::LogType logType;
-        /// LogSource
-        LogSource& logSource;
+friend class LogSource;
+
+private:
+	/// LogSource
+	const LogSource* logSource_;
+	
+	/// log event type
+	LogType::LogType logType_;
+	
+	//date
+	
+	//message buffer
+	std::vector<cul::ubyte8> buffer_;
+	
+	//private ctor
+	LogEvent(const LogSource* logSource_);
+	LogEvent(const LogEvent& le);
+	~LogEvent();
         
-        /**
-        * Log the current message
-        */
-        void log();  
-    public:
-        /**
-        * Log Event Actions
-        */
-        enum LogEventAction { End, Endl }; 
+public:
+	inline LogType::LogType GetType() const { return logType_; }
+	
+	inline const LogSource* getLogSource() const { return logSource_; }
+	
+	const char* c_str() const { return reinterpret_cast<const char*>(&buffer_[0]); }
         
-        LogEvent(LogSource&);
-        LogEvent(LogSource&, LogType::LogType); 
-        LogEvent();
-        LogEvent(LogType::LogType);
-        ~LogEvent();
-        
-        std::ostringstream& GetStream();
-        LogType::LogType GetType() const;
-        LogSource& GetLogSource() const;
-        
-        LogEvent& operator<< (bool& val );
-        LogEvent& operator<< (short& val );
-        LogEvent& operator<< (unsigned short& val );
-        LogEvent& operator<< (int& val );
-        LogEvent& operator<< (unsigned int& val );
-        LogEvent& operator<< (long& val );
-        LogEvent& operator<< (unsigned long& val );
-        LogEvent& operator<< (float& val );
-        LogEvent& operator<< (double& val );
-        LogEvent& operator<< (long double& val );
-        LogEvent& operator<< (const void* val );
-        LogEvent& operator<< (std::string& val); 
-        LogEvent& operator<< (const char* val); 
-        LogEvent& operator<< (LogType::LogType);
-        LogEvent& operator<< (LogEventAction);
 };   
 
-} //end namespace log
 } //end namespace cul
     
 #endif /* __LOGEVENT_HPP__ */

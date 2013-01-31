@@ -24,12 +24,11 @@
 #include <cullog/LogType.hpp>
 
 using namespace cul;
-using namespace log;
 using namespace LogType;
 
 //== LOGTYPE ==================================================================
 
-const char* cul::log::LogType::toString(cul::log::LogType::LogType type)
+const char* cul::LogType::toString(cul::LogType::LogType type)
 {
     switch(type)
     {

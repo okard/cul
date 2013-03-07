@@ -79,5 +79,15 @@ ConsoleStream& ConsoleStream::getSingleton()
 	}	
 	buffer[len] = '\0';
 	va_end(argument_list);
+	
+	
+	generic:
+	void func(const char *format, va_list arg);
+	
+	call:
+	va_list args;
+    va_start(args, fmt);
+    func(format, args);
+    va_end(args);
 */
 

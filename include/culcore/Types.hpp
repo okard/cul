@@ -60,15 +60,7 @@ static_assert(sizeof(float32) != 32, "Wrong float size");
 static_assert(sizeof(double64) != 64, "Wrong double size");
 
 
-//deprecated:
-
-typedef ubyte8 cul_uchar;
-typedef short16 cul_ushort;
-typedef uint32 cul_uint;
-typedef ulong64 cul_ulong;
-
-typedef ubyte8 cul_ubyte;
-typedef byte8 cul_byte;
+typedef void* ptr;
 
 
 } //end namespace cul

@@ -38,29 +38,31 @@ UTF-32 Big Endian       00 00 FE FF
 UTF-32 Little Endian    FF FE 00 00
 */
 
-const cul_ubyte UTF8_BOM[] = {0xEF, 0xBB, 0xBF};
-const cul_ubyte UTF16BE_BOM[] = {0xFE, 0xFF};
-const cul_ubyte UTF16LE_BOM[] = {0xFF, 0xFE};
-const cul_ubyte UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
-const cul_ubyte UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
+const ubyte8 UTF8_BOM[] = {0xEF, 0xBB, 0xBF};
+const ubyte8 UTF16BE_BOM[] = {0xFE, 0xFF};
+const ubyte8 UTF16LE_BOM[] = {0xFF, 0xFE};
+const ubyte8 UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
+const ubyte8 UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
 
 
-//types for cul_utf16char cul_utf32char
+//utf16 char
 typedef short16 char16;
+//utf32 char
 typedef int32 	char32;
 
 /**
 * checks if the given utf8 byte is an ascii character 
 */
-inline bool utf8_isascii(cul_byte b)
+inline bool utf8_isascii(byte8 b)
 {
+	//00-7F
     return ((b & 0x80) == 0x00);
 };
 
 /**
 * checks if the given byte is an utf extend character 10xxxxxx
 */
-inline bool utf8_isutf(cul_byte b)
+inline bool utf8_isutf(byte8 b)
 {
     return ((b & 0xC0) == 0x80);
 };
@@ -73,9 +75,26 @@ inline bool utf8_isutf(cul_byte b)
 * 111xxxxx = 3
 * 1111xxxx = 4
 */
-inline cul_ubyte utf8_startbyte(cul_byte b)
+inline byte8 utf8_char_info(byte8 b)
 {
-    return ((b & 0xC0) == 0xC0) ? 2 : ((b & 0xE0) == 0xE0) ? 3 : ((b & 0xF0) == 0xF0) ? 4 : 1;
+	//utf8 - ascii char
+	if(b >= 0x00 && b <= 0x7F)
+		return 1;
+	//utf8 - 2 byte char
+	if(b >= 0xC2 && b <= 0xDF)
+		return 2;
+	//utf8 - 3 byte char
+	if(b >= 0xE0 && b <= 0xEF)
+		return 3;
+	//utf8 - 4 byte char
+	if(b >= 0xF0 && b <= 0xF4)
+		return 4;
+	// it is follow byte
+	if(b >= 0x80 && b <= 0xBF)
+		return 0;
+	
+	//invalid char
+	return -1;
 }
 
 // utf follow byte 10xx xxxx

@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2013  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -22,54 +22,14 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_STACK_HPP__
-#define __CUL_STACK_HPP__
+#ifndef __CUL_TEST_HPP__
+#define __CUL_TEST_HPP__
 
-#include <culc/Exception.hpp>
+#include <culcore/Exception.hpp>
 
-namespace cul {
-    
-/**
-* Stack Container
-*/
-template<typename T>
-class Stack
-{
-private:
-    /// Array
-    T* arr;
-    
-    /// Size
-    unsigned int size;
-    
-    /// Current Position
-    unsigned int pos;
-    
-public:
-    /**
-    * Create new stack with given size
-    */
-    Stack(unsigned int size = 256);
-    /**
-    * Destructs a stack
-    */
-    ~Stack();
-    
-    /**
-    * Push a element on stack
-    */
-    void push(T elem);
-    
-    /**
-    * Pops a element from stack
-    */
-    T pop();
-};
+#define CUL_ASSERT(cond, msg) if(!cond){ throw cul::Exception(msg); }
 
-//Implementation
-#include "Stack.inl"
+#define CUL_TEST(name) try{name();}\
+					   catch(cul::Exception exc){}
 
-
-} //end namespace cul
-
-#endif /* __CUL_STACK_HPP__ */
+#endif

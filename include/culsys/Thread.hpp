@@ -61,6 +61,7 @@ private:
 	//PIMPL Pattern
 	class ThreadImpl;
 	ThreadImpl* const impl_;
+	//unique_ptr<ThreadImpl> impl_;
 	
 	//Thread Wrapper
 	IThread* const threadWrapper_;

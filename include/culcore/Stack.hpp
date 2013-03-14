@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2011  okard
+    Copyright (c) 2010  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,68 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "cul_test.hpp"
-#include <culcore/Stack.hpp>
+#pragma once
+#ifndef __CUL_STACK_HPP__
+#define __CUL_STACK_HPP__
 
-using namespace cul;
+#include <culcore/Types.hpp>
+#include <culcore/Exception.hpp>
 
-
-int main()
-{
-    Stack<int, 10> stack;
+namespace cul {
     
-    stack.push(1);
-    CUL_ASSERT(stack[0] == 1, "Fail")
-    stack.push(2);
-    stack.pop();
+/**
+* Stack Container
+*/
+template<typename T, size_t N>
+class Stack
+{
+private:
+    /// Array
+    T arr_[N];
+    
+    /// Current Position
+    unsigned int pos_;
+    
+public:
+    /**
+    * Create new stack with given size
+    */
+    Stack();
+    /**
+    * Destructs a stack
+    */
+    ~Stack();
+    
+    /**
+    * Push a element on stack
+    */
+    void push(T elem);
+    
+    /**
+    * Pops a element from stack
+    */
+    T pop();
+    
+    /**
+    * Get Element at position
+    */
+    const T& operator[] (size_t idx) const;
 
-    return 0;
-}
+	/**
+	* Get actual stack position
+	*/
+	inline const unsigned int& pos() const { return pos_; }
+    
+    /**
+    * Get Stack size
+    */ 
+    inline const size_t& size() const { return N; }
+};
 
-//int main(){return 0;}
+//Implementation
+#include "Stack.inl"
+
+
+} //end namespace cul
+
+#endif /* __CUL_STACK_HPP__ */

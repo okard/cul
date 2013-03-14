@@ -26,6 +26,7 @@
 #define __CUL_TYPES_HPP__
 
 #include <cstdlib>
+#include <cstddef>
 
 //namespace
 namespace cul {
@@ -60,7 +61,7 @@ static_assert(sizeof(float32) != 32, "Wrong float size");
 static_assert(sizeof(double64) != 64, "Wrong double size");
 
 
-typedef void* ptr;
+typedef std::size_t size_t;
 
 
 } //end namespace cul

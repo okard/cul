@@ -63,8 +63,15 @@ struct hash<T*>
 public:
 	size_t operator()(const T& obj) const
 	{
-		void* strt = &obj;
-		size_t length = sizeof(T);
+		void* ptr = &obj;
+		const size_t length = sizeof(T);
+		
+		size_t hash = 0;
+		for (int i=0; i<length; i++) 
+		{
+			hash = 5*hash + ptr[i];
+		}
+		return hash;
 	}
 };
 	

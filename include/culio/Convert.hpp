@@ -29,9 +29,6 @@
 
 namespace cul {
 
-//NOTICE C++ has no reasonable support for specialized function templates so seperate in namespaces here   
-     
-
 /// To String Convert Functions
 namespace Str{
     /**

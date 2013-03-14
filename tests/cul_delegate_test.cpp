@@ -44,6 +44,12 @@ public:
     
 };
 
+void func_slot(int i)
+{
+	std::cout << "Getting " << i << " by function ptr" << std::endl;
+}
+
+
 int main(void)
 {
     Foo f;
@@ -53,6 +59,12 @@ int main(void)
     
     delegate<void, int> d3 = delegate<void, int>(&f, &Foo::slot);
     d3(42);
+    
+    d3.bind(&func_slot);
+    d3(23);
+    
+    d3.bind(&f, &Foo::slot);
+    d3(21);
     
     return 0;
 }

@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2013  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -22,64 +22,43 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_TEXTFILE_HPP__
-#define __CUL_TEXTFILE_HPP__
+#ifndef __CUL_FILESTREAM_HPP__
+#define __CUL_FILESTREAM_HPP__
 
 #include <cstdio>
 
-#include <culcore/Types.hpp>
-#include <culio/FileStream.hpp>
-#include <culio/Utf.hpp>
+#include <culio/Stream.hpp>
+
+
 
 namespace cul {
-    
+
 /**
-* \brief Class to handle text files 
-* UTF capable
+* File InputStream
 */
-class TextFile : public FileStream
+class FileInputStream : InputStream
 {
-    private:
-        enum Encoding encode;
-        FILE* file;
-        
-    public:
-        /**
-        * Ctor
-        */
-        TextFile();
-        
-        /**
-        * Dtor
-        */
-        ~TextFile();
-        
-        /**
-        * Open a file
-        */
-        void open(const char* fileName);
-        
-        /**
-        * Close file
-        */
-        void close();
-        
-        /**
-        * Return encoding of TextFile
-        */
-        Encoding getEncoding();
-        
-        /**
-        * read ascii character
-        */
-        char readAscii();
-        
-        /**
-        * file is open
-        */
-        bool isOpen();
+	FILE* file_;
 };
 
+/**
+* File OutputStream
+*/ 
+class FileOutputStream : OutputStream
+{
+	FILE* file_;
+};
+
+/**
+* File Stream combines in and output
+*/
+class FileStream : FileInputStream, FileOutputStream
+{
+	
+};
+	
+	
 } //end namespace cul
 
-#endif // TEXTFILE_HPP
+
+#endif

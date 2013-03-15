@@ -22,14 +22,14 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __LOGSOURCE_HPP__
-#define __LOGSOURCE_HPP__
+#ifndef __CUL_LOGSOURCE_HPP__
+#define __CUL_LOGSOURCE_HPP__
 
+#include <cstdarg>
 #include <vector>
 
 #include <culcore/Signal.hpp>
-
-#include "LogEvent.hpp"
+#include <cullog/LogMessage.hpp>
 
 // Common Namespace
 namespace cul {
@@ -40,10 +40,9 @@ namespace cul {
 class LogSource
 {
 friend class Log;
-friend class LogEvent;
   
 public:
-	cul::signal<const LogEvent&> onLog_;
+	cul::signal<const LogMessage&> onLog_;
 	        
 private:
 	/// Log Source Name
@@ -56,11 +55,19 @@ private:
  
 public:
 	void verbose(const char* msg, ...);
+	void info(const char* msg, ...);
+	void warn(const char* msg, ...);
+    void error(const char* msg, ...);
+    void fatal(const char* msg, ...);
 	
 	inline const char* getName() const { return sourceName; }
 	
 private:
-	void log(LogType::LogType type, const char* msg, ...);
+	//use a stack buffer
+	void log(LogType type, size_t buf_size, const char* msg, va_list args);
+	
+	//seperater buffer
+	//void log(logType, const char* msg, vp_start start)
 		
 };
 

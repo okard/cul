@@ -32,9 +32,9 @@ void logging_test_source()
 {
     LogSource& ls = Log::Source("logging_test_source");
     
-    ls.onLog_.connect([] (const LogEvent& le) { 
+    ls.onLog_.connect([] (const LogMessage& le) { 
 		std::cout << le.getLogSource()->getName() << ": ";
-		std::cout << LogType::toString(le.GetType()) << ": ";
+		std::cout << toString(le.getType()) << ": ";
 		std::cout << le.c_str() << std::endl;
 	});
     

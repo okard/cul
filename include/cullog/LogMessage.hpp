@@ -22,11 +22,8 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_LOGEVENT_HPP__
-#define __CUL_LOGEVENT_HPP__
-
-//Cpp Includes
-#include <vector>
+#ifndef __CUL_LOGMESSAGE_HPP__
+#define __CUL_LOGMESSAGE_HPP__
 
 //Cul Includes
 #include <culcore/Types.hpp>
@@ -37,38 +34,42 @@ namespace cul {
 class LogSource;
     
 /**
-* Represents a Log Event
+* Represents a Log Message
 */
-class LogEvent
+class LogMessage
 {
-friend class LogSource;
+	friend class LogSource;
 
 private:
-	/// LogSource
+	/// LogSource (ptr because of circular imports)
 	const LogSource* logSource_;
 	
 	/// log event type
-	LogType::LogType logType_;
+	LogType logType_;
 	
-	//date
+	//TODO date/timestamp
 	
 	//message buffer
-	std::vector<cul::ubyte8> buffer_;
+	ubyte8* buf_;
+	size_t len_;
 	
 	//private ctor
-	LogEvent(const LogSource* logSource_);
-	LogEvent(const LogEvent& le);
-	~LogEvent();
+	LogMessage(const LogSource* logSource_);
+	
+	
+	LogMessage(const LogMessage& le);
+	~LogMessage();
         
 public:
-	inline LogType::LogType GetType() const { return logType_; }
+	inline LogType getType() const { return logType_; }
 	
 	inline const LogSource* getLogSource() const { return logSource_; }
 	
-	const char* c_str() const { return reinterpret_cast<const char*>(&buffer_[0]); }
+	inline const char* c_str() const { return reinterpret_cast<const char*>(buf_); }
+	inline const size_t len() const { return len_; }
         
 };   
 
 } //end namespace cul
     
-#endif /* __LOGEVENT_HPP__ */
+#endif /* __CUL_LOGMESSAGE_HPP__ */

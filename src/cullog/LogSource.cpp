@@ -54,25 +54,62 @@ LogSource::~LogSource()
 {
 }
 
-
 void LogSource::verbose(const char* msg, ...)
 {
-	LogEvent le(this);
-	
-	le.logType_ = LogType::Verbose;
-	le.buffer_.resize(1024);
-	
-	//but into buffer
 	va_list argument_list;
 	va_start(argument_list, msg);
-	int len = vsnprintf(reinterpret_cast<char*>(&le.buffer_[0]), le.buffer_.size() - 2, msg, argument_list);  
-
-	if(len < 0 || len > le.buffer_.size() - 2)  
-	{
-		len = le.buffer_.size() - 2;
-	}
-	le.buffer_[len] = '\0';
+	log(LogType::Verbose, 1024, msg, argument_list);
 	va_end(argument_list);
+}
+
+void LogSource::info(const char* msg, ...)
+{
+	va_list argument_list;
+	va_start(argument_list, msg);
+	log(LogType::Information, 1024, msg, argument_list);
+	va_end(argument_list);
+}
+
+void LogSource::warn(const char* msg, ...)
+{
+	va_list argument_list;
+	va_start(argument_list, msg);
+	log(LogType::Warning, 1024, msg, argument_list);
+	va_end(argument_list);
+}
+
+void LogSource::error(const char* msg, ...)
+{
+	va_list argument_list;
+	va_start(argument_list, msg);
+	log(LogType::Error, 1024, msg, argument_list);
+	va_end(argument_list);
+}
+
+void LogSource::fatal(const char* msg, ...)
+{
+	va_list argument_list;
+	va_start(argument_list, msg);
+	log(LogType::Fatal, 1024, msg, argument_list);
+	va_end(argument_list);
+}
+
+void LogSource::log(LogType type, size_t buf_size, const char* msg, va_list args)
+{
+	//format message
+	ubyte8 buf[buf_size];
 	
+	int len = vsnprintf(reinterpret_cast<char*>(buf), buf_size - 2, msg, args);  
+	if(len < 0 || len > buf_size - 2)  
+	{
+		len = buf_size - 2;
+	}
+	buf[len] = '\0';
+	
+	//handle log message
+	LogMessage le(this);
+	le.buf_ = buf;
+	le.logType_ = type;
+	le.len_ = len;
 	onLog_(le);
 }

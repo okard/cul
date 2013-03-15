@@ -21,7 +21,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cullog/LogEvent.hpp>
+#include <cullog/LogMessage.hpp>
 
 #include <cullog/Log.hpp>
 #include <cullog/LogSource.hpp>
@@ -30,17 +30,17 @@
 using namespace cul;
 
 
-LogEvent::LogEvent(const LogSource* logSource)
+LogMessage::LogMessage(const LogSource* logSource)
 	: logSource_(logSource)
 {
 
 }
 
-LogEvent::LogEvent(const LogEvent& le)
+LogMessage::LogMessage(const LogMessage& le)
 {
 }
 
-LogEvent::~LogEvent()
+LogMessage::~LogMessage()
 {
 }
 

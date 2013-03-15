@@ -5,4 +5,5 @@ doc/doxygen/
 .kdev4/
 *.zip
 *.7z
+*.bak
 

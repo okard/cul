@@ -22,31 +22,27 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __LOGTYPE_HPP__
-#define __LOGTYPE_HPP__
+#ifndef __CUL_LOGTYPE_HPP__
+#define __CUL_LOGTYPE_HPP__
 
 namespace cul {
-
-namespace LogType
-{
-    /**
-    * Logging Types
-    */
-    enum LogType
-    {
-    Verbose,
+	
+/**
+* Log Types
+*/
+enum class LogType {
+	Verbose,
     Information,
     Warning,
     Error,
     Fatal
-    };
-    
-    /**
-    * Convert a LogType to String
-    */
-    const char* toString(LogType type);
-}
+}; 
+	
+/**
+* Convert a LogType to String
+*/
+const char* toString(LogType type);
 
-} //end namespace log
+} //end namespace cul
 
 #endif /* __LOGTYPE_HPP__ */

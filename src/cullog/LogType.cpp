@@ -24,19 +24,18 @@
 #include <cullog/LogType.hpp>
 
 using namespace cul;
-using namespace LogType;
 
 //== LOGTYPE ==================================================================
 
-const char* cul::LogType::toString(cul::LogType::LogType type)
+const char* cul::toString(LogType type)
 {
     switch(type)
     {
-        case Information: return "Information";
-        case Verbose: return "Verbose";
-        case Warning: return "Warning";
-        case Error: return "Error";
-        case Fatal: return "Fatal";
+        case LogType::Information: return "Information";
+        case LogType::Verbose: return "Verbose";
+        case LogType::Warning: return "Warning";
+        case LogType::Error: return "Error";
+        case LogType::Fatal: return "Fatal";
         default: return "";
     };
 }

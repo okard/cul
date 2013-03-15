@@ -87,6 +87,12 @@ public:
         listener.insert(dg(obj, TMethod));
     }
     
+    void connect(const signal<Arg...>& sig)
+    {
+		auto objptr = const_cast<signal<Arg...>*>(&sig);
+		connect<signal<Arg...>>(objptr, &signal<Arg...>::call);
+	}
+    
     /**
     * connect to a delegate
     */
@@ -128,7 +134,6 @@ public:
 		funcs.erase(f);
 	}
     
-    
     /**
     * Fire Event
     */
@@ -145,6 +150,11 @@ public:
         }
     }
     
+private:
+	inline void call(Arg... args)
+	{
+		operator()(args...);
+	}
 };
 
     

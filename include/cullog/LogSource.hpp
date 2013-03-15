@@ -42,7 +42,7 @@ class LogSource
 friend class Log;
   
 public:
-	cul::signal<const LogMessage&> onLog_;
+	cul::signal<const LogMessage&> onLog;
 	        
 private:
 	/// Log Source Name

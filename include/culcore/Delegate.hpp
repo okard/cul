@@ -87,6 +87,12 @@ public:
         };  
     }
     
+    void bind(const delegate<RT, Arg...>& obj)
+    {
+		auto objptr = const_cast<delegate<RT, Arg...>*>(&obj);
+		bind<delegate<RT, Arg...>>(objptr, &delegate<RT, Arg...>::call);
+	} 
+    
     /**
     * Bind a direct function pointer 
     */
@@ -157,6 +163,12 @@ private:
     
     //function pointer for class
     RT (*func_)(const void*, Arg...);
+    
+    
+    inline RT call(Arg... args)
+    {
+		operator ()(args...);
+	}
 };
     
 } //end namespace cul

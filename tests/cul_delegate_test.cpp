@@ -66,5 +66,11 @@ int main(void)
     d3.bind(&f, &Foo::slot);
     d3(21);
     
+    //test delegate chaining 
+    delegate<void> d4;
+    d4.bind(d2);
+    d4();
+    
+    
     return 0;
 }

@@ -53,7 +53,7 @@ Log::~Log()
 /**
 * Create a new LogSource with given name 
 */
-LogSource& Log::Source(const char* name)
+LogSource& Log::Source(const char* name, bool reg)
 {
 	static std::map<const char*, LogSource*> sources;
 	
@@ -63,7 +63,20 @@ LogSource& Log::Source(const char* name)
 	}
 	
 	sources[name] = new LogSource(name);
+	
+	//register callback to root event
+	if(reg)
+		sources[name]->onLog.connect(Log::Source().onLog);
+	
 	return *sources[name];
 }
  
-  
+  /**
+* Return the default LogSource
+*/
+LogSource& Log::Source()
+{
+	static LogSource log(nullptr);
+	return log;
+}
+

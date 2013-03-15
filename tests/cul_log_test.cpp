@@ -28,15 +28,22 @@
 
 using namespace cul;
 
+
+
+void base_logger(const LogMessage& le)
+{
+	if(le.getLogSource()->getName() != nullptr)
+		std::cout << le.getLogSource()->getName() << ": ";
+	std::cout << toString(le.getType()) << ": ";
+	std::cout << le.c_str() << std::endl;
+}
+
+
 void logging_test_source()
 {
     LogSource& ls = Log::Source("logging_test_source");
     
-    ls.onLog_.connect([] (const LogMessage& le) { 
-		std::cout << le.getLogSource()->getName() << ": ";
-		std::cout << toString(le.getType()) << ": ";
-		std::cout << le.c_str() << std::endl;
-	});
+    ls.onLog.connect(base_logger);
     
     ls.verbose("Hello %s", "World");
 }
@@ -52,6 +59,7 @@ void logging_test_formats()
 */
 int main(int argc, char *argv[])
 {
+	Log::Source().onLog.connect(base_logger);
     LOG("Log test started");
     DEBUGMSG("Debug Message");
     

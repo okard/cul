@@ -31,11 +31,11 @@
 
 //Basic Log Macro
 
-#define LOG(x) 
+#define LOG(x) cul::Log::Source().info("File: %s Line: %d Message: %s", __FILE__, __LINE__, #x);
 
 //Debug Log Macro
 #ifdef DEBUG
-    #define DEBUGMSG(x) 
+    #define DEBUGMSG(x) cul::Log::Source().verbose("File: %s Line: %d Message: %s", __FILE__, __LINE__, #x);
 #else
     #define DEBUGMSG(x) /*x*/
 #endif
@@ -53,19 +53,18 @@ class Log
     Log();
     Log(const Log& cc);
     virtual ~Log();
-    
-    static LogSource log_;
   public:
 
     /**
-    * Create a new LogSource with given name 
+    * Create a new LogSource with given name
+    * reg: register callback of root log source handler 
     */
-    static LogSource& Source(const char* name);
+    static LogSource& Source(const char* name, bool reg = true);
     
     /**
     * Return the default LogSource
     */
-    static inline LogSource& Source() { return log_; }
+    static LogSource& Source();
 };
 
 } //end namespace cul

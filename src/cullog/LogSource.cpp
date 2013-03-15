@@ -111,5 +111,5 @@ void LogSource::log(LogType type, size_t buf_size, const char* msg, va_list args
 	le.buf_ = buf;
 	le.logType_ = type;
 	le.len_ = len;
-	onLog_(le);
+	onLog(le);
 }

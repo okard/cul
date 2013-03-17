@@ -42,7 +42,7 @@ namespace cul
 /**
 * Constructor
 */
-string::string() : str(0), length(0), alloc(512), encoding(ASCII)
+string::string() : str(0), length(0), alloc(512), encoding(Encoding::ASCII)
 {
     str = static_cast<char*>(malloc(alloc));
     str[0] = '\0';
@@ -79,7 +79,7 @@ string::string(const char* pstr)
 /**
 * Constructor
 */
-string::string(size_t memSize) : alloc(memSize), length(0), encoding(ASCII), str(0)
+string::string(size_t memSize) : alloc(memSize), length(0), encoding(Encoding::ASCII), str(0)
 {
     str = static_cast<char*>(malloc(alloc));
     str[0] = '\0';

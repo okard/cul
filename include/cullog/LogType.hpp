@@ -30,7 +30,8 @@ namespace cul {
 /**
 * Log Types
 */
-enum class LogType {
+enum class LogType : unsigned char 
+{
 	Verbose,
     Information,
     Warning,

@@ -26,6 +26,7 @@ THE SOFTWARE.
 #define __CUL_BUFFER_HPP__
 
 #include <culcore/Platform.hpp>
+#include <culcore/Types.hpp>
 
 namespace cul {
 
@@ -34,6 +35,13 @@ namespace cul {
 */	
 class CUL_EXPORT Buffer
 {
+private:
+	//pointer to allocated memory
+	ubyte8* buf_;
+	size_t pos_;
+	size_t mem_;
+	
+public:
 	
 	
 };

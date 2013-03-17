@@ -30,7 +30,7 @@ namespace cul {
 /**
 * Encoding Types
 */
-enum Encoding
+enum class Encoding : unsigned char
 {
     ///ASCII Encoding
     ASCII, 

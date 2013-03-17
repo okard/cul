@@ -35,7 +35,7 @@ using namespace cul;
 /**
 * Ctor
 */
-TextFile::TextFile() : file(nullptr), encode(ASCII)
+TextFile::TextFile() : file(nullptr), encode(Encoding::ASCII)
 {
 
 }
@@ -70,19 +70,19 @@ void TextFile::open(const char* fileName)
     //check for encoding
     
     if(t >= 3 && memcmp(&bom, &UTF8_BOM, 2))
-    {   encode = UTF8; return; }
+    {   encode = Encoding::UTF8; return; }
     
     if(t >= 2 && memcmp(&bom, &UTF16BE_BOM, 2))
-    {   encode = UTF16BE; return; }
+    {   encode = Encoding::UTF16BE; return; }
     
     if(t >= 2 && memcmp(&bom, &UTF16LE_BOM, 2))
-    {   encode = UTF16LE; return; }
+    {   encode = Encoding::UTF16LE; return; }
     
     if(t >= 4 && memcmp(&bom, &UTF32BE_BOM, 4))
-    {   encode = UTF32BE; return; }
+    {   encode = Encoding::UTF32BE; return; }
     
     if(t >= 4 && memcmp(&bom, &UTF32LE_BOM, 4))
-    {   encode = UTF32LE; return; }   
+    {   encode = Encoding::UTF32LE; return; }   
     
     
     //if it is ascii, reset position
@@ -121,7 +121,7 @@ char TextFile::readAscii()
 {
     char c = fgetc(file);
     
-    if(encode ==  UTF8 && utf8_isascii(c))
+    if(encode == Encoding::UTF8 && utf8_isascii(c))
         return c;
     
     return c;

@@ -33,7 +33,7 @@ namespace cul {
 /**
 * Generic Memory Buffer
 */	
-class CUL_EXPORT Buffer
+class CUL_EXPORT Buffer   // : public Array<ubyte8>
 {
 private:
 	//pointer to allocated memory
@@ -43,6 +43,11 @@ private:
 	
 public:
 	
+	
+	//get offset
+	//get size
+	//grow
+	//shrink
 	
 };
 

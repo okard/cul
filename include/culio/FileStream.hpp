@@ -39,6 +39,8 @@ namespace cul {
 class FileInputStream : InputStream
 {
 	FILE* file_;
+	
+	//protected FileInputStream(FILE* file)
 };
 
 /**

@@ -22,27 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_STREAM_HPP__
-#define __CUL_STREAM_HPP__
+#ifndef __CUL_MEMORYSTREAM_HPP__
+#define __CUL_MEMORYSTREAM_HPP__
+
+#include <culio/Stream.hpp>
+#include <culio/Buffer.hpp>
 
 namespace cul {
-
+	
 /**
-* Input Stream
+* Memory Stream
 */
-class InputStream
+class MemoryStream : public Buffer, OutputStream, InputStream
 {
-	//read
-};
-
-/**
-* Output Stream
-*/
-class OutputStream 
-{
-	//write
+	
 };
 
 } //end namespace cul
 
-#endif // __CUL_STREAM_HPP__
+
+#endif // __CUL_MEMORYSTREAM_HPP__

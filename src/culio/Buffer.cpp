@@ -24,3 +24,5 @@ THE SOFTWARE.
 #include <culio/Buffer.hpp>
 
 using namespace cul;
+
+template class Buffer<ubyte8>;

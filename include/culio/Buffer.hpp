@@ -25,25 +25,42 @@ THE SOFTWARE.
 #ifndef __CUL_BUFFER_HPP__
 #define __CUL_BUFFER_HPP__
 
+#include <cstring>
+
 #include <culcore/Platform.hpp>
 #include <culcore/Types.hpp>
+#include <culcore/Array.hpp>
 
 namespace cul {
 
 /**
 * Generic Memory Buffer
 */	
-class CUL_EXPORT Buffer   // : public Array<ubyte8>
+template<typename T>
+class Buffer : public Array<T>
 {
 private:
-	//pointer to allocated memory
-	ubyte8* buf_;
 	size_t pos_;
-	size_t mem_;
 	
 public:
+	Buffer(size_t size) 
+		: Array<T>(size)
+	{
+		
+	}
 	
 	
+	
+	
+	void resize(size_t elements)
+	{
+		
+		auto nptr = new T[elements];
+		memcpy(nptr, Array<T>::mem_, Array<T>::size_ * sizeof(T));
+		//pos_ = Array<T>::size_;
+		delete nptr; 
+	}
+
 	//get offset
 	//get size
 	//grow
@@ -51,6 +68,11 @@ public:
 	
 };
 
+
+extern template class Buffer<ubyte8>;
+typedef Buffer<ubyte8> ByteBuffer;
+
+//class ByteBuffer : public Buffer<ubyte8> {};
 
 } //end namespace cul
 

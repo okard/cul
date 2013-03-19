@@ -27,13 +27,15 @@
 
 #include <cstdio>
 
+#include <culio/Stream.hpp>
+
 namespace cul {
     
 /**
 * File Class
 * Wraps C FILE* 
 */
-class File
+class File //: public IOStream, InputStream, OutputStream
 {
     private:
         /// C File Handle

@@ -22,45 +22,50 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_FILESTREAM_HPP__
-#define __CUL_FILESTREAM_HPP__
+#ifndef __CUL_ARRAY_HPP__
+#define __CUL_ARRAY_HPP__
 
-#include <cstdio>
-
-#include <culio/Stream.hpp>
-
-
+#include <culcore/Types.hpp>
 
 namespace cul {
-
+	
 /**
-* File InputStream
+* General Array class
 */
-class FileInputStream : InputStream
+template<typename T>
+class Array
 {
-	FILE* file_;
+protected:
+	T* mem_;
+	size_t size_;
 	
-	//protected FileInputStream(FILE* file)
-};
+public:
 
-/**
-* File OutputStream
-*/ 
-class FileOutputStream : OutputStream
-{
-	FILE* file_;
-};
-
-/**
-* File Stream combines in and output
-*/
-class FileStream : public IOStream, FileInputStream, FileOutputStream
-{
+	Array(size_t size)
+	  :	mem_(new T[size]), size_(size)
+	{
+		
+	}
+	
+	virtual ~Array()
+	{
+		size_ = 0;
+		delete[] mem_;
+	}
+	
+	//index operator
+	inline T operator[] (size_t idx) { return mem_[idx]; }
+	inline const T operator[] (size_t idx) const { return mem_[idx]; }
+	
+	//ptr to data
+	inline T* ptr() { return mem_; }
+	inline const T* const ptr() const { return mem_; }
+	
+	//size of array
+	inline size_t size() const { return size_; }
 	
 };
-	
 	
 } //end namespace cul
-
 
 #endif

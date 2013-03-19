@@ -33,7 +33,7 @@ namespace cul {
 /**
 * Memory Stream
 */
-class MemoryStream : public Buffer, OutputStream, InputStream
+class MemoryStream : public ByteBuffer, OutputStream, InputStream
 {
 	
 };

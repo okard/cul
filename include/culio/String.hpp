@@ -40,7 +40,7 @@ namespace cul {
 /**
 * \brief simple string class
 */
-class CUL_EXPORT string : private Buffer
+class CUL_EXPORT string //: private Buffer
 {
     private:
         ///buffer

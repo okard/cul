@@ -37,7 +37,7 @@ namespace cul {
 * \brief Class to handle text files 
 * UTF capable
 */
-class TextFile : public FileStream
+class TextFile //: public FileStream
 {
     private:
         enum Encoding encode;

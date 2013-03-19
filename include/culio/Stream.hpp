@@ -25,6 +25,8 @@ THE SOFTWARE.
 #ifndef __CUL_STREAM_HPP__
 #define __CUL_STREAM_HPP__
 
+#include <culcore/Types.hpp>
+
 namespace cul {
 
 /**
@@ -32,7 +34,10 @@ namespace cul {
 */
 class InputStream
 {
-	//read
+	/**
+	* Try to read an amount of bytes from stream into buffer
+	*/
+	virtual size_t read(ubyte8 buf[], size_t size) = 0;
 };
 
 /**
@@ -40,7 +45,37 @@ class InputStream
 */
 class OutputStream 
 {
-	//write
+	/**
+	* Write a amount of bytes from buffer to stream
+	*/
+	virtual size_t write(ubyte8 buf[], size_t size) = 0;
+};
+
+/**
+* Anchor for seek operations
+*/
+enum class Anchor : unsigned char
+{
+	Begin,
+	End,
+	Current
+};
+
+/**
+* Input and Outputstream Interface
+* Access to streams and to status
+*/
+class IOStream
+{
+	virtual bool isEOF() const = 0;
+	virtual bool isWriteable() const = 0;
+	virtual bool isReadable() const = 0;
+	
+	virtual size_t offset() = 0;
+	virtual void seek(size_t pos, Anchor anchor) = 0;
+	
+	virtual InputStream& inputStream() const = 0;
+	virtual OutputStream& outputStream() const = 0;	
 };
 
 } //end namespace cul

@@ -21,51 +21,83 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#if 0
+#if 1
 #include <cassert>
-#include <cul/Array.hpp>
+#include <iostream>
+#include <memory>
+#include <culcore/Array.hpp>
+
+using namespace cul;
 
 
 // value type test
 void value_type_test()
 {
-    Array<int> arr;
+    Array<int> arr(10);
     
-    arr.add(5);
-    arr.add(4);
-    arr.add(3);
+    for(int i=0; i < 10; i++)
+    {
+		arr[i] = i;
+	}
     
-    assert(arr[1] == 4);
+    assert(arr[2] == 2);
 }
 
 
 class Foo
 {
+public:
+	static int counter;
+	
+	int x;
+	
+	Foo()
+	{
+		x = Foo::counter;
+		Foo::counter++;
+	}
+	
 };
+
+int Foo::counter = 0;
+
 
 // class test
 void class_type_test()
 {
-    Array<Foo> arr;
+	Foo::counter = 0;
+    Array<Foo> arr(10);
     
-    //reference or pointer?
-    Foo& foo = arr.add();
+    assert(arr[5].x == 5);
+    assert(Foo::counter == 10);
 }
 
 // class ptr test
 void class_ptr_type_test()
 {
-    Array<Foo*> arr;
-    arr.add(new Foo());
+	Foo::counter = 0;
+    Array<std::shared_ptr<Foo>> arr(10);
+    
+    arr[5] = std::shared_ptr<Foo>(new Foo());
+    
+    assert(arr[5]->x == 0);
+    assert(Foo::counter == 1);
+    
+    arr[6] = std::make_shared<Foo>();
+    assert(arr[6]->x == 1);
+    assert(Foo::counter == 2);
 }
 
 
 //test main
 int main()
 {
-    
+    value_type_test();
+    class_type_test();
+    class_ptr_type_test();
     
     return 0;
 }
+#else
+	int main(){return 0;}
 #endif
-int main(){return 0;}

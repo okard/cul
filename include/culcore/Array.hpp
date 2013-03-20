@@ -26,6 +26,7 @@
 #define __CUL_ARRAY_HPP__
 
 #include <culcore/Types.hpp>
+#include <culcore/Exception.hpp>
 
 namespace cul {
 	
@@ -42,24 +43,45 @@ protected:
 public:
 
 	Array(size_t size)
-	  :	mem_(new T[size]), size_(size)
+	  :	size_(size)
 	{
-		
+		mem_ = reinterpret_cast<T*>(::operator new (sizeof(T)*size));
+		for(int i = 0; i < size; i++)
+		{
+			//only for use defined types (struct/classes)
+			//void* t = new (mem_[i]) T;
+		}
 	}
 	
 	virtual ~Array()
 	{
+		//for(int i = 0; i < size; i++)
+		//	mem_.~T();
+			
+		::delete(mem_);
 		size_ = 0;
-		delete[] mem_;
 	}
 	
 	//index operator
-	inline T operator[] (size_t idx) { return mem_[idx]; }
-	inline const T operator[] (size_t idx) const { return mem_[idx]; }
+	inline T& operator[] (size_t idx) 
+	{ 
+		if(idx < 0 || idx > size_-1)
+			throw Exception("index out of bounds");
+			
+		return mem_[idx]; 
+	}
+	
+	inline const T& operator[] (size_t idx) const 
+	{ 
+		if(idx < 0 || idx > size_-1)
+			throw Exception("index out of bounds");
+			
+		return mem_[idx]; 
+	}
 	
 	//ptr to data
 	inline T* ptr() { return mem_; }
-	inline const T* const ptr() const { return mem_; }
+	inline const T* ptr() const { return mem_; }
 	
 	//size of array
 	inline size_t size() const { return size_; }

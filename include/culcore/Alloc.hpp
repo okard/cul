@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2013  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,84 +21,68 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#if 1
-#include <cassert>
-#include <iostream>
-#include <memory>
-#include <culcore/Array.hpp>
+#pragma once
+#ifndef __CUL_ALLOC_HPP__
+#define __CUL_ALLOC_HPP__
 
-using namespace cul;
+#include <culcore/Types.hpp>
 
-
-// value type test
-void value_type_test()
-{
-    Array<ubyte8> arr(10);
-    
-    for(int i=0; i < 10; i++)
-    {
-		arr[i] = i;
-	}
-    
-    assert(arr[2] == 2);
-}
-
-
-class Foo
+namespace cul {
+	
+template<typename T>
+class Allocator
 {
 public:
-	static int counter;
-	
-	int x;
-	
-	Foo()
+
+	static T* alloc(size_t count)
 	{
-		x = Foo::counter;
-		Foo::counter++;
+		return reinterpret_cast<T*>(::operator new (sizeof(T)*count));
 	}
 	
+	static void free(T* obj)
+	{
+		::operator delete(reinterpret_cast<void*>(obj));
+	}
+	
+	static void construct(T& obj)
+	{
+		new (&obj) T;
+	}
+	
+	static void destruct(T& obj)
+	{
+		obj.~T();
+	}
 };
 
-int Foo::counter = 0;
-
-
-// class test
-void class_type_test()
+//define this for all primary types?
+template<>
+class Allocator<ubyte8>
 {
-	Foo::counter = 0;
-    Array<Foo> arr(10);
-    
-    assert(arr[5].x == 5);
-    std::cout << Foo::counter << std::endl;
-    assert(Foo::counter == 10);
-}
+	typedef ubyte8 T;
+	
+public:
+	static T* alloc(size_t count)
+	{
+		return reinterpret_cast<T*>(::operator new (sizeof(T)*count));
+	}
+	
+	static void free(T* obj)
+	{
+		::operator delete(reinterpret_cast<void*>(obj));
+	}
+	
+	static void construct(T& obj)
+	{
+		obj=0;
+	}
+	
+	static void destruct(T& obj)
+	{
+		
+	}
+};
+	
+} //end namespace
 
-// class ptr test
-void class_ptr_type_test()
-{
-	Foo::counter = 0;
-    Array<std::shared_ptr<Foo>> arr(10);
-    
-    arr[5] = std::shared_ptr<Foo>(new Foo());
-    
-    assert(arr[5]->x == 0);
-    assert(Foo::counter == 1);
-    
-    arr[6] = std::make_shared<Foo>();
-    assert(arr[6]->x == 1);
-    assert(Foo::counter == 2);
-}
-
-
-//test main
-int main()
-{
-    value_type_test();
-    class_type_test();
-    class_ptr_type_test();
-    
-    return 0;
-}
-#else
-	int main(){return 0;}
 #endif

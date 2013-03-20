@@ -27,13 +27,14 @@
 
 #include <culcore/Types.hpp>
 #include <culcore/Exception.hpp>
+#include <culcore/Alloc.hpp>
 
 namespace cul {
 	
 /**
 * General Array class
 */
-template<typename T>
+template<typename T, class Alloc = Allocator<T>>
 class Array
 {
 protected:
@@ -45,20 +46,21 @@ public:
 	Array(size_t size)
 	  :	size_(size)
 	{
-		mem_ = reinterpret_cast<T*>(::operator new (sizeof(T)*size));
-		for(int i = 0; i < size; i++)
+		mem_ = Alloc::alloc(size_);
+		for(int i = 0; i < size_; i++)
 		{
-			//only for use defined types (struct/classes)
-			//void* t = new (mem_[i]) T;
+			Alloc::construct(mem_[i]);
 		}
 	}
 	
 	virtual ~Array()
 	{
-		//for(int i = 0; i < size; i++)
-		//	mem_.~T();
+		for(int i = 0; i < size_; i++)
+		{
+			Alloc::destruct(mem_[i]);
+		}
 			
-		::delete(mem_);
+		Alloc::free(mem_);
 		size_ = 0;
 	}
 	

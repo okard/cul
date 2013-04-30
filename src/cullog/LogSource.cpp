@@ -35,7 +35,7 @@ using namespace cul;
 * Constructor 
 */
 LogSource::LogSource() 
-	: sourceName("")
+	: sourceName(""), msgBufferSize_(1024)
 {
 }
 
@@ -43,7 +43,7 @@ LogSource::LogSource()
 * Constructor 
 */
 LogSource::LogSource(const char* name) 
-	: sourceName(name)
+	: sourceName(name), msgBufferSize_(1024)
 {
 }
 
@@ -58,7 +58,7 @@ void LogSource::verbose(const char* msg, ...)
 {
 	va_list argument_list;
 	va_start(argument_list, msg);
-	log(LogType::Verbose, 1024, msg, argument_list);
+	log(LogType::Verbose, msgBufferSize_, msg, argument_list);
 	va_end(argument_list);
 }
 
@@ -66,7 +66,7 @@ void LogSource::info(const char* msg, ...)
 {
 	va_list argument_list;
 	va_start(argument_list, msg);
-	log(LogType::Information, 1024, msg, argument_list);
+	log(LogType::Information, msgBufferSize_, msg, argument_list);
 	va_end(argument_list);
 }
 
@@ -74,7 +74,7 @@ void LogSource::warn(const char* msg, ...)
 {
 	va_list argument_list;
 	va_start(argument_list, msg);
-	log(LogType::Warning, 1024, msg, argument_list);
+	log(LogType::Warning, msgBufferSize_, msg, argument_list);
 	va_end(argument_list);
 }
 
@@ -82,7 +82,7 @@ void LogSource::error(const char* msg, ...)
 {
 	va_list argument_list;
 	va_start(argument_list, msg);
-	log(LogType::Error, 1024, msg, argument_list);
+	log(LogType::Error, msgBufferSize_, msg, argument_list);
 	va_end(argument_list);
 }
 
@@ -90,7 +90,7 @@ void LogSource::fatal(const char* msg, ...)
 {
 	va_list argument_list;
 	va_start(argument_list, msg);
-	log(LogType::Fatal, 1024, msg, argument_list);
+	log(LogType::Fatal, msgBufferSize_, msg, argument_list);
 	va_end(argument_list);
 }
 

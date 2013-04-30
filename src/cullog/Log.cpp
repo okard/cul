@@ -80,3 +80,7 @@ LogSource& Log::Source()
 	return log;
 }
 
+LogSignal& Log::onLog()
+{
+	return Log::Source().onLog;
+}

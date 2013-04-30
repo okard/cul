@@ -34,6 +34,8 @@
 // Common Namespace
 namespace cul {
     
+typedef cul::signal<const LogMessage&> LogSignal;
+    
 /**
 * LogSource 
 */
@@ -42,12 +44,13 @@ class LogSource
 friend class Log;
   
 public:
-	cul::signal<const LogMessage&> onLog;
+	LogSignal onLog;
 	        
 private:
 	/// Log Source Name
-	//std::string
 	const char* sourceName;
+	//buffer size
+	size_t msgBufferSize_;
          
 	LogSource();
 	LogSource(const char* name);

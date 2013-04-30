@@ -59,7 +59,7 @@ void logging_test_formats()
 */
 int main(int argc, char *argv[])
 {
-	Log::Source().onLog.connect(base_logger);
+	Log::onLog().connect(base_logger);
     LOG("Log test started");
     DEBUGMSG("Debug Message");
     

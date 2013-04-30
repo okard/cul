@@ -65,6 +65,9 @@ class Log
     * Return the default LogSource
     */
     static LogSource& Source();
+    
+    
+    static LogSignal& onLog();
 };
 
 } //end namespace cul

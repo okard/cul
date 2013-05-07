@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2010  okard
+    Copyright (c) 2013  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,82 +21,42 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#pragma once
-#ifndef __CUL_HASHABLE_HPP__
-#define __CUL_HASHABLE_HPP__
+#include <culcore/Hash.hpp>
 
-#include <functional>
+#include <unordered_map>
+#include <cassert>
 
-namespace cul {
-	
-/**
-* Hashable Interface
-*/
-class Hashable
+class Foo 
 {
 public:
-    virtual std::size_t hash() const = 0;
+	int x, y, z;
+	
 };
 
-/**
-* General Hash Function
-*/
-size_t hash(const void* ptr, const size_t length)
+int main(void)
 {
-		size_t hash = 0;
-		for (int i=0; i<length; i++) 
-		{
-			hash = 5*hash + static_cast<const char*>(ptr)[i];
-		}
-		return hash;
+    Foo f;
+    f.x=3;
+    f.y=4;
+    f.z=5;
+    
+	//simple general hash test
+    cul::general_hash<Foo> hasher1;
+    const size_t h1 = hasher1(f);
+    const size_t h2 = hasher1(f);
+    assert(h1 == h2);
+    
+    //difference test
+    f.y=5;
+    const size_t h3 = hasher1(f);
+    assert(h1 != h3);
+    
+    //back to equal
+    f.y=4;
+    const size_t h4 = hasher1(f);
+    assert(h1 == h4);
+    
+	std::unordered_map<Foo, int, cul::general_hash<Foo>> ids;
+
+    return 0;
 }
-
-template<typename T>
-struct general_hash {
-    size_t operator()(const T& obj) const
-    {
-		const void* ptr = &obj;
-		const size_t length = sizeof(T);
-		return cul::hash(ptr, length);
-    }
-};
-
-} //end namespace cul
-
-
-namespace std {
-	
-/**
-* Specialication hashing function for Hashable interface
-*/ 
-template<>
-struct hash<cul::Hashable>
-{
-public:
-	size_t operator()(const cul::Hashable& ha) const
-	{
-		return ha.hash();
-	}
-};
-
-/**
-* Generalized Hash Function
-*/
-/*
-template<typename T>
-struct hash<T*> 
-{
-public:
-	size_t operator()(const T& obj) const
-	{
-		const void* ptr = &obj;
-		const size_t length = sizeof(T);
-		return cul::hash(ptr, length);
-	}
-};
-//*/
-
-	
-} //end namespace std
-
-#endif

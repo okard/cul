@@ -24,6 +24,7 @@
 
 #include <culcore/Delegate.hpp>
 
+#include <cassert>
 #include <iostream>
 
 using namespace cul;
@@ -32,6 +33,8 @@ class Foo
 {
     
 public:
+	int value;
+
     void slot_e()
     {
         std::cout << "Event occured" << std::endl;
@@ -40,7 +43,14 @@ public:
     void slot(int i)
     {
         std::cout << "Getting " << i << std::endl;
+        value = i;
     }
+    
+    int slot_return(int i)
+    {
+		value = i;
+		return i;
+	}
     
 };
 
@@ -54,23 +64,36 @@ int main(void)
 {
     Foo f;
     
+    //delegate without parameter
     delegate<void> d2 = delegate<void>(&f, &Foo::slot_e);
     d2();
     
+    //delegate with parameter
     delegate<void, int> d3 = delegate<void, int>(&f, &Foo::slot);
     d3(42);
+    assert(f.value == 42);
     
+    /*
     d3.bind(&func_slot);
     d3(23);
+    */
     
+    //unbind and rebind
+    d3.unbind();
     d3.bind(&f, &Foo::slot);
     d3(21);
+    assert(f.value == 21);
     
     //test delegate chaining 
-    delegate<void> d4;
-    d4.bind(d2);
-    d4();
+    delegate<void, int> d4;
+    d4.bind(d3);
+    d4(123);
+    assert(f.value == 123);
     
+    //test return value
+    delegate<int, int> d5 = delegate<int, int>(&f, &Foo::slot_return);
+    assert(d5(321) == 321);
+    assert(f.value == 321);
     
     return 0;
 }

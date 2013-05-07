@@ -94,23 +94,6 @@ public:
 	} 
     
     /**
-    * Bind a direct function pointer 
-    */
-    void bind(RT (*func)(Arg...))
-    {  
-		//this context can be smaller
-        static_assert(sizeof(context_f) <= sizeof(context_t), "Wrong size");
-         
-		auto ctx = reinterpret_cast<context_f*>(&mem_);
-		ctx->func = func;
-		
-		func_ = [](const void* pCtx, Arg... args) -> RT {
-			auto ctx = reinterpret_cast<context_f*>(const_cast<void*>(pCtx));
-			return ctx->func(args...);
-		};
-	}
-    
-    /**
     * unbind
     */
     void unbind()
@@ -126,7 +109,7 @@ public:
     inline RT operator()(Arg... args) const
     {
         if(func_ == nullptr)
-            return;
+            return RT();
         return (*func_)(&mem_, args...);
     }
     
@@ -151,19 +134,12 @@ private:
         Method method;
     };
     
-    //context for function pointer
-    struct context_f
-    {
-		RT (*func)(Arg...);
-	};
-    
     //dummy mem allocation for context
     typedef context<delegate<RT, Arg...>, decltype(&delegate<RT, Arg...>::operator())> context_t;
     context_t mem_;
     
     //function pointer for class
     RT (*func_)(const void*, Arg...);
-    
     
     inline RT call(Arg... args)
     {

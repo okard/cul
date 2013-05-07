@@ -27,7 +27,7 @@
 
 #include <culcore/Types.hpp>
 #include <culcore/Exception.hpp>
-#include <culcore/Alloc.hpp>
+#include <culcore/Allocator.hpp>
 
 namespace cul {
 	

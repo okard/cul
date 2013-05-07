@@ -56,7 +56,9 @@ public:
 	}
 };
 
-
+/**
+* Generalized Hash Function
+*/
 template<typename T>
 struct hash<T*> 
 {

@@ -3,6 +3,11 @@ target_link_libraries(culcore_refptr_test_exc culio culsys cullog)
 get_target_property(culcore_refptr_test_loc culcore_refptr_test_exc LOCATION)
 add_test(NAME culcore_refptr_test WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" COMMAND "${culcore_refptr_test_loc}")
 
+add_executable(culio_buffer_test_exc culio_buffer_test.cpp)
+target_link_libraries(culio_buffer_test_exc culio culsys cullog)
+get_target_property(culio_buffer_test_loc culio_buffer_test_exc LOCATION)
+add_test(NAME culio_buffer_test WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" COMMAND "${culio_buffer_test_loc}")
+
 add_executable(culio_console_test_exc culio_console_test.cpp)
 target_link_libraries(culio_console_test_exc culio culsys cullog)
 get_target_property(culio_console_test_loc culio_console_test_exc LOCATION)

@@ -36,39 +36,60 @@ namespace cul {
 /**
 * Generic Memory Buffer
 */	
-template<typename T>
-class Buffer : public Array<T>
+template<typename T, class Alloc = Allocator<T>>
+class Buffer : public Array<T, Alloc>
 {
 private:
 	size_t pos_;
 	
 public:
+	/**
+	* Create new Buffer
+	*/
 	Buffer(size_t size) 
 		: Array<T>(size)
 	{
 		
 	}
 	
-	
-	
-	
+	/**
+	* Resize Buffer
+	*/
 	void resize(size_t elements)
 	{
+		//destruct old elements
+		/*
+		for(int i = 0; i < size_; i++)
+		{
+			Alloc::destruct(mem_[i]);
+		} 
+		*/
 		
-		auto nptr = new T[elements];
+		auto nptr = Alloc::alloc(elements);
 		memcpy(nptr, Array<T>::mem_, Array<T>::size_ * sizeof(T));
-		//pos_ = Array<T>::size_;
-		delete nptr; 
+		Alloc::free(Array<T>::mem_);
+		
+		//construct new elements
+		/* 
+		for(int i = 0; i < size_; i++)
+		{
+			Alloc::construct(mem_[i]);
+		}
+		*/
+		
+		Array<T>::mem_ = nptr;
+		Array<T>::size_ = elements;
 	}
 
 	//get offset
 	//get size
 	//grow
 	//shrink
-	
 };
 
-
+/**
+* Default Buffer
+*/
 extern template class Buffer<ubyte8>;
 typedef Buffer<ubyte8> ByteBuffer;
 

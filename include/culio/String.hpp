@@ -47,7 +47,7 @@ class CUL_EXPORT string //: private Buffer
         char* str;
         
         /// length of string
-        uint length;
+        size_t length;
         
         /// allocated memory
         size_t alloc;

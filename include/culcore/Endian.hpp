@@ -33,7 +33,7 @@ namespace cul {
 /**
 * endian swap for unsigned short
 */
-inline void endian_swap(ushort& x)
+inline void endian_swap(ushort16& x)
 {
     x = (x>>8) | (x<<8);
 }
@@ -41,7 +41,7 @@ inline void endian_swap(ushort& x)
 /**
 * endian swap for unsigned int
 */
-inline void endian_swap(uint& x)
+inline void endian_swap(uint32& x)
 {
     x = (x>>24) | 
         ((x<<8) & 0x00FF0000) |

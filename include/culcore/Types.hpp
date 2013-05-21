@@ -25,8 +25,7 @@
 #ifndef __CUL_TYPES_HPP__
 #define __CUL_TYPES_HPP__
 
-#include <cstdlib>
-#include <cstddef>
+#include <cstddef> /* std::size_t */
 
 //namespace
 namespace cul {
@@ -35,15 +34,21 @@ namespace cul {
 
 typedef unsigned char ubyte8;
 typedef signed char byte8;
+typedef ubyte8 uint8;
+typedef byte8 int8;
 
 typedef unsigned short ushort16;
 typedef signed short short16;
+typedef ushort16 uint16;
+typedef short16 int16;
 
 typedef unsigned int uint32;
 typedef signed int int32;
 
 typedef unsigned long ulong64;
 typedef signed long long64;
+typedef ulong64 uint64;
+typedef long64 int64;
 
 typedef float float32;
 typedef double double64;

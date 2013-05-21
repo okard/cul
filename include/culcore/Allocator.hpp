@@ -55,12 +55,10 @@ public:
 	}
 };
 
-//define this for all primary types?
-template<>
-class Allocator<ubyte8>
+
+template<typename T> 
+class PrimaryAllocator
 {
-	typedef ubyte8 T;
-	
 public:
 	static T* alloc(size_t count)
 	{
@@ -82,6 +80,17 @@ public:
 		
 	}
 };
+
+template<> class Allocator<int8> : public PrimaryAllocator<int8>{};
+template<> class Allocator<uint8> : public PrimaryAllocator<uint8>{};
+template<> class Allocator<int16> : public PrimaryAllocator<int16>{};
+template<> class Allocator<uint16> : public PrimaryAllocator<uint16>{};
+template<> class Allocator<int32> : public PrimaryAllocator<int32>{};
+template<> class Allocator<uint32> : public PrimaryAllocator<uint32>{};
+template<> class Allocator<int64> : public PrimaryAllocator<int64>{};
+template<> class Allocator<uint64> : public PrimaryAllocator<uint64>{};
+template<> class Allocator<float32> : public PrimaryAllocator<float32>{};
+template<> class Allocator<double64> : public PrimaryAllocator<double64>{};
 	
 } //end namespace
 

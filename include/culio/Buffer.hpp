@@ -35,6 +35,7 @@ namespace cul {
 
 /**
 * Generic Memory Buffer
+* A resizeable array
 */	
 template<typename T, class Alloc = Allocator<T>>
 class Buffer : public Array<T, Alloc>
@@ -58,24 +59,18 @@ public:
 	void resize(size_t elements)
 	{
 		//destruct old elements
-		/*
-		for(int i = 0; i < size_; i++)
-		{
-			Alloc::destruct(mem_[i]);
-		} 
-		*/
+		if(elements < Array<T>::size_)
+			for(int i = elements; i < Array<T>::size_; i++)
+				Alloc::destruct(Array<T>::mem_[i]);
 		
 		auto nptr = Alloc::alloc(elements);
 		memcpy(nptr, Array<T>::mem_, Array<T>::size_ * sizeof(T));
 		Alloc::free(Array<T>::mem_);
 		
 		//construct new elements
-		/* 
-		for(int i = 0; i < size_; i++)
-		{
-			Alloc::construct(mem_[i]);
-		}
-		*/
+		if(elements > Array<T>::size_)
+			for(int i = Array<T>::size_; i < elements; i++)
+				Alloc::construct(nptr[i]);
 		
 		Array<T>::mem_ = nptr;
 		Array<T>::size_ = elements;

@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2013  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,60 +21,16 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#pragma once
-#ifndef __CUL_FILESTREAM_HPP__
-#define __CUL_FILESTREAM_HPP__
 
-#include <cstdio>
+#include <culio/FileStream.hpp>
 
-#include <culio/Stream.hpp>
+using namespace cul;
 
-
-namespace cul {
-	
-enum class FileMode : unsigned char
-{
-	Read = 1<<0,
-	Write = 1<<1,
-	Append = 1<<2,
-	Update = 1<<3,
-	
-	ReadWrite = Read | Write
-};
 
 /**
-* File Stream combines in and output
+* main method
 */
-class FileStream : public IOStream, public InputStream, public OutputStream
+int main(int argc, char *argv[])
 {
-private:
-	FILE* file_;
-	FileMode mode_;
-public:
-
-	FileStream();
-	virtual ~FileStream();
-
-	void open(const char* filename, FileMode mode);
-	void close();
-
-	virtual bool isEOF() const;
-	virtual bool isWriteable() const;
-	virtual bool isReadable() const;
-	bool isValid() const;
-	
-	virtual size_t offset() const;
-	virtual void seek(size_t pos, Anchor anchor);
-	
-	virtual InputStream& inputStream() { return *this; }
-	virtual OutputStream& outputStream() { return *this; }	
-
-	virtual size_t write(ubyte8 buf[], size_t size);
-	virtual size_t read(ubyte8 buf[], size_t size);
-};
-	
-	
-} //end namespace cul
-
-
-#endif
+    return 0;
+}

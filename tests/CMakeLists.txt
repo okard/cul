@@ -28,6 +28,11 @@ target_link_libraries(culio_convert_test_exc culio culsys cullog)
 get_target_property(culio_convert_test_loc culio_convert_test_exc LOCATION)
 add_test(NAME culio_convert_test WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" COMMAND "${culio_convert_test_loc}")
 
+add_executable(culio_filestream_test_exc culio_filestream_test.cpp)
+target_link_libraries(culio_filestream_test_exc culio culsys cullog)
+get_target_property(culio_filestream_test_loc culio_filestream_test_exc LOCATION)
+add_test(NAME culio_filestream_test WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" COMMAND "${culio_filestream_test_loc}")
+
 add_executable(culcore_list_test_exc culcore_list_test.cpp)
 target_link_libraries(culcore_list_test_exc culio culsys cullog)
 get_target_property(culcore_list_test_loc culcore_list_test_exc LOCATION)

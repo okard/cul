@@ -34,6 +34,7 @@ namespace cul {
 */
 class InputStream
 {
+public:
 	/**
 	* Try to read an amount of bytes from stream into buffer
 	*/
@@ -45,6 +46,7 @@ class InputStream
 */
 class OutputStream 
 {
+public:
 	/**
 	* Write a amount of bytes from buffer to stream
 	*/
@@ -71,11 +73,11 @@ class IOStream
 	virtual bool isWriteable() const = 0;
 	virtual bool isReadable() const = 0;
 	
-	virtual size_t offset() = 0;
+	virtual size_t offset() const = 0;
 	virtual void seek(size_t pos, Anchor anchor) = 0;
 	
-	virtual InputStream& inputStream() const = 0;
-	virtual OutputStream& outputStream() const = 0;	
+	virtual InputStream& inputStream() = 0;
+	virtual OutputStream& outputStream() = 0;	
 };
 
 } //end namespace cul

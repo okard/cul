@@ -24,27 +24,21 @@ endif()
 
 include_directories(include)
 
-# create lib directory
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib/)
+# set lib output directory
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # I/O Module
 file(GLOB_RECURSE CULIO_SOURCES src/culio/*.cpp)
 add_library(culio SHARED ${CULIO_SOURCES})
-get_target_property(CULIO_LIB_NAME culio LOCATION)
-add_custom_command(TARGET culio POST_BUILD COMMAND cp ARGS ${CULIO_LIB_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/)
 
 # Sys Module
 file(GLOB_RECURSE CULSYS_SOURCES src/culsys/*.cpp)
 add_library(culsys SHARED ${CULSYS_SOURCES})
 target_link_libraries(culsys ${CUL_SYS_LIBS})
-get_target_property(CULSYS_LIB_NAME culsys LOCATION)
-add_custom_command(TARGET culsys POST_BUILD COMMAND cp ARGS ${CULSYS_LIB_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/)
 
 # Log Module
 file(GLOB_RECURSE CULLOG_SOURCES src/cullog/*.cpp)
 add_library(cullog SHARED ${CULLOG_SOURCES})
-get_target_property(CULLOG_LIB_NAME cullog LOCATION)
-add_custom_command(TARGET cullog POST_BUILD COMMAND cp ARGS ${CULLOG_LIB_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/)
 
 
 if(DEFINED CULTESTS)

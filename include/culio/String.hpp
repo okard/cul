@@ -30,7 +30,7 @@
 #include <culcore/Platform.hpp>
 #include <culcore/Types.hpp>
 #include <culio/Encoding.hpp>
-#include <culio/Buffer.hpp>
+#include <culio/ByteBuffer.hpp>
 
 /// Namespace for c++ utility library
 namespace cul {

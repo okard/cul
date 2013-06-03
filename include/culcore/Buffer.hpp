@@ -64,7 +64,7 @@ public:
 				Alloc::destruct(Array<T>::mem_[i]);
 		
 		auto nptr = Alloc::alloc(elements);
-		memcpy(nptr, Array<T>::mem_, Array<T>::size_ * sizeof(T));
+		memcpy(nptr, Array<T>::mem_, elements * sizeof(T));
 		Alloc::free(Array<T>::mem_);
 		
 		//construct new elements
@@ -81,14 +81,6 @@ public:
 	//grow
 	//shrink
 };
-
-/**
-* Default Buffer
-*/
-extern template class Buffer<ubyte8>;
-typedef Buffer<ubyte8> ByteBuffer;
-
-//class ByteBuffer : public Buffer<ubyte8> {};
 
 } //end namespace cul
 

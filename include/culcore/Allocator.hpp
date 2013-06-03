@@ -26,6 +26,7 @@
 #define __CUL_ALLOC_HPP__
 
 #include <culcore/Types.hpp>
+#include <new> 
 
 namespace cul {
 	

@@ -21,8 +21,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include <culio/Buffer.hpp>
+#pragma once
+#ifndef __CUL_BYTEBUFFER_HPP__
+#define __CUL_BYTEBUFFER_HPP__
 
-using namespace cul;
+#include <culcore/Buffer.hpp>
 
-template class Buffer<ubyte8>;
+namespace cul {
+
+/**
+* Default Buffer
+*/
+extern template class Buffer<ubyte8>;
+typedef Buffer<ubyte8> ByteBuffer;
+
+//class ByteBuffer : public Buffer<ubyte8> {};
+
+} //end namespace cul
+
+#endif // __CUL_BUFFER_HPP__

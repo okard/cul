@@ -71,6 +71,10 @@ void test_buffer_objects()
 	
 	buf.resize(5);
 	assert(Foo::count == 5);
+	
+	assert(buf[1].x == 6);
+	assert(buf[3].y == 5);
+	assert(buf[2].z == 4);
 }
 
 

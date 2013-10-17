@@ -22,15 +22,35 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_VFS_HPP__
-#define __CUL_VFS_HPP__
+#ifndef CUL_VFS_HPP
+#define CUL_VFS_HPP
 
 namespace cul {
 	
-//VFSFolder
-//VFSFile
+/**
+* A folder
+*/ 
+class VfsFolder
+{
+private:
+
+public:
+	//files
+	//subfolder
+};
+
+/**
+* A file
+*/
+class VfsFile
+{
+private:
 	
+public:
 	
+};
+
+
 } //end namespace cul
 
-#endif // __CUL_VFS_HPP__
+#endif // CUL_VFS_HPP

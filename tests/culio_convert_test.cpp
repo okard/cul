@@ -22,6 +22,7 @@
     THE SOFTWARE.
 */
 
+#include "cul_test.hpp"
 #include <culio/Convert.hpp>
 
 using namespace cul;
@@ -30,10 +31,16 @@ using namespace cul;
 int main(void)
 {
     long l = Long::to("6");
+    CUL_ASSERT(l == 6l, "Long conversion failed");
+    
     unsigned long ul = Long::to("7");
+    CUL_ASSERT(ul == 7ul, "ULong conversion failed");
+    
     double d = Double::to("5.0");
+    CUL_ASSERT(d == 5.0d, "Double conversion failed");
     
     char* str = Str::to(4);
+    CUL_ASSERT(str[0] == '4', "Number->String conversion failed");
     delete str;
  
     return 0;

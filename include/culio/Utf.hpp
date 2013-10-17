@@ -68,7 +68,7 @@ inline bool utf8_isutf(byte8 b)
 };
 
 /**
-* return the startbyte of an utf8 byte
+* return the length of an utf8 byte
 * 0xxxxxxx = 1
 * 1xxxxxxx = 1
 * 11xxxxxx = 2

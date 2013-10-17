@@ -29,6 +29,8 @@ THE SOFTWARE.
 
 namespace cul {
 
+//TODO do not depend on Buffer?
+
 /**
 * Default Buffer
 */

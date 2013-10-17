@@ -22,8 +22,8 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_ARRAY_HPP__
-#define __CUL_ARRAY_HPP__
+#ifndef CUL_ARRAY_HPP
+#define CUL_ARRAY_HPP
 
 #include <culcore/Types.hpp>
 #include <culcore/Exception.hpp>
@@ -38,8 +38,8 @@ template<typename T, class Alloc = Allocator<T>>
 class Array
 {
 protected:
-	T* mem_;
-	size_t size_;
+	T* mem_ = nullptr;
+	size_t size_ = 0;
 	
 public:
 

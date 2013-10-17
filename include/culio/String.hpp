@@ -43,6 +43,9 @@ namespace cul {
 class CUL_EXPORT string //: private Buffer
 {
     private:
+		//byte buffer?
+		ByteBuffer buffer_;
+    
         ///buffer
         char* str;
         

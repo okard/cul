@@ -27,7 +27,7 @@
 
 #include <culcore/Exception.hpp>
 
-#define CUL_ASSERT(cond, msg) if(!cond){ throw cul::Exception(msg); }
+#define CUL_ASSERT(cond, msg) if(!(cond)){ throw cul::Exception(msg); }
 
 #define CUL_TEST(name) try{name();}\
 					   catch(cul::Exception exc){}

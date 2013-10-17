@@ -37,6 +37,9 @@ private:
 public:
 	//files
 	//subfolder
+	
+	//IArray<VfsFile*>& files();
+	//IArray<VfsFile&>& subfolder();
 };
 
 /**
@@ -47,7 +50,8 @@ class VfsFile
 private:
 	
 public:
-	
+	//info
+	//in/out stream
 };
 
 

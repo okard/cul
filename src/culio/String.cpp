@@ -36,54 +36,50 @@
 
 //wchar_t
 
-namespace cul
-{
+using namespace cul;
 
 /**
 * Constructor
 */
-string::string() : str(0), length(0), alloc(512), encoding(Encoding::ASCII)
+string::string() 
+	: buffer_(512), length_(0), encoding_(Encoding::ASCII)
 {
-    str = static_cast<char*>(malloc(alloc));
-    str[0] = '\0';
-    assert(strlen(str) == 0);
+    buffer_.ptr()[0] = '\0';
+    assert(strlen(c_str()) == 0);
 }
 
 /**
 * Constructor
 */
 string::string(const cul::string& pstr)
+	: buffer_(pstr.length_)
 {
-    alloc = pstr.length;
-    str = static_cast<char*>(malloc(alloc));
-    
-    strncpy(str, pstr.str, pstr.length);
-    length = alloc;
+    strncpy(str(), pstr.c_str(), pstr.length_);
+    length_ = pstr.length_;
 }
 
 /**
 * Constructor
 */
 string::string(const char* pstr)
+	: buffer_(strlen(pstr))
 {
-    alloc = strlen(pstr);
-    str = static_cast<char*>(malloc(alloc));
+	auto memsize = strlen(pstr);
+    strncpy(str(), pstr, memsize);
+    str()[memsize] = '\0';
     
-    strncpy(str, pstr, alloc);
-    str[alloc] = '\0';
-    
-    assert(strlen(str) == alloc);
-    length = alloc;
+    assert(strlen(c_str()) == buffer_.size());
+    length_ = memsize;
 }
 
 /**
 * Constructor
 */
-string::string(size_t memSize) : alloc(memSize), length(0), encoding(Encoding::ASCII), str(0)
+string::string(size_t memSize) 
+	: buffer_(memSize), length_(0), encoding_(Encoding::ASCII)
 {
-    str = static_cast<char*>(malloc(alloc));
-    str[0] = '\0';
-    assert(strlen(str) == 0);
+    str()[0] = '\0';
+    assert(strlen(c_str()) == 0);
 }
 
 
@@ -92,7 +88,6 @@ string::string(size_t memSize) : alloc(memSize), length(0), encoding(Encoding::A
 */
 string::~string()
 {
-    free(str);
 }
 
 /**
@@ -100,11 +95,13 @@ string::~string()
 */
 void string::append(char c)
 {
-    length += 1;
-    prepareMem(length);
+    length_ += 1;
     
-    str[length-1] = c;
-    str[length] = '\0';
+    if(buffer_.size() < length_)
+		buffer_.resize(length_);
+    
+    str()[length_-1] = c;
+    str()[length_] = '\0';
 }
 
 /**
@@ -113,16 +110,16 @@ void string::append(char c)
 void string::append(const char* nstr)
 {
     size_t size = strlen(nstr);
-    length += size;
+    length_ += size;
     
-    //prepare Memory
-    prepareMem(length);
+    if(buffer_.size() < length_)
+		buffer_.resize(length_);
     
     //copy string
-    strncpy (&str[length-size], nstr, size);
+    strncpy (&str()[length_-size], nstr, size);
     
     //0 terminated
-    str[length] = '\0';
+    str()[length_] = '\0';
 }
 
 /**
@@ -130,7 +127,7 @@ void string::append(const char* nstr)
 */
 void string::append(const string& pstr)
 {
-    append(pstr.str);
+    append(pstr.c_str());
 }
 
 /**
@@ -138,7 +135,7 @@ void string::append(const string& pstr)
 */
 void string::append(string* pstr)
 {
-    append(pstr->str);
+    append(pstr->c_str());
 }
 
 
@@ -147,7 +144,7 @@ void string::append(string* pstr)
 */
 unsigned int string::len() const
 {
-    return length;
+    return length_;
 }
 
 /**
@@ -155,7 +152,7 @@ unsigned int string::len() const
 */
 size_t string::mem() const
 {
-    return alloc;
+    return buffer_.size();
 }
 
 /**
@@ -165,7 +162,7 @@ string& string::operator = (const string& other)
 {
     if(this != &(other))
     {
-        this->operator=(other.str);
+        this->operator=(other.c_str());
     }
     
     return *this;
@@ -179,13 +176,14 @@ string& string::operator = (const char* other)
     size_t l = strlen(other);
     
     //check for realloc
-    prepareMem(l+1);
+    if(l > buffer_.size())
+		buffer_.resize(l+1);
     
-    strncpy(str, other, l);
-    length = l;
-    str[l] = '\0';
+    strncpy(str(), other, l);
+    length_ = l;
+    str()[l] = '\0';
     
-    assert(l == strlen(str));
+    assert(l == strlen(c_str()));
     
     return *this;
 }
@@ -217,7 +215,7 @@ bool string::operator==(const string& b) const
 {
     //compare
     
-    return this->operator==(b.str);
+    return this->operator==(b.c_str());
 }
 
 /**
@@ -227,10 +225,10 @@ bool string::operator==(const char* b) const
 {
     //compare
     size_t l = strlen(b);
-    if(l != length)
+    if(l != length_)
         return false;
         
-    return strncmp(b, str, length) == 0;
+    return strncmp(b, c_str(), length_) == 0;
 }
 
 /**
@@ -253,42 +251,12 @@ bool string::operator!=(const char* b) const
 /**
 * get c string
 */
-const char* string::c_str()
+const char* string::c_str() const
 {
-    return str;
+    return reinterpret_cast<const char*>(buffer_.ptr());
 }
 
-
-/**
-* prepare mem
-*/
-void string::prepareMem(size_t requiredSize)
+char* string::str()
 {
-    //realloc when neseccary
-    if(requiredSize > alloc)
-    {
-        alloc = requiredSize;
-        
-        char* temp = static_cast<char*>(realloc((void*)str, alloc));
-        if(temp == nullptr)
-            throw "realloc failed";
-        str = temp;
-    }
+	return reinterpret_cast<char*>(buffer_.ptr());
 }
-
-/**
-* shrink mem
-*/
-void string::shrinkMem()
-{
-    if(length+1 < alloc)
-    { 
-        alloc = length+1;
-        //allocated memory getting smaller so it is expected that realloc doesnt fail
-        str = static_cast<char*>(realloc((void*)str, alloc));
-    } 
-}
-
-
-
-} //end namespace cul

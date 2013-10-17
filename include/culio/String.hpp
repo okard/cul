@@ -46,17 +46,11 @@ class CUL_EXPORT string //: private Buffer
 		//byte buffer?
 		ByteBuffer buffer_;
     
-        ///buffer
-        char* str;
-        
-        /// length of string
-        size_t length;
-        
-        /// allocated memory
-        size_t alloc;
+        /// length of string content
+        size_t length_;
         
         /// encoding of string
-        enum Encoding encoding;
+        enum Encoding encoding_;
         
     public:
         /**
@@ -157,20 +151,11 @@ class CUL_EXPORT string //: private Buffer
         /**
         * get c string
         */
-        const char* c_str();
+        const char* c_str() const;
         
-    private:
-        
-        /**
-        * prepare memory
-        */
-        void prepareMem(size_t requiredSize);
-        
-        /**
-        * shrink memory when possible
-        */
-        void shrinkMem();
-        
+private: 
+		//non const char*
+		inline char* str();
         
         //change encoding?
 };

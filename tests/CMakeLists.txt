@@ -68,6 +68,11 @@ target_link_libraries(culcore_signal_test_exc culio culsys cullog)
 get_target_property(culcore_signal_test_loc culcore_signal_test_exc LOCATION)
 add_test(NAME culcore_signal_test WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" COMMAND "${culcore_signal_test_loc}")
 
+add_executable(culcore_dptr_test_exc culcore_dptr_test.cpp)
+target_link_libraries(culcore_dptr_test_exc culio culsys cullog)
+get_target_property(culcore_dptr_test_loc culcore_dptr_test_exc LOCATION)
+add_test(NAME culcore_dptr_test WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" COMMAND "${culcore_dptr_test_loc}")
+
 add_executable(culcore_array_test_exc culcore_array_test.cpp)
 target_link_libraries(culcore_array_test_exc culio culsys cullog)
 get_target_property(culcore_array_test_loc culcore_array_test_exc LOCATION)

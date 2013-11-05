@@ -33,12 +33,15 @@ namespace cul {
 	
 /**
 * General Array class
+* static container for x elements
 */
 template<typename T, class Alloc = Allocator<T>>
 class Array
 {
 protected:
+	//pointer to memory
 	T* mem_ = nullptr;
+	//allocated elements in memory
 	size_t size_ = 0;
 	
 public:
@@ -87,7 +90,6 @@ public:
 	
 	//size of array
 	inline size_t size() const { return size_; }
-	
 };
 	
 } //end namespace cul

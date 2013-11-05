@@ -40,10 +40,7 @@ namespace cul {
 */	
 template<typename T, class Alloc = Allocator<T>>
 class Buffer : public Array<T, Alloc>
-{
-private:
-	size_t pos_;
-	
+{	
 public:
 	/**
 	* Create new Buffer

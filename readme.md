@@ -5,6 +5,9 @@
 * Linux/Windows
 * Modern C++ Compiler (GCC)
 
+## License
+
+* MIT License
 
 ## Design Principles
 
@@ -31,6 +34,8 @@
 * Simple Typedefs
 * Logging
 * Threads
+* Delegate and Signals
+* AnyPtr
 
 ## Planned features:
 

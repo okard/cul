@@ -44,8 +44,9 @@ using namespace cul;
 string::string() 
 	: buffer_(512), length_(0), encoding_(Encoding::ASCII)
 {
-    buffer_.ptr()[0] = '\0';
-    assert(strlen(c_str()) == 0);
+	char* c = str();
+    c[0] = '\0';
+    assert(strlen(c) == 0);
 }
 
 /**
@@ -65,10 +66,11 @@ string::string(const char* pstr)
 	: buffer_(strlen(pstr))
 {
 	auto memsize = strlen(pstr);
-    strncpy(str(), pstr, memsize);
-    str()[memsize] = '\0';
+	char* c = str();
+    strncpy(c, pstr, memsize);
+    c[memsize] = '\0';
     
-    assert(strlen(c_str()) == buffer_.size());
+    assert(strlen(c) == buffer_.size());
     length_ = memsize;
 }
 
@@ -78,8 +80,9 @@ string::string(const char* pstr)
 string::string(size_t memSize) 
 	: buffer_(memSize), length_(0), encoding_(Encoding::ASCII)
 {
-    str()[0] = '\0';
-    assert(strlen(c_str()) == 0);
+	char* c = str();
+    c[0] = '\0';
+    assert(strlen(c) == 0);
 }
 
 
@@ -100,8 +103,9 @@ void string::append(char c)
     if(buffer_.size() < length_)
 		buffer_.resize(length_);
     
-    str()[length_-1] = c;
-    str()[length_] = '\0';
+    char* cs = str();
+    cs[length_-1] = c;
+    cs[length_] = '\0';
 }
 
 /**
@@ -115,11 +119,12 @@ void string::append(const char* nstr)
     if(buffer_.size() < length_)
 		buffer_.resize(length_);
     
+    char* c = str();
     //copy string
-    strncpy (&str()[length_-size], nstr, size);
+    strncpy (&c[length_-size], nstr, size);
     
     //0 terminated
-    str()[length_] = '\0';
+    c[length_] = '\0';
 }
 
 /**
@@ -179,11 +184,12 @@ string& string::operator = (const char* other)
     if(l > buffer_.size())
 		buffer_.resize(l+1);
     
-    strncpy(str(), other, l);
+    char* c = str();
+    strncpy(c, other, l);
     length_ = l;
-    str()[l] = '\0';
+    c[l] = '\0';
     
-    assert(l == strlen(c_str()));
+    assert(l == strlen(c));
     
     return *this;
 }
@@ -214,7 +220,6 @@ string& string::string::operator+=(const char* other)
 bool string::operator==(const string& b) const
 {
     //compare
-    
     return this->operator==(b.c_str());
 }
 

@@ -25,4 +25,6 @@ THE SOFTWARE.
 
 using namespace cul;
 
-template class Buffer<ubyte8>;
+namespace cul {
+	template class Buffer<ubyte8>;
+}

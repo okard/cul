@@ -36,7 +36,16 @@ private:
 	//parts of path
 	
 public:
-	
+	//(const char* path)
+
+	//to abs
+	//to rel (loc)
+
+	// isFile
+	// isDirectory
+	// get_directory
+
+	//bool exists();
 };
 	
 } //end namespace cul

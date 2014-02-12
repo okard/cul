@@ -27,6 +27,11 @@ include_directories(include)
 # set lib output directory
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+# Core Module
+file(GLOB_RECURSE CULCORE_SOURCES include/culcore/*.hpp)
+add_library(culcore STATIC ${CULCORE_SOURCES})
+set_target_properties(culcore PROPERTIES LINKER_LANGUAGE CXX)
+
 # I/O Module
 file(GLOB_RECURSE CULIO_SOURCES src/culio/*.cpp include/culio/*.hpp)
 add_library(culio SHARED ${CULIO_SOURCES})

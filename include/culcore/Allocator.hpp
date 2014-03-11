@@ -73,7 +73,7 @@ public:
 	
 	static void construct(T& obj)
 	{
-		obj=0;
+		obj=T();
 	}
 	
 	static void destruct(T& obj)

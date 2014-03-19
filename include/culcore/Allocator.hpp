@@ -82,16 +82,16 @@ public:
 	}
 };
 
-template<> class Allocator<int8> : public PrimaryAllocator<int8>{};
-template<> class Allocator<uint8> : public PrimaryAllocator<uint8>{};
-template<> class Allocator<int16> : public PrimaryAllocator<int16>{};
-template<> class Allocator<uint16> : public PrimaryAllocator<uint16>{};
-template<> class Allocator<int32> : public PrimaryAllocator<int32>{};
-template<> class Allocator<uint32> : public PrimaryAllocator<uint32>{};
-template<> class Allocator<int64> : public PrimaryAllocator<int64>{};
-template<> class Allocator<uint64> : public PrimaryAllocator<uint64>{};
-template<> class Allocator<float32> : public PrimaryAllocator<float32>{};
-template<> class Allocator<double64> : public PrimaryAllocator<double64>{};
+template<> class Allocator<i8> : public PrimaryAllocator<i8>{};
+template<> class Allocator<u8> : public PrimaryAllocator<u8>{};
+template<> class Allocator<i16> : public PrimaryAllocator<i16>{};
+template<> class Allocator<u16> : public PrimaryAllocator<u16>{};
+template<> class Allocator<i32> : public PrimaryAllocator<i32>{};
+template<> class Allocator<u32> : public PrimaryAllocator<u32>{};
+template<> class Allocator<i64> : public PrimaryAllocator<i64>{};
+template<> class Allocator<u64> : public PrimaryAllocator<u64>{};
+template<> class Allocator<f32> : public PrimaryAllocator<f32>{};
+template<> class Allocator<f64> : public PrimaryAllocator<f64>{};
 	
 } //end namespace
 

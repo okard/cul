@@ -45,10 +45,13 @@ const ubyte8 UTF32BE_BOM[] = {0x00, 0x00, 0xFE, 0xFF};
 const ubyte8 UTF32LE_BOM[] = {0xFF, 0xFE, 0x00, 0x00};
 
 
+//utf8_fragment u8
+//utf8_full u32
+
 //utf16 char
-typedef short16 char16;
+typedef u16 char16;
 //utf32 char
-typedef int32 	char32;
+typedef u32 char32;
 
 /**
 * checks if the given utf8 byte is an ascii character 

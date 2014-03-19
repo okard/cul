@@ -22,8 +22,8 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_TYPES_HPP__
-#define __CUL_TYPES_HPP__
+#ifndef CUL_TYPES_HPP
+#define CUL_TYPES_HPP
 
 #include <cstddef> /* std::size_t */
 
@@ -34,36 +34,32 @@ namespace cul {
 
 typedef unsigned char ubyte8;
 typedef signed char byte8;
-typedef ubyte8 uint8;
-typedef byte8 int8;
+typedef ubyte8 u8;
+typedef byte8 i8;
 
-typedef unsigned short ushort16;
-typedef signed short short16;
-typedef ushort16 uint16;
-typedef short16 int16;
+typedef unsigned short u16;
+typedef signed short i16;
 
-typedef unsigned int uint32;
-typedef signed int int32;
+typedef unsigned int u32;
+typedef signed int i32;
 
-typedef unsigned long ulong64;
-typedef signed long long64;
-typedef ulong64 uint64;
-typedef long64 int64;
+typedef unsigned long u64;
+typedef signed long i64;
 
-typedef float float32;
-typedef double double64;
+typedef float f32;
+typedef double f64;
 
-static_assert(sizeof(ubyte8) != 8, "Wrong ubyte8 size");
-static_assert(sizeof(byte8) != 8, "Wrong byte8 size");
-static_assert(sizeof(ushort16) != 16, "Wrong short size");
-static_assert(sizeof(short16) != 16, "Wrong short size");
-static_assert(sizeof(uint32) != 32, "Wrong int size");
-static_assert(sizeof(int32) != 32, "Wrong int size");
-static_assert(sizeof(ulong64) != 64, "Wrong long size");
-static_assert(sizeof(long64) != 64, "Wrong long size");
+static_assert(sizeof(ubyte8) == 1, "Wrong ubyte8 size");
+static_assert(sizeof(byte8) == 1, "Wrong byte8 size");
+static_assert(sizeof(u16) == 2, "Wrong u16 size");
+static_assert(sizeof(i16) == 2, "Wrong i16 size");
+static_assert(sizeof(u32) == 4, "Wrong u32 size");
+static_assert(sizeof(i32) == 4, "Wrong i32 size");
+static_assert(sizeof(u64) == 8, "Wrong u64 size");
+static_assert(sizeof(i64) == 8, "Wrong i64 size");
 
-static_assert(sizeof(float32) != 32, "Wrong float size");
-static_assert(sizeof(double64) != 64, "Wrong double size");
+static_assert(sizeof(f32) == 4, "Wrong f32 size");
+static_assert(sizeof(f64) == 8, "Wrong f64 size");
 
 
 typedef std::size_t size_t;
@@ -71,4 +67,4 @@ typedef std::size_t size_t;
 
 } //end namespace cul
 
-#endif // __CUL_TYPES_HPP__
+#endif // CUL_TYPES_HPP

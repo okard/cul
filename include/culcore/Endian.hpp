@@ -33,7 +33,7 @@ namespace cul {
 /**
 * endian swap for unsigned short
 */
-inline void endian_swap(ushort16& x)
+inline void endian_swap(u16& x)
 {
     x = (x>>8) | (x<<8);
 }
@@ -41,7 +41,7 @@ inline void endian_swap(ushort16& x)
 /**
 * endian swap for unsigned int
 */
-inline void endian_swap(uint32& x)
+inline void endian_swap(u32& x)
 {
     x = (x>>24) | 
         ((x<<8) & 0x00FF0000) |
@@ -69,7 +69,7 @@ inline void endian_swap(unsigned __int64& x)
 */
 inline bool is_bigendian()
 {
-    const int i = 1;
+	const i32 i = 1;
     return ((*(char*)&i) == 0);
 }
 

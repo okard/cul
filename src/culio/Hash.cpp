@@ -9,6 +9,36 @@
 
 #include <culio/Hash.hpp>
 
+
+namespace {
+
+//-----------------------------------------------------------------------------
+// Platform-specific functions and macros
+#if defined(_MSC_VER)
+	typedef unsigned char uint8_t;
+	typedef unsigned long uint32_t;
+	typedef unsigned __int64 uint64_t;
+#else
+	#include <stdint.h>
+#endif
+/**
+* Hashs a key with len and a 32 bit seed to a 32 bit output value
+*/
+void MurmurHash3_x86_32  ( const void * key, int len, uint32_t seed, void * out );
+
+/**
+* Hashs a key with len and a 32 bit seed to a 128 bit value
+* Optimized for x86-32
+*/
+void MurmurHash3_x86_128 ( const void * key, int len, uint32_t seed, void * out );
+
+/**
+* Hashs a key with len and a 32 bit seed to a 128 bit value
+* Optimized for x86-64
+*/
+void MurmurHash3_x64_128 ( const void * key, int len, uint32_t seed, void * out );
+
+
 //-----------------------------------------------------------------------------
 // Platform-specific functions and macros
 
@@ -332,3 +362,5 @@ void MurmurHash3_x64_128 ( const void * key, const int len,
 }
 
 //-----------------------------------------------------------------------------
+
+}

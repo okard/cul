@@ -30,7 +30,18 @@ template<typename R, typename... Args>
 class Test
 {
 public:
-	R Print(Args&... args);
+	R Print(Args&... args)
+	{
+	}
+};
+
+template<typename R, template<typename> class Wrapper, typename... Args>
+class Test2
+{
+public:
+	R Print(Wrapper<int> i, Args&... args)
+	{
+	}
 };
 
 enum class TestE : int
@@ -42,6 +53,11 @@ enum class TestE : int
 int main()
 {
 	Test<Pure<int>, ConstRef<int>, Ref<int>> test;
+	int i=3;
+	test.Print(2, i);
+	
+	Test2<Pure<int>, Pure> test2;
+	test2.Print(1);
 	
 	CUL_ASSERT(EnumValue(TestE::FOOBAR) == 5, "Fail")
 	

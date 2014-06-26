@@ -22,18 +22,18 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_PLATFORM_HPP__
-#define __CUL_PLATFORM_HPP__
+#ifndef CUL_PLATFORM_HPP
+#define CUL_PLATFORM_HPP
 
 /*
-* C++ 11 Required
+* C++ 11 requirement test
 */
 #if __cplusplus != 201103L
     #error A C++11 compiler is required!
 #endif 
 
 /*
-* Export/Import Macros
+* Export/Import macros and platform definitions 
 */
 #ifdef WIN32  
     #define CUL_PLATFORM_WIN32
@@ -49,5 +49,14 @@
     #define CUL_EXPORT 
 #endif
 
+/*
+* Debug/Release Flags
+*/
+#ifdef NDEBUG
+	#define CUL_RELEASE
+#else
+	#define CUL_DEBUG
+#endif
 
-#endif // __CUL_PLATFORM_HPP__ 
+
+#endif // CUL_PLATFORM_HPP 

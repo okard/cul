@@ -21,41 +21,40 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#ifndef CUL_EXCEPTION_HPP
-#define CUL_EXCEPTION_HPP
+#pragma once
+#ifndef CUL_ASSERT_HPP
+#define CUL_ASSERT_HPP
 
-#include <exception>
+#include <culcore/Platform.hpp>
+#include <culcore/Exception.hpp>
+
+
+#ifdef CUL_DEBUG
+	#define CUL_ASSERT(cond, msg) cul::assert((cond), msg);
+#else
+	#define CUL_ASSERT(cond, msg)
+#endif
+
 
 namespace cul {
 
-/**
-* CUL Exception
-*/
-class Exception : public std::exception
+//Assert Functions (multiple purposes not only testing only)
+inline static void assert(bool cond, const char* msg)
 {
-    private:
-        /// exception msg
-        const char* msg;
-    
-    public:
-        /**
-        * Constructor
-        */
-        Exception(const char* msg)
-            : msg(msg)
-        {
-        }
-        
-        /**
-        * Description
-        */
-        virtual const char* what() const throw()
-        {
-            return msg;
-        }
-};
-        
+	if(!cond) {
+		throw Exception(msg); 
+	}
+}
+
+//assert_eq
+
+//throw exception
+inline static void assert_fail()
+{
+	throw Exception("Assertion Error: Reached a point that never should be reached"); 
+}
+
+
 } //end namespace cul
 
-
-#endif /* CUL_EXCEPTION_HPP */
+#endif

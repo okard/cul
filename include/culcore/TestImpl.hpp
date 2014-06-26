@@ -27,6 +27,7 @@
 
 #include <vector>
 #include <iostream>
+#include <chrono>
 #include <cmath>
 
 #include <culcore/Test.hpp>
@@ -79,16 +80,29 @@ public:
 private:
 	void run_test(Test* t)
 	{
+		// Starting timepoint
+		const auto start_time = std::chrono::steady_clock::now();
+
 		try
 		{
 			std::cout << "running " << t->desc << ": ";
 			t->test_function();
-			std::cout << " Success" << std::endl;
+			std::cout << " Success ";
+
+			double time_in_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time).count() / 1000.0;
+			std::cout << time_in_seconds << "s";
+			std::cout << std::endl;
+
 		}
 		catch(std::exception& exc)
 		{
+			double time_in_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time).count() / 1000.0;
+
+
 			fail_count++;
-			std::cout << "Failed" << std::endl << "\t\t" << exc.what() << std::endl;
+			std::cout << "Failed ";
+			std::cout << time_in_seconds << "s";
+			std::cout << std::endl << "\t\t" << exc.what() << std::endl;
 		}
 		//other catches
 	}

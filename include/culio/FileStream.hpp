@@ -45,7 +45,7 @@ enum class FileMode : unsigned char
 /**
 * File Stream combines in and output
 */
-class FileStream : public IOStream, public InputStream, public OutputStream
+class FileStream : public IOStream, public Seekable
 {
 private:
 	FILE* file_;
@@ -65,9 +65,6 @@ public:
 	
 	virtual size_t offset() const;
 	virtual void seek(size_t pos, Anchor anchor);
-	
-	virtual InputStream& inputStream() { return *this; }
-	virtual OutputStream& outputStream() { return *this; }	
 
 	virtual size_t write(ubyte8 buf[], size_t size);
 	virtual size_t read(ubyte8 buf[], size_t size);

@@ -35,7 +35,7 @@ namespace cul {
 * File Class
 * Wraps C FILE* 
 */
-class File //: public IOStream, InputStream, OutputStream
+class File //: public FileStream???
 {
     private:
         /// C File Handle

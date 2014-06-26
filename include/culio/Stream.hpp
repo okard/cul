@@ -64,20 +64,26 @@ enum class Anchor : unsigned char
 };
 
 /**
+* Seekable
+*/
+class Seekable 
+{
+public:
+	virtual void seek(size_t pos, Anchor anchor) = 0;
+};
+
+/**
 * Input and Outputstream Interface
 * Access to streams and to status
 */
-class IOStream
+class IOStream : public InputStream, public OutputStream
 {
+public:
 	virtual bool isEOF() const = 0;
 	virtual bool isWriteable() const = 0;
 	virtual bool isReadable() const = 0;
 	
-	virtual size_t offset() const = 0;
-	virtual void seek(size_t pos, Anchor anchor) = 0;
-	
-	virtual InputStream& inputStream() = 0;
-	virtual OutputStream& outputStream() = 0;	
+	virtual size_t offset() const = 0;	
 };
 
 } //end namespace cul

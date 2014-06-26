@@ -19,6 +19,8 @@
 * Modern Interface - Usage similiar to Java, D Tango or .NET Framework 
 * Loose coupling - so classes can be easily copied out of library and work anyway
 
+* Maybe clone functionality from standard library with nicer interface
+
 ## Modules
 
 * culcore - Core Library (Header only)
@@ -37,13 +39,32 @@
 * Delegate and Signals
 * AnyPtr
 
-## Planned features:
+## TODO
 
+* Split in smaller modules
+	- culalloc
+	- culcollection
+	- culmem
+	- cultest
+	- culsignals
+* Create real StaticArray and DynamicArray
+* Rename ByteBuffer to ByteArray
+* Add a general Buffer class
+* add a bool try(std::function) function with try catch
 * UTF Support
-* IO (file handling, directory iteration, ...)
+* IO 
+	- Vfs
+	- File Streams
+	- Memory Streams
+	- Directory iteration
+	- Path manipulation
+* Sys
+	- Timer
 * More Datastructures (Array, Stack, Sets/Maps, ...)
 * Network
+	- Sockets
 * Advanced Memory Management (Allocators, MemPools, ...)
 * Use PIMPL for Binary Compatibility
+	- has a dptr helper know
 * Rewrite logging system using C++11 features
  

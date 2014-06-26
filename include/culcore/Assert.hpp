@@ -46,6 +46,14 @@ inline static void assert(bool cond, const char* msg)
 	}
 }
 
+//Assert Functions (multiple purposes not only testing only)
+inline static void assert(bool cond)
+{
+	if(!cond) {
+		throw Exception("assert exception");
+	}
+}
+
 //assert_eq
 
 //throw exception

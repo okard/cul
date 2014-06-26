@@ -38,14 +38,14 @@ class TestModule;
 
 /**
  * @brief The TestRunner class
- * The main test handler
+ * Public interface for tests
  */
 class TestRunner
 {
 private:
 	//use private class here to completly hide the implementation in this header
 	class Impl;
-	static Impl* impl;
+	static Impl& get();
 
 	TestRunner() = default;
 	TestRunner(const TestRunner&) = delete;

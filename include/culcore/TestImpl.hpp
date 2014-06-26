@@ -107,8 +107,12 @@ private:
 		//other catches
 	}
 };
-	
-TestRunner::Impl* TestRunner::impl = new TestRunner::Impl();
+
+TestRunner::Impl& TestRunner::get()
+{
+	static TestRunner::Impl impl;
+	return impl;
+}
 
 //macro for cultest main
 
@@ -118,17 +122,17 @@ TestRunner::Impl* TestRunner::impl = new TestRunner::Impl();
 
 void TestRunner::reg_test(Test* t)
 {
-	impl->reg_test(t);
+	get().reg_test(t);
 }
 
 void TestRunner::reg_mod(TestModule* m)
 {
-	impl->reg_mod(m);
+	get().reg_mod(m);
 }
 
 void TestRunner::run_tests()
 {
-	impl->run_tests();
+	get().run_tests();
 }
 
 

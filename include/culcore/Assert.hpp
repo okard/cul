@@ -38,6 +38,15 @@
 
 namespace cul {
 
+template<class E>
+inline static void assert(bool cond, const char* msg)
+{
+	if(!cond) {
+		throw E(msg);
+	}
+}
+
+
 //Assert Functions (multiple purposes not only testing only)
 inline static void assert(bool cond, const char* msg)
 {
@@ -55,6 +64,15 @@ inline static void assert(bool cond)
 }
 
 //assert_eq
+template<class E, typename V>
+inline static void assert_eq(V is, V should)
+{
+	if(is != should) {
+		throw E("Value is %x but should be %x", is, should);
+	}
+}
+
+
 
 //throw exception
 inline static void assert_fail()

@@ -21,8 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
-#include <culcore/Signal2.hpp>
+#include <culsignal/Signal2.hpp>
 
 #include <iostream>
 
@@ -31,12 +33,11 @@ class Test
 public:
 	void print()
 	{
-		std::cout << "test" << std::endl;
+		//std::cout << "test" << std::endl;
 	}
 };
 
-
-int main()
+void cul_signal2_test()
 {
 	Test t;
 	
@@ -49,3 +50,7 @@ int main()
 	auto ctx2 = sig.connect(&t, &Test::print);
 	sig();
 }
+
+
+CUL_TEST(cul_signal2_test)
+

@@ -93,10 +93,11 @@ void FileStream::seek(size_t pos, Anchor anchor)
 size_t FileStream::write(ubyte8 buf[], size_t size)
 {
 	//size_t fwrite ( const void * ptr, size_t size, size_t count, FILE * stream );
+	return 0;
 }
 
 size_t FileStream::read(ubyte8 buf[], size_t size)
 {
 	//size_t fread ( void * ptr, size_t size, size_t count, FILE * stream );
-
+	return 0;
 }

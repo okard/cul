@@ -21,10 +21,14 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+
 #include <culcore/Hash.hpp>
 
 #include <unordered_map>
-#include <cassert>
+
+using namespace cul;
 
 class Foo 
 {
@@ -33,9 +37,9 @@ public:
 	
 };
 
-int main(void)
+void cul_hash_test()
 {
-    Foo f;
+	    Foo f;
     f.x=3;
     f.y=4;
     f.z=5;
@@ -58,5 +62,7 @@ int main(void)
     
 	std::unordered_map<Foo, int, cul::general_hash<Foo>> ids;
 
-    return 0;
 }
+CUL_TEST(cul_hash_test)
+
+

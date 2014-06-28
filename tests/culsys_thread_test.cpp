@@ -21,6 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+
 #if 0
 #include <culsys/Thread.hpp>
 #include <culsys/ThreadDelegate.hpp>
@@ -80,17 +83,7 @@ void thread_test_simple_func()
     thread.run();
     thread.join();
 }
+CUL_TEST(thread_test_simple_func)
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    thread_test_simple_class();
-    thread_test_simple_func();
-    
-    return 0;
-}
 #endif
 
-int main(){return 0;}

@@ -99,7 +99,7 @@ void LogSource::log(LogType type, size_t buf_size, const char* msg, va_list args
 	//format message
 	ubyte8 buf[buf_size];
 	
-	int len = vsnprintf(reinterpret_cast<char*>(buf), buf_size - 2, msg, args);  
+	size_t len = vsnprintf(reinterpret_cast<char*>(buf), buf_size - 2, msg, args);
 	if(len < 0 || len > buf_size - 2)  
 	{
 		len = buf_size - 2;

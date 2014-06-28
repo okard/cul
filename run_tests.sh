@@ -4,5 +4,4 @@
 # CULTESTS
 
 . build.sh
-
-ninja test
+cmake --build . --target libcul_runtests

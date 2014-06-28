@@ -22,68 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #pragma once
-#ifndef __CUL_BUFFER_HPP__
-#define __CUL_BUFFER_HPP__
-
-#include <cstring>
-
-#include <culcore/Platform.hpp>
-#include <culcore/Types.hpp>
-#include <culcore/Array.hpp>
+#ifndef CUL_FORMAT_HPP
+#define CUL_FORMAT_HPP
 
 namespace cul {
-
-/**
-* Generic Memory Buffer
-* A resizeable array
-* (rename to vector?)
-*/	
-template<typename T, class Alloc = Allocator<T>>
-class Buffer : public Array<T, Alloc>
-{	
-public:
-	/**
-	* Create new Buffer
-	*/
-	Buffer(size_t size) 
-		: Array<T>(size)
-	{
-		
-	}
 	
-	/**
-	* Resize Buffer
-	*/
-	void resize(size_t elements)
-	{
-		//destruct old elements
-		if(elements < Array<T>::size_)
-			for(int i = elements; i < Array<T>::size_; i++)
-				Alloc::destruct(Array<T>::mem_[i]);
-		
-		auto nptr = Alloc::alloc(elements);
-		memcpy(nptr, Array<T>::mem_, elements * sizeof(T));
-		Alloc::free(Array<T>::mem_);
-		
-		//construct new elements
-		if(elements > Array<T>::size_)
-			for(int i = Array<T>::size_; i < elements; i++)
-				Alloc::construct(nptr[i]);
-		
-		Array<T>::mem_ = nptr;
-		Array<T>::size_ = elements;
-	}
+//format stream?
+	//write() implementation for all types?
 	
-	//append
-	//add
-	//fill sized vs allocated size
+	//write(Formatter&) struct so own implementation can be added?
+	
+// Buffer = format, type.formatter(), MyFormatter(type));
+// buffer b
+// format(b, type.formatter(), MyFormatter(type));
+	
+template<typename T>
+void format()
+{
+}
 
-	//get offset
-	//get size
-	//grow
-	//shrink
-};
+template<typename T, typename... Args>
+void format(T value, Args... args)
+{
+	
+}
 
 } //end namespace cul
 
-#endif // __CUL_BUFFER_HPP__
+
+#endif

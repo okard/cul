@@ -28,7 +28,7 @@
 
 #include <unordered_set>
 //#include <culcore/Hash.hpp>
-#include <culcore/Delegate.hpp>
+#include <culsignal/Delegate.hpp>
 
 
 namespace std {
@@ -46,7 +46,7 @@ public:
 		const size_t size = sizeof(cul::delegate<RT, Arg...>);
 		
 		size_t hash = 0;
-		for (int i=0; i<size; i++) 
+		for (size_t i=0; i<size; i++)
 		{
 			hash = 5*hash + ptr[i];
 		}

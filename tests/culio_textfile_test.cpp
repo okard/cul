@@ -21,6 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+
 #if 0
 #include <cassert>
 #include <culio/TextFile.hpp>
@@ -36,16 +39,4 @@ void test_utf8_bom(const char* fileName)
     tf.open(fileName);
     assert(tf.getEncoding() == UTF8);
 }
-
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    //file as argument?
-    test_utf8_bom(argv[1]);
-    
-    return 0;
-}
 #endif
-int main(){return 0;}

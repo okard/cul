@@ -26,6 +26,7 @@
 #define CUL_TEST_HPP
 
 #include <functional>
+#include <iostream>
 
 
 #define CUL_ENTRY(name) {#name, name}

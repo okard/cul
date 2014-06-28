@@ -21,22 +21,22 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "cul_test.hpp"
-#include <culcore/Stack.hpp>
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+#include <culcollection/Stack.hpp>
 
 using namespace cul;
 
-
-int main()
+/*
+void cul_stack_test()
 {
-    Stack<int, 10> stack;
+	Stack<int, 10> stack;
     
     stack.push(1);
-    CUL_ASSERT(stack[0] == 1, "Fail")
+    assert(stack[0] == 1, "Fail");
     stack.push(2);
     stack.pop();
-
-    return 0;
 }
 
-//int main(){return 0;}
+CUL_TEST(cul_stack_test)
+*/

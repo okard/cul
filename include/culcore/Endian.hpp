@@ -26,7 +26,6 @@
 #define __CUL_ENDIAN_HPP__
 
 #include "Types.hpp"
-#include "RefPtr.hpp"
 
 namespace cul {
 

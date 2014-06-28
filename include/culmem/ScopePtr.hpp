@@ -1,7 +1,7 @@
 /*
     C++ Utility Library
 
-    Copyright (c) 2013  okard
+    Copyright (c) 2011  okard
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -22,76 +22,45 @@
     THE SOFTWARE.
 */
 #pragma once
-#ifndef CUL_ARRAY_HPP
-#define CUL_ARRAY_HPP
-
-#include <culcore/Types.hpp>
-#include <culcore/Exception.hpp>
-#include <culcore/Allocator.hpp>
+#ifndef CUL_SCOPEPTR_HPP
+#define CUL_SCOPEPTR_HPP
 
 namespace cul {
-	
-/**
-* General Array class
-* static container for x elements
-*/
-template<typename T, class Alloc = Allocator<T>>
-class Array
-{
-protected:
-	//pointer to memory
-	T* mem_ = nullptr;
-	//allocated elements in memory
-	size_t size_ = 0;
-	
-public:
 
-	Array(size_t size)
-	  :	size_(size)
-	{
-		mem_ = Alloc::alloc(size_);
-		for(int i = 0; i < size_; i++)
-		{
-			Alloc::construct(mem_[i]);
-		}
-	}
-	
-	virtual ~Array()
-	{
-		for(int i = 0; i < size_; i++)
-		{
-			Alloc::destruct(mem_[i]);
-		}
-			
-		Alloc::free(mem_);
-		size_ = 0;
-	}
-	
-	//index operator
-	inline T& operator[] (size_t idx) 
-	{ 
-		if(idx < 0 || idx > size_-1)
-			throw Exception("index out of bounds");
-			
-		return mem_[idx]; 
-	}
-	
-	inline const T& operator[] (size_t idx) const 
-	{ 
-		if(idx < 0 || idx > size_-1)
-			throw Exception("index out of bounds");
-			
-		return mem_[idx]; 
-	}
-	
-	//ptr to data
-	inline T* ptr() { return mem_; }
-	inline const T* ptr() const { return mem_; }
-	
-	//size of array
-	inline size_t size() const { return size_; }
+/**
+* Scope Smart Pointer
+*/
+template<typename T>
+class ScopePtr 
+{
+private:
+    T* instance;
+    
+    /// Default Constructor
+    ScopePtr(){};
+    /// Copy Constructor
+    ScopePtr(const ScopePtr& sptr){};
+public:
+    /**
+    * Create Scope Smart Pointer
+    */
+    ScopePtr(T* instance)
+        : instance(instance)
+    {
+    }
+    
+    /**
+    * Destroy scope ptr and instance
+    */
+    ~ScopePtr()
+    {
+        delete instance;
+        instance = nullptr;
+    }
+      
 };
-	
+    
+    
 } //end namespace cul
 
-#endif
+#endif // __CUL_SCOPEPTR_HPP__

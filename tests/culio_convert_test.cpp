@@ -22,26 +22,27 @@
     THE SOFTWARE.
 */
 
-#include "cul_test.hpp"
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 #include <culio/Convert.hpp>
 
 using namespace cul;
 
-
-int main(void)
+void cul_convert_test()
 {
-    long l = Long::to("6");
-    CUL_ASSERT(l == 6l, "Long conversion failed");
+	long l = Long::to("6");
+	assert(l == 6l, "Long conversion failed");
     
     unsigned long ul = Long::to("7");
-    CUL_ASSERT(ul == 7ul, "ULong conversion failed");
+    assert(ul == 7ul, "ULong conversion failed");
     
     double d = Double::to("5.0");
-    CUL_ASSERT(d == 5.0d, "Double conversion failed");
+    assert(d == 5.0d, "Double conversion failed");
     
     char* str = Str::to(4);
-    CUL_ASSERT(str[0] == '4', "Number->String conversion failed");
+    assert(str[0] == '4', "Number->String conversion failed");
     delete str;
- 
-    return 0;
 }
+
+CUL_TEST(cul_convert_test)
+

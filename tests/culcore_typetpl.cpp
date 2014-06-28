@@ -21,10 +21,13 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include "cul_test.hpp"
 #include <culcore/TypeTpl.hpp>
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
 using namespace cul;
+
+namespace typetpl {
 
 template<typename R, typename... Args>
 class Test
@@ -50,18 +53,18 @@ enum class TestE : int
 	FOOBAR = 5
 };
 
-int main()
+} //end namespace
+
+void cul_typetpl_test()
 {
-	Test<Pure<int>, ConstRef<int>, Ref<int>> test;
+	typetpl::Test<Pure<int>, ConstRef<int>, Ref<int>> test;
 	int i=3;
 	test.Print(2, i);
 	
-	Test2<Pure<int>, Pure> test2;
+	typetpl::Test2<Pure<int>, Pure> test2;
 	test2.Print(1);
 	
-	CUL_ASSERT(EnumValue(TestE::FOOBAR) == 5, "Fail")
-	
-    return 0;
+	CUL_ASSERT(EnumValue(typetpl::TestE::FOOBAR) == 5, "Fail")
 }
 
-//int main(){return 0;}
+CUL_TEST(cul_typetpl_test)

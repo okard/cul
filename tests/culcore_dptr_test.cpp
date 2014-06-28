@@ -21,11 +21,15 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
 #include <culcore/DPtr.hpp>
 #include <culcore/DPtrImpl.hpp>
 
 #include <iostream>
+
+using namespace cul;
 
 class Foo
 {
@@ -34,32 +38,45 @@ private:
 	cul::dptr<Impl> impl_;
 	
 public:
-
-	void test() const;
+	void test(int i);
+	int get() const;
 };
 
 
 class Foo::Impl
 {
+private:
+	int i=0;
 public:
-	void test() const
+	void test(int i)
 	{
-		std::cout << "Hello World!" << std::endl;
+		this->i=i;
+	}
+	
+	int get() const
+	{
+		return i;
 	}
 };
 
-void Foo::test() const
+void Foo::test(int i)
 {
-	impl_->test();
+	impl_->test(i);
 }
 
+int Foo::get() const
+{
+	return impl_->get();
+}
 
-
-//test main
-int main()
+/*
+void dptr_test()
 {
 	Foo f;
-	f.test();
+	assert(f.get() == 0);
+	f.test(5);
+	assert(f.get() == 5);
     
-    return 0;
 }
+CUL_TEST(dptr_test)
+*/

@@ -21,18 +21,21 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
 #include <culio/Console.hpp>
 
 using namespace cul;
 
-
-int main()
+/*
+void cul_console_basic_test()
 {
-    //Simple Test
+	//Simple Test
     Console.writeLn("Hello World!");
     //Chaining
     Console.write("Hello ").writeLn("World2!");
 
-    return 0;
 }
+CUL_TEST(cul_console_basic_test)
+*/

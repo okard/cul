@@ -35,7 +35,8 @@ using namespace cul;
 /**
 * Ctor
 */
-TextFile::TextFile() : file(nullptr), encode(Encoding::ASCII)
+TextFile::TextFile()
+	: encode(Encoding::ASCII), file(nullptr)
 {
 
 }

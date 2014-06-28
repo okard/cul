@@ -21,9 +21,12 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <cassert>
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
 #include <culcore/Singleton.hpp>
+
+using namespace cul;
 
 /**
 * Singleton Test Class
@@ -78,13 +81,6 @@ void singleton_test_simple()
     my->set(42);
     assert(mm.get() == 42);
 }
+CUL_TEST(singleton_test_simple)
 
-/**
-* Main function
-*/
-int main(int argc, char *argv[])
-{
-    singleton_test_simple();
-    
-    return 0;
-}
+

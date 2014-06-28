@@ -37,7 +37,7 @@
 
 
 namespace cul {
-
+	
 template<class E>
 inline static void assert(bool cond, const char* msg)
 {

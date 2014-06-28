@@ -21,16 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
 #include <culio/FileStream.hpp>
 
 using namespace cul;
 
-
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    return 0;
-}

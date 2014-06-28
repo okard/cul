@@ -21,9 +21,11 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#include <culcore/RefPtr.hpp>
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
-#include <cassert>
+#include <culmem/RefPtr.hpp>
+
 #include <iostream>
 using namespace std;
 using namespace cul;
@@ -120,17 +122,4 @@ void refptr_test_deletion3()
     assert(testcls::count == 1);
 }
 
-/**
-* Main function
-*/
-int main(int argc, char *argv[])
-{
-    refptr_test_simple();
-    refptr_test_simple2();
-    refptr_test_deletion();
-    refptr_test_deletion2();
-    refptr_test_deletion3();
-    
-    return 0;
-}
 

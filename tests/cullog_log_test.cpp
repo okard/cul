@@ -21,6 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+
 #include <iostream>
 
 #include <cullog/Log.hpp>
@@ -32,10 +35,14 @@ using namespace cul;
 
 void base_logger(const LogMessage& le)
 {
+	//todo log to buffer
+	
+	/*
 	if(le.getLogSource()->getName() != nullptr)
 		std::cout << le.getLogSource()->getName() << ": ";
 	std::cout << toString(le.getType()) << ": ";
 	std::cout << le.c_str() << std::endl;
+	*/
 }
 
 
@@ -47,25 +54,20 @@ void logging_test_source()
     
     ls.verbose("Hello %s", "World");
 }
+CUL_TEST(logging_test_source)
 
 void logging_test_formats()
 {
 
 }
+CUL_TEST(logging_test_formats)
 
-
-/**
-* Main function
-*/
-int main(int argc, char *argv[])
+void log_basic_test()
 {
 	Log::onLog().connect(base_logger);
     LOG("Log test started");
     DEBUGMSG("Debug Message");
-    
-    //log tests
-    logging_test_source();
-    logging_test_formats();
-    
-    return 0;
 }
+
+CUL_TEST(log_basic_test)
+

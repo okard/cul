@@ -21,8 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+
 #if 1
-#include <cassert>
 #include <iostream>
 #include <culio/String.hpp>
 using namespace cul;
@@ -35,6 +37,7 @@ void string_test_equal_simple()
     
     assert(a == b);
 }
+CUL_TEST(string_test_equal_simple)
 
 /**
 * test basic equal and string assignment
@@ -49,6 +52,7 @@ void string_test_basic()
     str = "foobar";
     assert(str == "foobar");
 }
+CUL_TEST(string_test_basic)
 
 /**
 * some extended basic tests 
@@ -61,7 +65,7 @@ void string_test_extended()
     a.append(' ');
     a.append('w');
     a.append('o');
-    std::cout << "string_test_extended: " << a.c_str() << std::endl;
+   // std::cout << "string_test_extended: " << a.c_str() << std::endl;
     assert(a == "hello wo");
    
     
@@ -72,9 +76,10 @@ void string_test_extended()
     //test append string
     b = "rld";
     a.append(b);
-    std::cout << "a: " << a.c_str() << " length: " << a.len() << std::endl;
+   // std::cout << "a: " << a.c_str() << " length: " << a.len() << std::endl;
     assert(a == "hello world");
 }
+CUL_TEST(string_test_extended)
 
 /**
 * next string tests
@@ -86,6 +91,7 @@ void string_test_extended2()
     b = a;
     assert(a == b);
 }
+CUL_TEST(string_test_extended2)
 
 /**
 * test growing memory
@@ -117,6 +123,7 @@ void string_test_growing()
     assert(a.len() == 5);
     assert(a.mem() == 11);
 }
+CUL_TEST(string_test_growing)
 
 /**
 * test pre alloc mem ctor
@@ -127,6 +134,7 @@ void string_test_memctr()
     assert(a.len() == 0);
     assert(a.mem() == 8);
 }
+CUL_TEST(string_test_memctr)
 
 /**
 * test some operators
@@ -144,22 +152,7 @@ void string_test_operators()
 }
 
 
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    string_test_equal_simple();
-    string_test_basic();
-    string_test_extended();
-    string_test_extended2();
-    string_test_growing();
-    string_test_memctr();
-    string_test_operators();
-    
-    return 0;
-}
-#else
-	int main(){return 0;}
-#endif
+CUL_TEST(string_test_operators)
 
+
+#endif

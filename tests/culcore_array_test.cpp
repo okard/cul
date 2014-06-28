@@ -21,19 +21,21 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-#if 1
-#include <cassert>
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
+
 #include <iostream>
 #include <memory>
-#include <culcore/Array.hpp>
+
+#include <culcollection/DynArray.hpp>
 
 using namespace cul;
 
 
 // value type test
-void value_type_test()
+void cul_dynarray_value_type_test()
 {
-    Array<ubyte8> arr(10);
+    DynArray<ubyte8> arr(10);
     
     for(int i=0; i < 10; i++)
     {
@@ -42,63 +44,52 @@ void value_type_test()
     
     assert(arr[2] == 2);
 }
+CUL_TEST(cul_dynarray_value_type_test)
 
 
-class Foo
+class DynArray_Foo
 {
 public:
 	static int counter;
 	
 	int x;
 	
-	Foo()
+	DynArray_Foo()
 	{
-		x = Foo::counter;
-		Foo::counter++;
+		x = DynArray_Foo::counter;
+		DynArray_Foo::counter++;
 	}
 	
 };
 
-int Foo::counter = 0;
+int DynArray_Foo::counter = 0;
 
 
 // class test
-void class_type_test()
+void cul_dynarray_class_type_test()
 {
-	Foo::counter = 0;
-    Array<Foo> arr(10);
+	DynArray_Foo::counter = 0;
+    DynArray<DynArray_Foo> arr(10);
     
     assert(arr[5].x == 5);
-    std::cout << Foo::counter << std::endl;
-    assert(Foo::counter == 10);
+    //std::cout << DynArray_Foo::counter << std::endl;
+    assert(DynArray_Foo::counter == 10);
 }
+CUL_TEST(cul_dynarray_class_type_test)
 
 // class ptr test
-void class_ptr_type_test()
+void cul_dynarray_class_ptr_type_test()
 {
-	Foo::counter = 0;
-    Array<std::shared_ptr<Foo>> arr(10);
+	DynArray_Foo::counter = 0;
+    DynArray<std::shared_ptr<DynArray_Foo>> arr(10);
     
-    arr[5] = std::shared_ptr<Foo>(new Foo());
+    arr[5] = std::shared_ptr<DynArray_Foo>(new DynArray_Foo());
     
     assert(arr[5]->x == 0);
-    assert(Foo::counter == 1);
+    assert(DynArray_Foo::counter == 1);
     
-    arr[6] = std::make_shared<Foo>();
+    arr[6] = std::make_shared<DynArray_Foo>();
     assert(arr[6]->x == 1);
-    assert(Foo::counter == 2);
+    assert(DynArray_Foo::counter == 2);
 }
-
-
-//test main
-int main()
-{
-    value_type_test();
-    class_type_test();
-    class_ptr_type_test();
-    
-    return 0;
-}
-#else
-	int main(){return 0;}
-#endif
+CUL_TEST(cul_dynarray_class_ptr_type_test)

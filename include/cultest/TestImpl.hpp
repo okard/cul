@@ -30,7 +30,7 @@
 #include <chrono>
 #include <cmath>
 
-#include <culcore/Test.hpp>
+#include <cultest/Test.hpp>
 
 
 
@@ -52,6 +52,7 @@ private:
 public:
 	void reg_test(Test* t)
 	{
+		std::cout << "Test added: " << t->desc << std::endl;
 		testlist_.push_back(t);
 	}
 

@@ -60,7 +60,7 @@ inline bool utf8_isascii(byte8 b)
 {
 	//00-7F
     return ((b & 0x80) == 0x00);
-};
+}
 
 /**
 * checks if the given byte is an utf extend character 10xxxxxx
@@ -68,7 +68,7 @@ inline bool utf8_isascii(byte8 b)
 inline bool utf8_isutf(byte8 b)
 {
     return ((b & 0xC0) == 0x80);
-};
+}
 
 /**
 * return the length of an utf8 byte

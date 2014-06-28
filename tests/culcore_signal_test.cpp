@@ -21,14 +21,16 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
-#include <culcore/Signal.hpp>
+#include <culsignal/Signal.hpp>
 
 #include<iostream>
 
 void basic_handler(int i)
 {
-    std::cout << "Value: " << i << std::endl;
+    //std::cout << "Value: " << i << std::endl;
 };
 
 
@@ -51,17 +53,14 @@ public:
     
     void handle(int i)
     {
-        std::cout << "Value: " << i << std::endl;
+        //std::cout << "Value: " << i << std::endl;
     }
     
 };
 
-
-
-int main(void)
+void cul_signal_test()
 {
-    Foo f;
+	Foo f;
     f.fire(10);
-    
-    return 0;
 }
+CUL_TEST(cul_signal_test)

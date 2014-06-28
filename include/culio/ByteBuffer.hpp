@@ -25,7 +25,7 @@ THE SOFTWARE.
 #ifndef __CUL_BYTEBUFFER_HPP__
 #define __CUL_BYTEBUFFER_HPP__
 
-#include <culcore/Buffer.hpp>
+#include <culcollection/DynArray.hpp>
 
 namespace cul {
 
@@ -34,8 +34,8 @@ namespace cul {
 /**
 * Default Buffer
 */
-extern template class Buffer<ubyte8>;
-typedef Buffer<ubyte8> ByteBuffer;
+extern template class DynArray<ubyte8>;
+typedef DynArray<ubyte8> ByteBuffer;
 
 //class ByteBuffer : public Buffer<ubyte8> {};
 

@@ -21,9 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
 #if 0
-#include <cassert>
 #include <iostream>
 
 #include <cul/List.hpp>
@@ -74,21 +75,7 @@ void list_test_while()
     while(li.next())
     {
         //print out
-        std::cout << "Value: " << li << std::endl;
+        //std::cout << "Value: " << li << std::endl;
     }
 }
-
-
-/**
-* main method
-*/
-int main(int argc, char *argv[])
-{
-    list_test_simple();
-    list_test_for();
-    list_test_while();
-    
-    return 0;
-}
 #endif
-int main(){return 0;}

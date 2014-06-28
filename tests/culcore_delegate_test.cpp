@@ -21,10 +21,11 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
+#include <culcore/Assert.hpp>
+#include <cultest/Test.hpp>
 
-#include <culcore/Delegate.hpp>
+#include <culsignal/Delegate.hpp>
 
-#include <cassert>
 #include <iostream>
 
 using namespace cul;
@@ -37,12 +38,12 @@ public:
 
     void slot_e()
     {
-        std::cout << "Event occured" << std::endl;
+        //std::cout << "Event occured" << std::endl;
     }
     
     void slot(int i)
     {
-        std::cout << "Getting " << i << std::endl;
+        //std::cout << "Getting " << i << std::endl;
         value = i;
     }
     
@@ -56,13 +57,12 @@ public:
 
 void func_slot(int i)
 {
-	std::cout << "Getting " << i << " by function ptr" << std::endl;
+	//std::cout << "Getting " << i << " by function ptr" << std::endl;
 }
 
-
-int main(void)
+void delegate_test()
 {
-    Foo f;
+	 Foo f;
     
     //delegate without parameter
     delegate<void> d2 = delegate<void>(&f, &Foo::slot_e);
@@ -94,6 +94,6 @@ int main(void)
     delegate<int, int> d5 = delegate<int, int>(&f, &Foo::slot_return);
     assert(d5(321) == 321);
     assert(f.value == 321);
-    
-    return 0;
 }
+
+CUL_TEST(delegate_test)

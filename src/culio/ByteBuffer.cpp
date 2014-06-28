@@ -26,5 +26,5 @@ THE SOFTWARE.
 using namespace cul;
 
 namespace cul {
-	template class Buffer<ubyte8>;
+	template class DynArray<ubyte8>;
 }

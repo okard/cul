@@ -28,7 +28,7 @@
 #include <cstdarg>
 #include <vector>
 
-#include <culcore/Signal.hpp>
+#include <culsignal/Signal.hpp>
 #include <cullog/LogMessage.hpp>
 
 // Common Namespace
